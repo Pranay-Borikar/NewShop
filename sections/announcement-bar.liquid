@@ -1,0 +1,8 @@
+<div class="announcement-bar" role="status">
+  <div class="announcement-track">
+    {% for i in (1..6) %}<span>{{ section.settings.message }}</span><b>✦</b>{% endfor %}
+  </div>
+</div>
+{% schema %}
+{ "name": "Announcement bar", "settings": [{ "type": "text", "id": "message", "label": "Message", "default": "Use code WELCOME20 for 20% off your order" }] }
+{% endschema %}

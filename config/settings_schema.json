@@ -1,0 +1,18 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "General Store Editorial",
+    "theme_version": "1.0.0",
+    "theme_author": "NewShop",
+    "theme_support_email": "support@example.com",
+    "theme_documentation_url": "https://github.com/Pranay-Borikar/NewShop"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "ink", "label": "Text", "default": "#30372f" },
+      { "type": "color", "id": "accent", "label": "Accent", "default": "#a0444f" },
+      { "type": "color", "id": "cream", "label": "Cream background", "default": "#f5ead8" }
+    ]
+  }
+]

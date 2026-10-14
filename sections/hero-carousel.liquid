@@ -1,0 +1,19 @@
+<section class="hero-carousel" data-carousel data-interval="{{ section.settings.interval | times: 1000 }}">
+  <div class="carousel-slides">
+    {% for i in (1..4) %}
+      {% assign image_key = 'slide_' | append: i %}
+      {% assign image = section.settings[image_key] %}
+      <div class="carousel-slide{% if forloop.first %} is-active{% endif %}">
+        {% if image %}{{ image | image_url: width: 2400 | image_tag: loading: 'eager', widths: '900,1200,1800,2400', class: 'hero-image' }}{% else %}<img class="hero-image" src="{{ 'header.webp' | asset_url }}" alt="{{ section.settings.heading }}" width="2400" height="1200">{% endif %}
+        <div class="hero-copy"><p>{{ section.settings.eyebrow }}</p><h1>{{ section.settings.heading }}</h1><a class="button" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a></div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="carousel-dots" aria-label="Carousel controls">{% for i in (1..4) %}<button type="button" data-slide="{{ forloop.index0 }}" aria-label="Slide {{ forloop.index }}"></button>{% endfor %}</div>
+</section>
+{% schema %}
+{ "name": "Hero carousel", "settings": [
+  { "type": "image_picker", "id": "slide_1", "label": "Slide 1" }, { "type": "image_picker", "id": "slide_2", "label": "Slide 2" }, { "type": "image_picker", "id": "slide_3", "label": "Slide 3" }, { "type": "image_picker", "id": "slide_4", "label": "Slide 4" },
+  { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Made for every celebration" }, { "type": "text", "id": "heading", "label": "Heading", "default": "Traditions in timeless elegance" }, { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop new arrivals" }, { "type": "url", "id": "button_link", "label": "Button link" }, { "type": "range", "id": "interval", "label": "Auto-scroll seconds", "min": 3, "max": 12, "step": 1, "default": 5 }
+] }
+{% endschema %}

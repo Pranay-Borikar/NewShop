@@ -1,0 +1,13 @@
+<header class="site-header">
+  <a class="brand" href="{{ routes.root_url }}">{{ shop.name | default: 'MARKAVENUE' }}</a>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href="{{ routes.root_url }}">Home</a>
+    <a href="{{ routes.all_products_collection_url }}">Shop</a>
+    <a href="{{ pages['10-products'].url | default: routes.all_products_collection_url }}">10 Products</a>
+    <a href="{{ routes.root_url }}#story">Brand Story</a>
+    <a href="{{ routes.root_url }}#faqs">FAQs</a>
+    <a href="{{ routes.root_url }}#lookbook">Lookbook</a>
+  </nav>
+  <div class="header-actions"><a href="{{ routes.search_url }}" aria-label="Search">⌕</a><a href="{{ routes.cart_url }}" aria-label="Cart">▢</a></div>
+</header>
+{% schema %}{ "name": "Header", "settings": [] }{% endschema %}
