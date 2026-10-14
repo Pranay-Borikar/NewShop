@@ -7,3 +7,11 @@
 .size-chip:hover{border-color:var(--accent);color:var(--accent)}
 .view-all-wrap{text-align:center;padding:18px}
 .view-all{display:inline-block;background:var(--accent);color:#fff;padding:12px 35px;text-transform:uppercase;letter-spacing:2px;font-size:11px}
+.announcement-track{animation-duration:16s}
+.site-header{background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.62);box-shadow:0 8px 28px rgba(0,0,0,.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:9px;color:#30372f;text-transform:none;letter-spacing:0}
+.brand-icon{display:inline-flex;width:31px;height:31px;align-items:center;justify-content:center}
+.brand-icon svg{width:31px;height:31px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.brand-name{font-family:Georgia,serif;font-size:25px;font-weight:700;letter-spacing:-.5px}
+.main-nav{gap:22px;font-weight:700;font-size:12px;letter-spacing:1.4px}
+.main-nav a{text-shadow:0 1px 10px rgba(255,255,255,.8)}
