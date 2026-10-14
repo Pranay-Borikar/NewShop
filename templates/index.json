@@ -1,7 +1,7 @@
 {
   "sections": {
     "hero": { "type": "hero-carousel" },
-    "products": { "type": "ten-products" }
+    "products": { "type": "ten-products", "settings": { "product_limit": 8 } }
   },
   "order": ["hero", "products"]
 }

@@ -1,4 +1,4 @@
 {
-  "sections": { "main": { "type": "ten-products" } },
+  "sections": { "main": { "type": "ten-products", "settings": { "product_limit": 50 } } },
   "order": ["main"]
 }
