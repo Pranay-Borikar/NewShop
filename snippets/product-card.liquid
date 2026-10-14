@@ -2,6 +2,9 @@
   <a href="{{ product.url }}" class="product-image-wrap">
     {% if product.featured_image %}{{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', class: 'product-image', alt: product.title }}{% else %}<div class="placeholder-image"></div>{% endif %}
     {% if product.available == false %}<span class="badge">Sold out</span>{% else %}<span class="badge">New</span>{% endif %}
+    <button class="wishlist" type="button" aria-label="Add {{ product.title }} to wishlist" onclick="event.preventDefault()">♡</button>
   </a>
-  <div class="product-info"><p class="vendor">{{ product.vendor }}</p><h3><a href="{{ product.url }}">{{ product.title }}</a></h3><p class="price">{{ product.price | money }}</p></div>
+  <div class="product-info"><h3><a href="{{ product.url }}">{{ product.title }}</a></h3><p class="vendor">{{ product.vendor }}</p><p class="price">{{ product.price | money }}</p>
+    {% if product.options_by_name['Size'] %}<div class="size-list" aria-label="Available sizes">{% for size in product.options_by_name['Size'].values %}<a href="{{ product.url }}" class="size-chip">{{ size }}</a>{% endfor %}</div>{% endif %}
+  </div>
 </article>

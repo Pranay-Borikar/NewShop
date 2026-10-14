@@ -1,0 +1,9 @@
+.wishlist{position:absolute;right:9px;top:7px;border:0;background:transparent;color:#fff;font-size:28px;line-height:1;cursor:pointer;text-shadow:0 1px 4px #0008}
+.product-info h3{font-size:13px;margin:0}
+.product-info .vendor{font-size:10px;margin:6px 0}
+.product-info .price{font-size:13px;margin:6px 0}
+.size-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.size-chip{border:1px solid #d9d9d9;background:#fff;padding:6px 9px;color:#555;font-size:11px;text-align:center;min-width:28px}
+.size-chip:hover{border-color:var(--accent);color:var(--accent)}
+.view-all-wrap{text-align:center;padding:18px}
+.view-all{display:inline-block;background:var(--accent);color:#fff;padding:12px 35px;text-transform:uppercase;letter-spacing:2px;font-size:11px}
