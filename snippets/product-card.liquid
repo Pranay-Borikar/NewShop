@@ -7,9 +7,6 @@
     {% else %}<div class="placeholder-image"></div>{% endif %}
     {% if product.available == false %}<span class="badge">Sold out</span>{% else %}<span class="badge">New</span>{% endif %}
     <button class="wishlist" type="button" aria-label="Add {{ product.title }} to wishlist" onclick="event.preventDefault()">♡</button>
-    <div class="card-size-list" aria-label="Available sizes">
-      {% if product.options_by_name['Size'] %}{% for size in product.options_by_name['Size'].values %}<span class="size-chip">{{ size }}</span>{% endfor %}{% else %}{% for size in default_sizes %}<span class="size-chip">{{ size }}</span>{% endfor %}{% endif %}
-    </div>
   </a>
-  <div class="product-info"><p class="vendor">MarkAvenue</p><h3><a href="{{ product.url }}">{{ product.title }}</a></h3><p class="price">{{ product.price | money }}</p></div>
+  <div class="product-info"><p class="vendor">MarkAvenue</p><h3><a href="{{ product.url }}">{{ product.title }}</a></h3><p class="price">{{ product.price | money }}</p><div class="card-size-list" aria-label="Available sizes">{% if product.options_by_name['Size'] %}{% for size in product.options_by_name['Size'].values %}<span class="size-chip">{{ size }}</span>{% endfor %}{% else %}{% for size in default_sizes %}<span class="size-chip">{{ size }}</span>{% endfor %}{% endif %}</div></div>
 </article>
