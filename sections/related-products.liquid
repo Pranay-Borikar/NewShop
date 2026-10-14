@@ -1,0 +1,2 @@
+<section class="related-products"><div class="related-heading"><p>COMPLETE THE LOOK</p><h2>You may also like</h2></div><div class="product-grid">{% assign related_collection = collections.all %}{% for related_product in related_collection.products limit: 8 %}{% unless related_product.id == product.id %}{% render 'product-card', product: related_product %}{% endunless %}{% endfor %}</div></section>
+{% schema %}{ "name": "Related products", "settings": [] }{% endschema %}
