@@ -15,3 +15,7 @@
 .brand-name{font-family:Georgia,serif;font-size:25px;font-weight:700;letter-spacing:-.5px}
 .main-nav{gap:22px;font-weight:700;font-size:12px;letter-spacing:1.4px}
 .main-nav a{text-shadow:0 1px 10px rgba(255,255,255,.8)}
+.site-header{top:12px;min-height:64px;padding:0 24px;border-radius:34px;gap:20px}
+.brand-icon{width:27px;height:27px}.brand-icon svg{width:27px;height:27px}.brand-name{font-size:22px}
+.main-nav{gap:18px;font-size:11px;letter-spacing:1.1px}.header-actions{gap:16px;font-size:26px}
+@media(max-width:800px){.site-header{top:8px;min-height:58px;padding:0 15px;border-radius:30px;gap:10px}.brand-name{font-size:18px}.brand-icon,.brand-icon svg{width:23px;height:23px}.main-nav{gap:8px;font-size:9px}.header-actions{font-size:22px;gap:9px}}
