@@ -23,3 +23,4 @@
 .product-grid{padding-left:clamp(14px,3vw,48px);padding-right:clamp(14px,3vw,48px);gap:12px}
 .main-product{max-width:1080px;padding-left:clamp(16px,4vw,48px);padding-right:clamp(16px,4vw,48px);gap:48px}
 .main-product .detail-image{max-height:620px;object-fit:contain;object-position:top center}
+.collection-page{padding:48px 0 80px}.collection-heading{text-align:center;padding:20px 20px 35px}.collection-heading h1{font:52px Georgia,serif;margin:8px 0;text-transform:capitalize}.collection-grid{padding-top:0}.pagination{display:flex;justify-content:center;align-items:center;gap:28px;padding:30px 16px;color:var(--accent);font-size:13px}.pagination a{border-bottom:1px solid var(--accent);padding-bottom:3px}
