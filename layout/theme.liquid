@@ -17,6 +17,9 @@
     {% section 'header' %}
     <main id="MainContent">{{ content_for_layout }}</main>
     {% section 'footer' %}
+    <style>
+      .wishlist.is-wishlisted,.wishlist-detail.is-wishlisted{color:#d46d6e}.wishlist-notice{position:fixed;z-index:100;right:24px;bottom:24px;width:min(420px,calc(100vw - 32px));padding:24px 28px;background:#fff;box-shadow:0 8px 30px #0002;color:#404040;transform:translateX(calc(100% + 40px));transition:transform .25s ease;font-family:'Outfit',sans-serif}.wishlist-notice.is-visible{transform:translateX(0)}.wishlist-notice button{position:absolute;right:14px;top:10px;border:0;background:none;color:#999;font-size:24px;cursor:pointer}.wishlist-notice p{margin:10px 0 4px;font-size:20px;line-height:1.4}.wishlist-notice small{font-size:16px}.wishlist-notice a{color:#2588ce;text-decoration:underline}
+    </style>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </body>
 </html>
