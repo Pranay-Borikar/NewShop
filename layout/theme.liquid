@@ -75,6 +75,10 @@
     <style>
       .drawer-cart-item>div{display:grid!important;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:8px;min-height:0!important;position:relative}.drawer-cart-item>div>a{grid-column:1;grid-row:1;min-width:0;padding-right:0!important}.drawer-cart-item strong{grid-column:2;grid-row:1;position:static!important;align-self:start;white-space:nowrap}.drawer-actions{position:static!important;grid-column:2;grid-row:2;justify-self:end;display:flex!important;align-items:center;gap:8px;margin-top:10px}.drawer-actions .drawer-quantity{position:static!important}.drawer-actions .drawer-remove{position:static!important}
     </style>
+    <style>
+      .drawer-cart-item>div{display:block!important;position:relative;min-height:100px!important}.drawer-cart-item>div>a{display:block!important;width:calc(100% - 108px);padding:0!important;line-height:1.35}.drawer-cart-item strong{position:absolute!important;top:0!important;right:0!important;display:block;white-space:nowrap}.drawer-actions{position:absolute!important;top:38px!important;right:0!important;display:flex!important;align-items:center;gap:8px;margin:0!important}.drawer-actions .drawer-quantity{position:static!important}.drawer-actions .drawer-remove{position:static!important}
+      @media(max-width:600px){.drawer-cart-item>div>a{width:calc(100% - 94px)}.drawer-actions{top:34px!important}}
+    </style>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </body>
 </html>
