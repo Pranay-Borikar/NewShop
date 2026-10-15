@@ -76,4 +76,32 @@ document.addEventListener('DOMContentLoaded', () => {
     saveWishlist(items); syncWishlistButtons(); showWishlistNotice(added, product);
   });
   syncWishlistButtons();
+
+  const drawer = document.querySelector('[data-cart-drawer]');
+  const money = (cents) => `₹${(Number(cents || 0) / 100).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const cartState = { data: { items: [], total_price: 0 }, coupon: null };
+  const cartOpen = () => { if (!drawer) return; drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden', 'false'); document.body.classList.add('cart-is-open'); loadCart(); };
+  const cartClose = () => { drawer?.classList.remove('is-open'); drawer?.setAttribute('aria-hidden', 'true'); document.body.classList.remove('cart-is-open'); };
+  const loadCart = async () => { if (!drawer) return; const response = await fetch('/cart.js'); cartState.data = await response.json(); renderCart(); };
+  const renderCart = () => {
+    const list = drawer.querySelector('[data-cart-items]');
+    list.innerHTML = cartState.data.items.length ? cartState.data.items.map((item) => `<article class="drawer-cart-item"><a href="${item.url}">${item.image ? `<img src="${item.image}" alt="${item.product_title}">` : ''}</a><div><a href="${item.url}">${item.product_title}</a><strong>${money(item.final_line_price)}</strong><div class="drawer-quantity"><button data-cart-change="${item.key}" data-quantity="${item.quantity - 1}">−</button><b>${item.quantity}</b><button data-cart-change="${item.key}" data-quantity="${item.quantity + 1}">+</button><button class="drawer-remove" data-cart-change="${item.key}" data-quantity="0" aria-label="Remove ${item.product_title}">▮</button></div></div></article>`).join('') : '<p class="empty-cart">Your cart is empty.</p>';
+    const discount = cartState.coupon ? Math.round(cartState.data.total_price * cartState.coupon.percent / 100) : 0;
+    drawer.querySelector('[data-cart-total]').textContent = money(cartState.data.total_price - discount);
+    drawer.querySelector('[data-coupon-saving]').textContent = discount ? `You save ${money(discount)}` : '';
+    drawer.querySelector('[data-coupon-code]').textContent = cartState.coupon ? cartState.coupon.code : 'PRE5';
+    document.querySelectorAll('.cart-count').forEach((node) => { node.textContent = cartState.data.item_count; node.hidden = cartState.data.item_count === 0; });
+  };
+  const updateCart = async (key, quantity) => { await fetch('/cart/change.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: key, quantity }) }); await loadCart(); };
+  document.querySelectorAll('.cart-icon').forEach((link) => link.addEventListener('click', (event) => { event.preventDefault(); cartOpen(); }));
+  drawer?.querySelectorAll('[data-cart-close]').forEach((button) => button.addEventListener('click', cartClose));
+  drawer?.addEventListener('click', async (event) => {
+    const change = event.target.closest('[data-cart-change]'); if (change) await updateCart(change.dataset.cartChange, Number(change.dataset.quantity));
+    const add = event.target.closest('[data-upsell-add]'); if (add) { await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: [{ id: Number(add.dataset.variantId), quantity: 1 }] }) }); await loadCart(); }
+  });
+  drawer?.querySelector('[data-coupon-toggle]')?.addEventListener('click', () => drawer.querySelector('[data-coupon-entry]').classList.toggle('is-open'));
+  drawer?.querySelector('[data-coupon-submit]')?.addEventListener('click', () => { const input = drawer.querySelector('[data-coupon-input]'); const code = input.value.trim().toUpperCase(); const valid = { PRE5: 5, SAVE10: 10, FLAT50: 50 }; if (valid[code]) { cartState.coupon = { code, percent: valid[code] }; drawer.querySelector('[data-coupon-message]').textContent = `${valid[code]}% discount applied`; renderCart(); } else drawer.querySelector('[data-coupon-message]').textContent = 'Coupon code not found'; });
+  drawer?.querySelector('[data-coupon-apply]')?.addEventListener('click', () => drawer.querySelector('[data-coupon-entry]').classList.add('is-open'));
+  drawer?.querySelector('[data-checkout]')?.addEventListener('click', (event) => { if (cartState.coupon) event.currentTarget.href = `/discount/${encodeURIComponent(cartState.coupon.code)}?redirect=/checkout`; });
+  if (drawer) loadCart();
 });
