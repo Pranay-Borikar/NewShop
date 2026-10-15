@@ -122,13 +122,26 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = add.closest('.upsell-product');
       const variants = [...card.querySelectorAll('.upsell-variants [data-variant-id]')];
       const content = variantModal.querySelector('[data-variant-modal-content]');
-      content.innerHTML = variants.map((variant) => `<article class="variant-modal-row"><img src="${add.dataset.productImage}" alt=""><div><strong>${add.dataset.productTitle}</strong><span class="variant-modal-size">${variant.dataset.variantTitle}</span></div><b>${add.dataset.productPrice}</b><button type="button" data-modal-variant="${variant.dataset.variantId}">Add to cart</button></article>`).join('');
+      variantModal.dataset.selectedVariant = '';
+      variantModal.dataset.maxQuantity = '1';
+      variantModal.querySelector('[data-modal-quantity]').value = '1';
+      variantModal.querySelector('[data-modal-submit]').disabled = true;
+      variantModal.querySelector('[data-modal-error]').textContent = '';
+      content.innerHTML = `<p class="variant-instruction">Choose an available size</p>${variants.map((variant) => `<button type="button" class="variant-modal-option" data-modal-variant="${variant.dataset.variantId}" data-available="${variant.dataset.available}" data-max-quantity="${variant.dataset.maxQuantity}" ${variant.disabled ? 'disabled' : ''}>${variant.dataset.variantTitle}${variant.disabled ? ' · Sold out' : ''}</button>`).join('')}`;
       variantModal.classList.add('is-open'); variantModal.setAttribute('aria-hidden', 'false');
     }
     const selected = event.target.closest('[data-modal-variant]');
-    if (selected) { await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: [{ id: Number(selected.dataset.modalVariant), quantity: 1 }] }) }); closeVariantModal(); await loadCart(); }
+    if (selected && !selected.disabled) { variantModal.dataset.selectedVariant = selected.dataset.modalVariant; variantModal.dataset.maxQuantity = selected.dataset.maxQuantity; variantModal.querySelectorAll('[data-modal-variant]').forEach((option) => option.classList.toggle('is-selected', option === selected)); variantModal.querySelector('[data-modal-submit]').disabled = false; variantModal.querySelector('[data-modal-quantity]').max = selected.dataset.maxQuantity; }
   });
   variantModal?.querySelector('[data-variant-close]')?.addEventListener('click', closeVariantModal);
+  variantModal?.querySelector('[data-modal-quantity]')?.addEventListener('input', (event) => { const max = Number(variantModal.dataset.maxQuantity || 99); event.target.value = Math.max(1, Math.min(max, Number(event.target.value) || 1)); });
+  variantModal?.querySelector('[data-modal-submit]')?.addEventListener('click', async (event) => {
+    const button = event.currentTarget; const id = Number(variantModal.dataset.selectedVariant); const quantity = Number(variantModal.querySelector('[data-modal-quantity]').value || 1); if (!id) return;
+    button.disabled = true; button.textContent = 'Adding...'; variantModal.querySelector('[data-modal-error]').textContent = '';
+    try { const response = await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ items: [{ id, quantity }] }) }); if (!response.ok) { const error = await response.json().catch(() => ({})); throw new Error(error.description || 'Unable to add this variant'); } closeVariantModal(); await loadCart(); }
+    catch (error) { variantModal.querySelector('[data-modal-error]').textContent = error.message; }
+    finally { button.disabled = false; button.textContent = 'Add to cart'; }
+  });
   drawer?.querySelector('[data-coupon-input]')?.addEventListener('input', (event) => { drawer.querySelector('[data-coupon-submit]').disabled = !event.target.value.trim(); });
   drawer?.querySelector('[data-coupon-toggle]')?.addEventListener('click', () => drawer.querySelector('[data-coupon-entry]').classList.toggle('is-open'));
   drawer?.querySelector('[data-coupon-submit]')?.addEventListener('click', () => { const input = drawer.querySelector('[data-coupon-input]'); const code = input.value.trim().toUpperCase(); const valid = { PRE5: 5, SAVE10: 10, FLAT50: 50 }; if (valid[code]) { cartState.coupon = { code, percent: valid[code] }; drawer.querySelector('[data-coupon-message]').textContent = `${valid[code]}% discount applied`; renderCart(); } else drawer.querySelector('[data-coupon-message]').textContent = 'Coupon code not found'; });
