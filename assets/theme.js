@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = add.closest('.upsell-product');
       const variants = [...card.querySelectorAll('.upsell-variants [data-variant-id]')];
       const content = variantModal.querySelector('[data-variant-modal-content]');
-      content.innerHTML = `<div class="variant-modal-product"><img src="${add.dataset.productImage}" alt=""><strong>${add.dataset.productTitle}</strong></div><p>Choose a size</p>${variants.map((variant) => `<button type="button" data-modal-variant="${variant.dataset.variantId}">${variant.dataset.variantTitle}</button>`).join('')}`;
+      content.innerHTML = variants.map((variant) => `<article class="variant-modal-row"><img src="${add.dataset.productImage}" alt=""><div><strong>${add.dataset.productTitle}</strong><span class="variant-modal-size">${variant.dataset.variantTitle}</span></div><b>${add.dataset.productPrice}</b><button type="button" data-modal-variant="${variant.dataset.variantId}">Add to cart</button></article>`).join('');
       variantModal.classList.add('is-open'); variantModal.setAttribute('aria-hidden', 'false');
     }
     const selected = event.target.closest('[data-modal-variant]');
