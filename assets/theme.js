@@ -113,10 +113,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }));
   document.querySelectorAll('.cart-icon').forEach((link) => link.addEventListener('click', (event) => { event.preventDefault(); cartOpen(); }));
   drawer?.querySelectorAll('[data-cart-close]').forEach((button) => button.addEventListener('click', cartClose));
+  const variantModal = drawer?.querySelector('[data-variant-modal]');
+  const closeVariantModal = () => { variantModal?.classList.remove('is-open'); variantModal?.setAttribute('aria-hidden', 'true'); };
   drawer?.addEventListener('click', async (event) => {
     const change = event.target.closest('[data-cart-change]'); if (change) await updateCart(change.dataset.cartChange, Number(change.dataset.quantity));
-    const add = event.target.closest('[data-upsell-add]'); if (add) { await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: [{ id: Number(add.dataset.variantId), quantity: 1 }] }) }); await loadCart(); }
+    const add = event.target.closest('[data-upsell-add]');
+    if (add) {
+      const card = add.closest('.upsell-product');
+      const variants = [...card.querySelectorAll('.upsell-variants [data-variant-id]')];
+      const content = variantModal.querySelector('[data-variant-modal-content]');
+      content.innerHTML = `<div class="variant-modal-product"><img src="${add.dataset.productImage}" alt=""><strong>${add.dataset.productTitle}</strong></div><p>Choose a size</p>${variants.map((variant) => `<button type="button" data-modal-variant="${variant.dataset.variantId}">${variant.dataset.variantTitle}</button>`).join('')}`;
+      variantModal.classList.add('is-open'); variantModal.setAttribute('aria-hidden', 'false');
+    }
+    const selected = event.target.closest('[data-modal-variant]');
+    if (selected) { await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: [{ id: Number(selected.dataset.modalVariant), quantity: 1 }] }) }); closeVariantModal(); await loadCart(); }
   });
+  variantModal?.querySelector('[data-variant-close]')?.addEventListener('click', closeVariantModal);
+  drawer?.querySelector('[data-coupon-input]')?.addEventListener('input', (event) => { drawer.querySelector('[data-coupon-submit]').disabled = !event.target.value.trim(); });
   drawer?.querySelector('[data-coupon-toggle]')?.addEventListener('click', () => drawer.querySelector('[data-coupon-entry]').classList.toggle('is-open'));
   drawer?.querySelector('[data-coupon-submit]')?.addEventListener('click', () => { const input = drawer.querySelector('[data-coupon-input]'); const code = input.value.trim().toUpperCase(); const valid = { PRE5: 5, SAVE10: 10, FLAT50: 50 }; if (valid[code]) { cartState.coupon = { code, percent: valid[code] }; drawer.querySelector('[data-coupon-message]').textContent = `${valid[code]}% discount applied`; renderCart(); } else drawer.querySelector('[data-coupon-message]').textContent = 'Coupon code not found'; });
   drawer?.querySelector('[data-coupon-apply]')?.addEventListener('click', () => drawer.querySelector('[data-coupon-entry]').classList.add('is-open'));
