@@ -1,5 +1,6 @@
 <article class="product-card">
   {% assign default_sizes = 'S,M,L,XL,XXL' | split: ',' %}
+  {% assign is_ready_to_ship = false %}{% if product.tags contains 'RTS' or product.tags contains 'ready_to_ship' or product.tags contains 'ready-to-ship' %}{% assign is_ready_to_ship = true %}{% endif %}
   <a href="{{ product.url }}" class="product-image-wrap">
     {% if product.featured_image %}
       {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400,600,900', class: 'product-image', alt: product.title }}
@@ -8,5 +9,5 @@
     {% if product.available == false %}<span class="badge">Sold out</span>{% else %}<span class="badge">New</span>{% endif %}
     <button class="wishlist" type="button" aria-label="Add {{ product.title }} to wishlist" onclick="event.preventDefault()">♡</button>
   </a>
-  <a class="product-card-details" href="{{ product.url }}"><div class="product-info"><p class="vendor">MarkAvenue</p><h3>{{ product.title }}</h3><p class="price">{{ product.price | money }}</p><div class="card-size-list" aria-label="Available sizes">{% if product.options_by_name['Size'] %}{% for size in product.options_by_name['Size'].values %}<span class="size-chip">{{ size }}</span>{% endfor %}{% else %}{% for size in default_sizes %}<span class="size-chip">{{ size }}</span>{% endfor %}{% endif %}</div></div></a>
+  <a class="product-card-details" href="{{ product.url }}"><div class="product-info"><p class="vendor">MarkAvenue</p><h3>{{ product.title }}</h3><p class="price">{{ product.price | money }}</p>{% if is_ready_to_ship %}<div class="card-ready-badge"><span>READY TO SHIP</span><b>ϟ</b></div>{% endif %}<div class="card-size-list" aria-label="Available sizes">{% if product.options_by_name['Size'] %}{% for size in product.options_by_name['Size'].values %}<span class="size-chip">{{ size }}{% if is_ready_to_ship %} <i aria-hidden="true">ϟ</i>{% endif %}</span>{% endfor %}{% else %}{% for size in default_sizes %}<span class="size-chip">{{ size }}{% if is_ready_to_ship %} <i aria-hidden="true">ϟ</i>{% endif %}</span>{% endfor %}{% endif %}</div></div></a>
 </article>
