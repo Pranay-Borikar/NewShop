@@ -33,6 +33,10 @@
     <style>
       .variant-instruction{padding:14px 22px 4px;margin:0;color:#56657a}.variant-modal-option{display:block;width:calc(100% - 44px);margin:8px 22px;padding:14px 16px;border:1px solid #cbd3de;border-radius:9px;background:#fff;text-align:left;font-size:15px;cursor:pointer}.variant-modal-option.is-selected{border-color:#d46d6e;background:#fff1f1}.variant-modal-option:disabled{color:#aeb4bc;background:#f4f5f7;text-decoration:line-through;cursor:not-allowed}.variant-modal-footer{position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e1e4e8;padding:14px 22px}.variant-modal-footer label{display:flex;align-items:center;justify-content:space-between;gap:12px}.variant-modal-footer input{width:72px;padding:9px;border:1px solid #cbd3de;border-radius:8px}.variant-modal-footer button{width:100%;margin-top:10px;padding:13px;border:0;border-radius:9px;background:#000;color:#fff;font-size:15px;cursor:pointer}.variant-modal-footer button:disabled{background:#b9bdc4;cursor:not-allowed}.variant-modal-footer p{margin:8px 0 0;color:#d14e57;font-size:13px}
     </style>
+    <style>
+      .variant-modal-box{overflow:hidden!important}.variant-modal-box h2{height:58px;display:flex;align-items:center;padding:0 22px!important}.variant-modal-close{top:10px!important;right:14px!important;background:#fff!important}.variant-modal-box [data-variant-modal-content]{height:calc(100% - 150px);max-height:none;overflow-y:auto;overflow-x:hidden;padding:10px 14px 24px}.variant-instruction{padding:6px 8px 10px}.variant-modal-option{display:inline-block;width:auto;margin:6px 5px;padding:10px 16px;border-radius:9px}.variant-modal-footer{min-height:92px}.variant-modal-footer label{font-size:14px}
+      @media(max-width:600px){.variant-modal-box [data-variant-modal-content]{padding-left:10px;padding-right:10px}.variant-modal-option{padding:9px 13px}}
+    </style>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </body>
 </html>

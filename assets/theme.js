@@ -147,5 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
   drawer?.querySelector('[data-coupon-submit]')?.addEventListener('click', () => { const input = drawer.querySelector('[data-coupon-input]'); const code = input.value.trim().toUpperCase(); const valid = { PRE5: 5, SAVE10: 10, FLAT50: 50 }; if (valid[code]) { cartState.coupon = { code, percent: valid[code] }; drawer.querySelector('[data-coupon-message]').textContent = `${valid[code]}% discount applied`; renderCart(); } else drawer.querySelector('[data-coupon-message]').textContent = 'Coupon code not found'; });
   drawer?.querySelector('[data-coupon-apply]')?.addEventListener('click', () => drawer.querySelector('[data-coupon-entry]').classList.add('is-open'));
   drawer?.querySelector('[data-checkout]')?.addEventListener('click', (event) => { if (cartState.coupon) event.currentTarget.href = `/discount/${encodeURIComponent(cartState.coupon.code)}?redirect=/checkout`; });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { if (variantModal?.classList.contains('is-open')) closeVariantModal(); else if (drawer?.classList.contains('is-open')) cartClose(); } });
   if (drawer) loadCart();
 });
