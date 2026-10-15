@@ -4,7 +4,7 @@
       {% assign image_key = 'slide_' | append: i %}
       {% assign image = section.settings[image_key] %}
       <div class="carousel-slide{% if forloop.first %} is-active{% endif %}">
-        <picture>{% unless image %}<source media="(max-width: 749px)" srcset="{{ 'Shanaya_Banner_Mo-06_700x.webp' | asset_url }}">{% endunless %}{% if image %}{{ image | image_url: width: 2400 | image_tag: loading: 'eager', widths: '900,1200,1800,2400', class: 'hero-image' }}{% else %}<img class="hero-image" src="{{ 'header.webp' | asset_url }}" alt="{{ section.settings.heading }}" width="2400" height="1200">{% endif %}</picture>
+        <picture><source media="(max-width: 749px)" srcset="{{ 'Shanaya_Banner_Mo-06_700x.webp' | asset_url }}">{% if image %}{{ image | image_url: width: 2400 | image_tag: loading: 'eager', widths: '900,1200,1800,2400', class: 'hero-image' }}{% else %}<img class="hero-image" src="{{ 'header.webp' | asset_url }}" alt="{{ section.settings.heading }}" width="2400" height="1200">{% endif %}</picture>
       </div>
     {% endfor %}
   </div>
