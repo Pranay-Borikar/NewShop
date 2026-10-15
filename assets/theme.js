@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.mobile-menu-toggle').forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const header = toggle.closest('.site-header');
+      const open = header.classList.toggle('menu-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
   document.querySelectorAll('[data-carousel]').forEach((carousel) => {
     const slides = [...carousel.querySelectorAll('.carousel-slide')];
     const dots = [...carousel.querySelectorAll('[data-slide]')];
