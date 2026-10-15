@@ -122,26 +122,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = add.closest('.upsell-product');
       const variants = [...card.querySelectorAll('.upsell-variants [data-variant-id]')];
       const content = variantModal.querySelector('[data-variant-modal-content]');
-      variantModal.dataset.selectedVariant = '';
-      variantModal.dataset.maxQuantity = '1';
-      variantModal.querySelector('[data-modal-quantity]').value = '1';
-      variantModal.querySelector('[data-modal-submit]').disabled = true;
-      variantModal.querySelector('[data-modal-error]').textContent = '';
-      content.innerHTML = `<p class="variant-instruction">Choose an available size</p>${variants.map((variant) => `<button type="button" class="variant-modal-option" data-modal-variant="${variant.dataset.variantId}" data-available="${variant.dataset.available}" data-max-quantity="${variant.dataset.maxQuantity}" ${variant.disabled ? 'disabled' : ''}>${variant.dataset.variantTitle}${variant.disabled ? ' · Sold out' : ''}</button>`).join('')}`;
+      content.innerHTML = variants.map((variant) => `<article class="variant-modal-row"><img src="${add.dataset.productImage}" alt=""><div class="variant-row-info"><strong>${add.dataset.productTitle}</strong><span class="variant-modal-size">${variant.dataset.variantTitle}</span></div><div class="variant-row-price">${add.dataset.productCompare ? `<s>${add.dataset.productCompare}</s>` : ''}<b>${add.dataset.productPrice}</b>${add.dataset.productCompare ? '<small>(50% OFF)</small>' : ''}</div><div class="variant-row-quantity"><button type="button" data-variant-qty="-1">−</button><input type="number" value="1" min="1" max="${variant.dataset.maxQuantity}"><button type="button" data-variant-qty="1">+</button></div><button type="button" class="variant-row-add" data-modal-variant="${variant.dataset.variantId}" data-max-quantity="${variant.dataset.maxQuantity}" ${variant.disabled ? 'disabled' : ''}>${variant.disabled ? 'Sold out' : 'Add to cart'}</button></article>`).join('');
       variantModal.classList.add('is-open'); variantModal.setAttribute('aria-hidden', 'false');
     }
+    const quantityButton = event.target.closest('[data-variant-qty]');
+    if (quantityButton) { const input = quantityButton.parentElement.querySelector('input'); const next = Number(input.value) + Number(quantityButton.dataset.variantQty); input.value = Math.max(1, Math.min(Number(input.max || 99), next)); }
     const selected = event.target.closest('[data-modal-variant]');
-    if (selected && !selected.disabled) { variantModal.dataset.selectedVariant = selected.dataset.modalVariant; variantModal.dataset.maxQuantity = selected.dataset.maxQuantity; variantModal.querySelectorAll('[data-modal-variant]').forEach((option) => option.classList.toggle('is-selected', option === selected)); variantModal.querySelector('[data-modal-submit]').disabled = false; variantModal.querySelector('[data-modal-quantity]').max = selected.dataset.maxQuantity; }
+    if (selected && !selected.disabled) {
+      const row = selected.closest('.variant-modal-row'); const input = row.querySelector('input'); const quantity = Number(input.value || 1);
+      selected.disabled = true; selected.textContent = 'Adding...';
+      try { const response = await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ items: [{ id: Number(selected.dataset.modalVariant), quantity }] }) }); if (!response.ok) { const error = await response.json().catch(() => ({})); throw new Error(error.description || 'Unable to add this variant'); } closeVariantModal(); await loadCart(); }
+      catch (error) { selected.disabled = false; selected.textContent = 'Try again'; window.setTimeout(() => { if (!selected.disabled) selected.textContent = 'Add to cart'; }, 1800); }
+    }
   });
   variantModal?.querySelector('[data-variant-close]')?.addEventListener('click', closeVariantModal);
-  variantModal?.querySelector('[data-modal-quantity]')?.addEventListener('input', (event) => { const max = Number(variantModal.dataset.maxQuantity || 99); event.target.value = Math.max(1, Math.min(max, Number(event.target.value) || 1)); });
-  variantModal?.querySelector('[data-modal-submit]')?.addEventListener('click', async (event) => {
-    const button = event.currentTarget; const id = Number(variantModal.dataset.selectedVariant); const quantity = Number(variantModal.querySelector('[data-modal-quantity]').value || 1); if (!id) return;
-    button.disabled = true; button.textContent = 'Adding...'; variantModal.querySelector('[data-modal-error]').textContent = '';
-    try { const response = await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ items: [{ id, quantity }] }) }); if (!response.ok) { const error = await response.json().catch(() => ({})); throw new Error(error.description || 'Unable to add this variant'); } closeVariantModal(); await loadCart(); }
-    catch (error) { variantModal.querySelector('[data-modal-error]').textContent = error.message; }
-    finally { button.disabled = false; button.textContent = 'Add to cart'; }
-  });
   drawer?.querySelector('[data-coupon-input]')?.addEventListener('input', (event) => { drawer.querySelector('[data-coupon-submit]').disabled = !event.target.value.trim(); });
   drawer?.querySelector('[data-coupon-toggle]')?.addEventListener('click', () => drawer.querySelector('[data-coupon-entry]').classList.toggle('is-open'));
   drawer?.querySelector('[data-coupon-submit]')?.addEventListener('click', () => { const input = drawer.querySelector('[data-coupon-input]'); const code = input.value.trim().toUpperCase(); const valid = { PRE5: 5, SAVE10: 10, FLAT50: 50 }; if (valid[code]) { cartState.coupon = { code, percent: valid[code] }; drawer.querySelector('[data-coupon-message]').textContent = `${valid[code]}% discount applied`; renderCart(); } else drawer.querySelector('[data-coupon-message]').textContent = 'Coupon code not found'; });
