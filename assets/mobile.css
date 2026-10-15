@@ -24,3 +24,8 @@
   .product-main-image{max-height:760px}
   .product-details h1{font-size:18px;line-height:1.45;margin:0 0 10px;letter-spacing:0}
 }
+@media screen and (max-width:749px){
+  .related-products .product-card:nth-child(n+5){display:none}
+  .site-footer{display:flex!important;flex-direction:column;gap:10px;min-height:120px;padding:32px 20px;background:var(--ink);color:#fff}
+  .site-footer p,.site-footer span{display:block;margin:0}
+}
