@@ -93,6 +93,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.cart-count').forEach((node) => { node.textContent = cartState.data.item_count; node.hidden = cartState.data.item_count === 0; });
   };
   const updateCart = async (key, quantity) => { await fetch('/cart/change.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: key, quantity }) }); await loadCart(); };
+  document.querySelectorAll('.product-form').forEach((form) => form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const variant = form.querySelector('input[name="id"]:checked, select[name="id"]');
+    const button = form.querySelector('.add-button');
+    if (!variant) return;
+    button?.setAttribute('disabled', 'disabled');
+    if (button) button.textContent = 'ADDING...';
+    try {
+      const response = await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ items: [{ id: Number(variant.value), quantity: 1 }] }) });
+      if (!response.ok) throw new Error('Unable to add product');
+      cartOpen();
+    } catch (error) {
+      window.alert('This product could not be added to the cart. Please try again.');
+    } finally {
+      button?.removeAttribute('disabled');
+      if (button) button.textContent = 'ADD TO CART';
+    }
+  }));
   document.querySelectorAll('.cart-icon').forEach((link) => link.addEventListener('click', (event) => { event.preventDefault(); cartOpen(); }));
   drawer?.querySelectorAll('[data-cart-close]').forEach((button) => button.addEventListener('click', cartClose));
   drawer?.addEventListener('click', async (event) => {
