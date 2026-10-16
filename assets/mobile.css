@@ -228,3 +228,6 @@ body.header-is-stuck .search-panel{top:128px}
 @media(max-width:749px){
   .festive-announcement{min-height:86px;flex-wrap:wrap;gap:7px 15px;padding:8px 10px}.festive-announcement-copy{width:100%}.festive-announcement-copy strong{font-size:16px}.festive-announcement-copy span{font-size:11px}.festive-countdown{gap:5px}.festive-countdown div{min-width:28px}.festive-countdown b{font-size:17px}.festive-countdown small{font-size:7px;margin-top:3px}.festive-countdown i{font-size:14px}.festive-code{padding:6px 9px;font-size:10px}
 }
+
+.festive-announcement{font-family:'Outfit',sans-serif}.festive-announcement-copy strong{font-size:24px;font-weight:600}.festive-announcement-copy span{font-size:15px}.festive-countdown b{font-size:24px;font-weight:600}.festive-countdown small{font-size:10px}.festive-code{font-size:14px}
+@media(max-width:749px){.festive-announcement-copy strong{font-size:14px}.festive-announcement-copy span{font-size:10px}.festive-countdown b{font-size:16px}.festive-countdown small{font-size:7px}.festive-code{font-size:9px}}

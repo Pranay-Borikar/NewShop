@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const festiveSale = document.querySelector('[data-festive-sale]');
+  if (festiveSale) {
+    const endTime = new Date(festiveSale.dataset.saleEnd).getTime();
+    const pad = (value) => String(value).padStart(2, '0');
+    const updateSaleCountdown = () => {
+      const remaining = Math.max(0, endTime - Date.now());
+      const totalSeconds = Math.floor(remaining / 1000);
+      festiveSale.querySelector('[data-sale-days]').textContent = pad(Math.floor(totalSeconds / 86400));
+      festiveSale.querySelector('[data-sale-hours]').textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
+      festiveSale.querySelector('[data-sale-minutes]').textContent = pad(Math.floor((totalSeconds % 3600) / 60));
+      festiveSale.querySelector('[data-sale-seconds]').textContent = pad(totalSeconds % 60);
+    };
+    updateSaleCountdown();
+    window.setInterval(updateSaleCountdown, 1000);
+  }
   const searchHeading = document.getElementById('SearchHeading');
   if (searchHeading) searchHeading.textContent = 'What are you looking for?';
   const siteHeader = document.querySelector('.site-header');
