@@ -36,10 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.mobile-product-carousel').forEach((carousel) => {
     const track = carousel.querySelector('.mobile-carousel-track');
-    const slides = [...carousel.querySelectorAll('.mobile-carousel-slide')];
+    const originalSlides = [...carousel.querySelectorAll('.mobile-carousel-slide')];
     const dots = [...carousel.querySelectorAll('.mobile-carousel-dots i')];
-    if (!track || slides.length < 2) return;
-    let current = 0;
+    if (!track || originalSlides.length < 2) return;
+    const lastClone = originalSlides[originalSlides.length - 1].cloneNode(true);
+    const firstClone = originalSlides[0].cloneNode(true);
+    lastClone.setAttribute('aria-hidden', 'true');
+    firstClone.setAttribute('aria-hidden', 'true');
+    track.insertBefore(lastClone, originalSlides[0]);
+    track.appendChild(firstClone);
+    const slides = [...track.querySelectorAll('.mobile-carousel-slide')];
+    let current = 1;
     let startX = 0;
     let dragging = false;
     let moved = false;
@@ -53,11 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const offset = -(slides[current].offsetLeft - sideInset()) + dragOffset;
       track.style.transition = animate ? 'transform 280ms ease' : 'none';
       track.style.transform = `translate3d(${offset}px, 0, 0)`;
-      dots.forEach((dot, index) => dot.classList.toggle('is-active', index === current));
+      const dotIndex = (current - 1 + originalSlides.length) % originalSlides.length;
+      dots.forEach((dot, index) => dot.classList.toggle('is-active', index === dotIndex));
     };
     const moveTo = (index) => {
-      current = Math.max(0, Math.min(slides.length - 1, index));
+      current = index;
       render(true);
+    };
+    const normalize = () => {
+      if (current === 0) {
+        current = originalSlides.length;
+        render(false);
+      } else if (current === slides.length - 1) {
+        current = 1;
+        render(false);
+      }
     };
     track.style.overflow = 'visible';
     track.style.touchAction = 'pan-y';
@@ -87,7 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
       moveTo(Math.abs(distance) >= threshold ? current + (distance < 0 ? 1 : -1) : current);
     });
     track.addEventListener('pointercancel', () => { dragging = false; render(true); });
-    dots.forEach((dot, index) => dot.addEventListener('click', () => moveTo(index)));
+    track.addEventListener('transitionend', (event) => {
+      if (event.propertyName === 'transform') normalize();
+    });
+    dots.forEach((dot, index) => dot.addEventListener('click', () => moveTo(index + 1)));
     window.addEventListener('resize', () => render(false));
     render(false);
   });
