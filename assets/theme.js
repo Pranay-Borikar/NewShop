@@ -119,6 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let searchTimer;
   let searchRequest;
   let searchVersion = 0;
+  let searchScrollY = 0;
+  let bodyLockStyles;
   const showSearchMessage = (message) => {
     if (!searchResults) return;
     const node = document.createElement('p');
@@ -147,12 +149,32 @@ document.addEventListener('DOMContentLoaded', () => {
     showSuggestions();
     searchOverlay.classList.remove('is-open');
     searchOverlay.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('search-is-open');
     document.body.classList.remove('search-is-open');
+    if (bodyLockStyles) {
+      document.body.style.position = bodyLockStyles.position;
+      document.body.style.top = bodyLockStyles.top;
+      document.body.style.width = bodyLockStyles.width;
+      document.body.style.left = bodyLockStyles.left;
+      document.body.style.right = bodyLockStyles.right;
+      bodyLockStyles = null;
+      window.scrollTo(0, searchScrollY);
+    }
   };
   const openSearch = () => {
     if (!searchOverlay) return;
+    if (!bodyLockStyles) {
+      searchScrollY = window.scrollY;
+      bodyLockStyles = { position: document.body.style.position, top: document.body.style.top, width: document.body.style.width, left: document.body.style.left, right: document.body.style.right };
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${searchScrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    }
     searchOverlay.classList.add('is-open');
     searchOverlay.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('search-is-open');
     document.body.classList.add('search-is-open');
     loadCatalogSuggestions();
     requestAnimationFrame(() => searchInput?.focus());
