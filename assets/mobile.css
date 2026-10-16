@@ -213,6 +213,8 @@ body.header-is-stuck .search-panel{top:128px}
 
 .header-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#30372f;font:14px Arial,sans-serif;padding:5px 0}
 .header-search input::placeholder{color:#687068}
+.header-search input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;display:none}
+.header-search input[type=search]::-ms-clear{display:none;width:0;height:0}
 .header-search-clear{display:none;border:0;background:transparent;color:#555;font-size:18px;line-height:1;padding:2px 4px;cursor:pointer}
 .header-search.has-query .header-search-clear{display:block}
 @media(max-width:749px){
