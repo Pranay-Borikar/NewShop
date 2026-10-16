@@ -1,0 +1,38 @@
+<section class="search-results-page">
+  <div class="search-results-header">
+    <p class="search-results-eyebrow">MarkAvenue Search</p>
+    <h1>Search results{% if search.terms != blank %} for “{{ search.terms | escape }}”{% endif %}</h1>
+    <form class="search-results-form" action="{{ routes.search_url }}" method="get" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 5 5"></path></svg>
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products" aria-label="Search products">
+      <input type="hidden" name="type" value="product">
+      <button type="submit">Search</button>
+      {% if search.terms != blank %}<a href="{{ routes.search_url }}" aria-label="Clear search">×</a>{% endif %}
+    </form>
+  </div>
+
+  {% paginate search.results by 24 %}
+    <div class="search-results-summary"><strong>{{ search.results_count }}</strong> {% if search.results_count == 1 %}product{% else %}products{% endif %} found</div>
+    <form class="search-results-toolbar" method="get"><input type="hidden" name="q" value="{{ search.terms | escape }}"><input type="hidden" name="type" value="product">
+      <details class="search-filter-drawer">
+        <summary>Filter <span>+</span></summary>
+        <div class="search-filter-options">
+          {% for filter in search.filters %}
+            {% if filter.type == 'list' %}
+              <fieldset><legend>{{ filter.label }}</legend>{% for value in filter.values %}<label><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}><span>{{ value.label }}</span><small>{{ value.count }}</small></label>{% endfor %}</fieldset>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </details>
+      <div class="search-sort-form"><label for="SearchSort">Sort by</label><select id="SearchSort" name="sort_by" onchange="this.form.submit()">{% for option in search.sort_options %}<option value="{{ option.value }}"{% if search.sort_by == option.value %} selected{% endif %}>{{ option.name }}</option>{% endfor %}</select></div>
+    </form>
+
+    {% if search.results_count > 0 %}
+      <div class="search-results-grid-page">{% for result in search.results %}{% if result.object_type == 'product' %}{% render 'product-card', product: result %}{% endif %}{% endfor %}</div>
+    {% else %}
+      <div class="search-empty"><h2>No products found</h2><p>Try another search or explore our latest collection.</p><a class="button" href="{{ routes.collections_url }}">Shop the collection</a></div>
+    {% endif %}
+    {% if paginate.pages > 1 %}<nav class="search-pagination" aria-label="Search pages">{% if paginate.previous %}<a href="{{ paginate.previous.url }}">Previous</a>{% endif %}<span>Page {{ paginate.current_page }} of {{ paginate.pages }}</span>{% if paginate.next %}<a href="{{ paginate.next.url }}">Next</a>{% endif %}</nav>{% endif %}
+  {% endpaginate %}
+</section>
+{% schema %}{ "name": "Search results", "settings": [] }{% endschema %}
