@@ -118,10 +118,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchResults = searchOverlay?.querySelector('[data-search-results]');
   let searchTimer;
   let searchRequest;
+  let searchSequence = 0;
+  let searchScrollY = 0;
+  let searchIsOpen = false;
+  const openSearch = () => {
+    if (!searchOverlay || searchIsOpen) return;
+    searchIsOpen = true;
+    searchScrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${searchScrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    searchOverlay.classList.add('is-open');
+    searchOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('search-is-open');
+    requestAnimationFrame(() => searchInput?.focus());
+  };
   const closeSearch = () => {
-    searchOverlay?.classList.remove('is-open');
-    searchOverlay?.setAttribute('aria-hidden', 'true');
+    if (!searchOverlay || !searchIsOpen) return;
+    searchIsOpen = false;
+    clearTimeout(searchTimer);
+    searchSequence += 1;
+    searchRequest?.abort();
+    searchRequest = null;
+    searchInput.value = '';
+    searchForm?.classList.remove('has-query');
+    showSearchMessage('Start typing to search our collection.');
+    searchOverlay.classList.remove('is-open');
+    searchOverlay.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('search-is-open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, searchScrollY);
   };
   const showSearchMessage = (message) => {
     if (!searchResults) return;
@@ -165,7 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const loadSearchResults = async (query) => {
     if (!searchResults) return;
-    if (query.length < 2) { showSearchMessage('Start typing to search our collection.'); return; }
+    const requestId = ++searchSequence;
+    if (query.length < 2) { searchRequest?.abort(); showSearchMessage('Start typing to search our collection.'); return; }
     searchRequest?.abort();
     searchRequest = new AbortController();
     showSearchMessage('Searching...');
@@ -174,23 +207,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(`/search/suggest.json?${params}`, { signal: searchRequest.signal, headers: { Accept: 'application/json' } });
       if (!response.ok) throw new Error('Search request failed');
       const data = await response.json();
+      if (!searchIsOpen || requestId !== searchSequence) return;
       renderSearchResults(data.resources?.results?.products || [], query);
     } catch (error) {
-      if (error.name !== 'AbortError') showSearchMessage('Search is temporarily unavailable. Please try again.');
+      if (error.name !== 'AbortError' && searchIsOpen && requestId === searchSequence) showSearchMessage('Search is temporarily unavailable. Please try again.');
     }
   };
   document.querySelectorAll('[data-search-open]').forEach((openButton) => openButton.addEventListener('click', (event) => {
     event.preventDefault();
-    searchOverlay?.classList.add('is-open');
-    searchOverlay?.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('search-is-open');
-    requestAnimationFrame(() => searchInput?.focus());
+    openSearch();
   }));
   searchOverlay?.querySelectorAll('[data-search-close]').forEach((button) => button.addEventListener('click', closeSearch));
-  searchOverlay?.querySelector('[data-search-clear]')?.addEventListener('click', () => { if (searchInput) { searchInput.value = ''; searchForm?.classList.remove('has-query'); searchInput.focus(); } showSearchMessage('Start typing to search our collection.'); });
+  searchOverlay?.querySelector('[data-search-clear]')?.addEventListener('click', () => { if (searchInput) { searchInput.value = ''; searchForm?.classList.remove('has-query'); searchInput.focus(); } clearTimeout(searchTimer); searchSequence += 1; searchRequest?.abort(); showSearchMessage('Start typing to search our collection.'); });
   searchInput?.addEventListener('input', () => {
     searchForm?.classList.toggle('has-query', Boolean(searchInput.value.trim()));
     clearTimeout(searchTimer);
+    searchSequence += 1;
+    searchRequest?.abort();
+    searchRequest = null;
     searchTimer = setTimeout(() => loadSearchResults(searchInput.value.trim()), 180);
   });
   searchForm?.addEventListener('submit', (event) => { if (!searchInput?.value.trim()) event.preventDefault(); });
