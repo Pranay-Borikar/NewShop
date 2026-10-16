@@ -187,3 +187,13 @@ body.header-is-stuck .search-panel{top:128px}
   .search-results{max-height:calc(100vh - 176px)}
   .search-result{min-height:64px}
 }
+
+/* Anchor the existing overlay to the header row, not the page/banner. */
+.search-overlay{position:static;inset:auto;z-index:auto;pointer-events:none}
+.search-overlay.is-open{pointer-events:auto}
+.search-overlay-backdrop{position:fixed!important;inset:0;z-index:499}
+.search-panel{position:absolute;top:78px;left:48px;right:auto;z-index:600;width:min(440px,calc(100vw - 96px));transform:translateY(-8px)}
+.search-overlay.is-open .search-panel{transform:translateY(0)}
+@media(max-width:749px){
+  .search-panel{top:66px!important;left:12px!important;right:12px!important;width:auto!important;max-height:calc(100vh - 78px)!important}
+}

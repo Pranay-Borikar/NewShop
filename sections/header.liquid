@@ -17,7 +17,6 @@
     <a href="{{ collections.sale.url | default: routes.collections_url }}">Sale</a>
     <a href="{{ pages['track-order'].url | default: routes.root_url }}">Track Order</a>
   </nav>
-</header>
 <div class="search-overlay" id="SearchOverlay" aria-hidden="true">
   <button class="search-overlay-backdrop" type="button" aria-label="Close search" data-search-close></button>
   <section class="search-panel" role="dialog" aria-modal="true" aria-labelledby="SearchHeading">
@@ -30,4 +29,5 @@
     <div class="search-results" data-search-results aria-live="polite"><p class="search-message">Start typing to search our collection.</p></div>
   </section>
 </div>
+</header>
 {% schema %}{ "name": "Header", "settings": [] }{% endschema %}
