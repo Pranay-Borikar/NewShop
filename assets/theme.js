@@ -247,8 +247,24 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-search-open]').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); openSearch(); }));
   searchOverlay?.querySelectorAll('[data-search-close]').forEach((button) => button.addEventListener('click', closeSearch));
   searchOverlay?.querySelector('[data-search-clear]')?.addEventListener('click', () => { searchInput.value = ''; searchForm?.classList.remove('has-query'); searchProducts(''); searchInput.focus(); });
-  searchInput?.addEventListener('input', () => { const query = searchInput.value.trim(); searchForm?.classList.toggle('has-query', Boolean(query)); clearTimeout(searchTimer); searchVersion += 1; searchRequest?.abort(); searchTimer = setTimeout(() => searchProducts(query), 80); });
+  searchInput?.addEventListener('input', () => {
+    const query = searchInput.value.trim();
+    searchForm?.classList.toggle('has-query', Boolean(query));
+    if (query) { window.location.assign(`/search?q=${encodeURIComponent(query)}`); return; }
+    clearTimeout(searchTimer);
+    searchVersion += 1;
+    searchRequest?.abort();
+    searchTimer = setTimeout(() => searchProducts(''), 80);
+  });
   searchForm?.addEventListener('submit', (event) => { if (!searchInput?.value.trim()) event.preventDefault(); });
+  document.querySelectorAll('.search-results-form input[name="q"]').forEach((input) => {
+    input.addEventListener('input', () => {
+      const query = input.value.trim();
+      const currentQuery = new URLSearchParams(window.location.search).get('q') || '';
+      if (query === currentQuery) return;
+      window.location.assign(query ? `/search?q=${encodeURIComponent(query)}` : '/search');
+    });
+  });
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && searchOverlay?.classList.contains('is-open')) closeSearch(); });
 
   const countdown = document.querySelector('[data-ready-countdown]');
