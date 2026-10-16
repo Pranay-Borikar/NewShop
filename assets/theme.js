@@ -259,8 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (error.name !== 'AbortError' && version === searchVersion) showSearchMessage('Search is temporarily unavailable. Please try again.');
     }
   };
-  document.querySelectorAll('[data-search-open]').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); openSearch(); }));
-  searchOverlay?.querySelectorAll('[data-search-close]').forEach((button) => button.addEventListener('click', closeSearch));
+  document.querySelectorAll('[data-search-open]').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); event.stopPropagation(); openSearch(); }));
+  searchOverlay?.querySelectorAll('[data-search-close]').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); closeSearch(); }));
   searchOverlay?.querySelectorAll('[data-search-home]').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); closeSearch(); }));
   searchOverlay?.querySelector('[data-search-clear]')?.addEventListener('click', () => { searchInput.value = ''; searchForm?.classList.remove('has-query'); searchProducts(''); searchInput.focus(); });
   searchInput?.addEventListener('input', () => {
@@ -273,10 +273,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.location.href !== new URL(nextUrl, window.location.origin).href) history.replaceState(history.state, '', nextUrl);
     searchTimer = setTimeout(() => searchProducts(query), 80);
   });
-  searchForm?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    searchInput?.dispatchEvent(new Event('input', { bubbles: true }));
+  searchInput?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') event.preventDefault();
   });
+  searchForm?.addEventListener('submit', (event) => { event.preventDefault(); });
   let fullSearchTimer;
   let fullSearchRequest;
   let fullSearchVersion = 0;
