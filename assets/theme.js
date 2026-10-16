@@ -125,8 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const searchOverlay = document.querySelector('#SearchOverlay');
-  const searchInput = searchOverlay?.querySelector('[data-search-input]');
-  const searchForm = searchOverlay?.querySelector('[data-search-form]');
+  const searchInput = document.querySelector('[data-search-input]');
+  const searchForm = document.querySelector('[data-search-form]');
   const searchResults = searchOverlay?.querySelector('[data-search-results]');
   let searchTimer;
   let searchRequest;
@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-search-open]').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); openSearch(); }));
   searchOverlay?.querySelectorAll('[data-search-close]').forEach((button) => button.addEventListener('click', closeSearch));
   searchOverlay?.querySelectorAll('.search-close').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); closeSearch(); }));
-  searchOverlay?.querySelector('.search-input-clear')?.addEventListener('click', (event) => { event.preventDefault(); searchInput.value = ''; searchForm?.classList.remove('has-query'); searchProducts(''); searchInput.focus(); });
+  document.querySelector('.header-search-clear')?.addEventListener('click', (event) => { event.preventDefault(); searchInput.value = ''; searchForm?.classList.remove('has-query'); searchProducts(''); searchInput.focus(); });
   searchInput?.addEventListener('input', () => {
     const query = searchInput.value.trim();
     searchForm?.classList.toggle('has-query', Boolean(query));
