@@ -250,21 +250,51 @@ document.addEventListener('DOMContentLoaded', () => {
   searchInput?.addEventListener('input', () => {
     const query = searchInput.value.trim();
     searchForm?.classList.toggle('has-query', Boolean(query));
-    if (query) { window.location.assign(`/search?q=${encodeURIComponent(query)}`); return; }
     clearTimeout(searchTimer);
     searchVersion += 1;
     searchRequest?.abort();
-    searchTimer = setTimeout(() => searchProducts(''), 80);
+    searchTimer = setTimeout(() => searchProducts(query), 80);
   });
   searchForm?.addEventListener('submit', (event) => { if (!searchInput?.value.trim()) event.preventDefault(); });
-  document.querySelectorAll('.search-results-form input[name="q"]').forEach((input) => {
+  let fullSearchTimer;
+  let fullSearchRequest;
+  let fullSearchVersion = 0;
+  const bindFullSearchInput = (input) => {
+    if (!input || input.dataset.ajaxBound === 'true') return;
+    input.dataset.ajaxBound = 'true';
     input.addEventListener('input', () => {
       const query = input.value.trim();
-      const currentQuery = new URLSearchParams(window.location.search).get('q') || '';
-      if (query === currentQuery) return;
-      window.location.assign(query ? `/search?q=${encodeURIComponent(query)}` : '/search');
+      clearTimeout(fullSearchTimer);
+      fullSearchVersion += 1;
+      fullSearchRequest?.abort();
+      fullSearchTimer = setTimeout(async () => {
+        const version = fullSearchVersion;
+        const page = input.closest('.search-results-page');
+        if (!page) return;
+        fullSearchRequest = new AbortController();
+        page.classList.add('is-search-loading');
+        try {
+          const response = await fetch(query ? `/search?q=${encodeURIComponent(query)}` : '/search', { signal: fullSearchRequest.signal, headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+          if (!response.ok) throw new Error('Search page request failed');
+          const html = await response.text();
+          if (version !== fullSearchVersion) return;
+          const parsed = new DOMParser().parseFromString(html, 'text/html');
+          const nextPage = parsed.querySelector('.search-results-page');
+          if (!nextPage) return;
+          page.replaceChildren(...nextPage.children);
+          const nextInput = page.querySelector('.search-results-form input[name="q"]');
+          history.replaceState({}, '', query ? `/search?q=${encodeURIComponent(query)}` : '/search');
+          page.classList.remove('is-search-loading');
+          bindFullSearchInput(nextInput);
+          nextInput?.focus();
+          nextInput?.setSelectionRange(query.length, query.length);
+        } catch (error) {
+          if (error.name !== 'AbortError') page.classList.remove('is-search-loading');
+        }
+      }, 180);
     });
-  });
+  };
+  document.querySelectorAll('.search-results-form input[name="q"]').forEach(bindFullSearchInput);
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && searchOverlay?.classList.contains('is-open')) closeSearch(); });
 
   const countdown = document.querySelector('[data-ready-countdown]');
