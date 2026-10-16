@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let searchRequest;
   let searchVersion = 0;
   let searchScrollY = 0;
+  let searchOriginUrl = window.location.href;
   let bodyLockStyles;
   const showSearchMessage = (message) => {
     if (!searchResults) return;
@@ -161,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showSuggestions();
     searchOverlay.classList.remove('is-open');
     searchOverlay.setAttribute('aria-hidden', 'true');
+    if (window.location.href !== searchOriginUrl) history.replaceState(history.state, '', searchOriginUrl);
     document.documentElement.classList.remove('search-is-open');
     document.body.classList.remove('search-is-open');
     if (bodyLockStyles) {
@@ -175,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const openSearch = () => {
     if (!searchOverlay) return;
+    searchOriginUrl = window.location.href;
     if (!bodyLockStyles) {
       searchScrollY = window.scrollY;
       bodyLockStyles = { position: document.body.style.position, top: document.body.style.top, width: document.body.style.width, left: document.body.style.left, right: document.body.style.right };
@@ -263,13 +266,17 @@ document.addEventListener('DOMContentLoaded', () => {
   searchInput?.addEventListener('input', () => {
     const query = searchInput.value.trim();
     searchForm?.classList.toggle('has-query', Boolean(query));
-    if (query) { window.location.assign(`/search?q=${encodeURIComponent(query)}`); return; }
     clearTimeout(searchTimer);
     searchVersion += 1;
     searchRequest?.abort();
+    const nextUrl = query ? `/search?q=${encodeURIComponent(query)}` : searchOriginUrl;
+    if (window.location.href !== new URL(nextUrl, window.location.origin).href) history.replaceState(history.state, '', nextUrl);
     searchTimer = setTimeout(() => searchProducts(query), 80);
   });
-  searchForm?.addEventListener('submit', (event) => { if (!searchInput?.value.trim()) event.preventDefault(); });
+  searchForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    searchInput?.dispatchEvent(new Event('input', { bubbles: true }));
+  });
   let fullSearchTimer;
   let fullSearchRequest;
   let fullSearchVersion = 0;
