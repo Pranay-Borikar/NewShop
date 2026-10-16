@@ -21,6 +21,72 @@ document.addEventListener('DOMContentLoaded', () => {
     carousel.addEventListener('mouseenter', () => clearInterval(timer));
     carousel.addEventListener('mouseleave', () => { timer = setInterval(() => show(current + 1), Number(carousel.dataset.interval) || 5000); });
   });
+
+  document.querySelectorAll('.product-gallery').forEach((gallery) => {
+    const mainImage = gallery.querySelector('.product-main-image');
+    const thumbnails = [...gallery.querySelectorAll('.product-thumb')];
+    thumbnails.forEach((thumbnail) => thumbnail.addEventListener('click', () => {
+      const image = thumbnail.querySelector('img');
+      if (!image || !mainImage) return;
+      mainImage.removeAttribute('srcset');
+      mainImage.src = image.currentSrc || image.src;
+      thumbnails.forEach((item) => item.classList.toggle('is-selected', item === thumbnail));
+    }));
+  });
+
+  document.querySelectorAll('.mobile-product-carousel').forEach((carousel) => {
+    const track = carousel.querySelector('.mobile-carousel-track');
+    const slides = [...carousel.querySelectorAll('.mobile-carousel-slide')];
+    const dots = [...carousel.querySelectorAll('.mobile-carousel-dots i')];
+    if (!track || slides.length < 2) return;
+    let current = 0;
+    let startX = 0;
+    let dragging = false;
+    let moved = false;
+
+    const render = (animate = true, dragOffset = 0) => {
+      const offset = -(slides[current].offsetLeft) + dragOffset;
+      track.style.transition = animate ? 'transform 280ms ease' : 'none';
+      track.style.transform = `translate3d(${offset}px, 0, 0)`;
+      dots.forEach((dot, index) => dot.classList.toggle('is-active', index === current));
+    };
+    const moveTo = (index) => {
+      current = Math.max(0, Math.min(slides.length - 1, index));
+      render(true);
+    };
+    track.style.overflow = 'visible';
+    track.style.touchAction = 'pan-y';
+    track.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      dragging = true;
+      moved = false;
+      startX = event.clientX;
+      track.setPointerCapture?.(event.pointerId);
+      track.style.transition = 'none';
+    });
+    track.addEventListener('pointermove', (event) => {
+      if (!dragging) return;
+      const distance = event.clientX - startX;
+      if (Math.abs(distance) > 4) moved = true;
+      if (moved) {
+        event.preventDefault();
+        render(false, distance);
+      }
+    });
+    track.addEventListener('pointerup', (event) => {
+      if (!dragging) return;
+      const distance = event.clientX - startX;
+      dragging = false;
+      track.releasePointerCapture?.(event.pointerId);
+      const threshold = Math.max(36, carousel.clientWidth * 0.12);
+      moveTo(Math.abs(distance) >= threshold ? current + (distance < 0 ? 1 : -1) : current);
+    });
+    track.addEventListener('pointercancel', () => { dragging = false; render(true); });
+    dots.forEach((dot, index) => dot.addEventListener('click', () => moveTo(index)));
+    window.addEventListener('resize', () => render(false));
+    render(false);
+  });
+
   const countdown = document.querySelector('[data-ready-countdown]');
   const readyCard = document.querySelector('[data-ready-deadline]');
   if (countdown && readyCard) {
