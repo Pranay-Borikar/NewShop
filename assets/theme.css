@@ -4,3 +4,32 @@
 @media(max-width:749px){.site-header{top:34px!important}}
 #MainContent{padding-top:106px}
 @media(max-width:749px){#MainContent{padding-top:100px}}
+
+/* Two-level desktop header: centered brand, search on the left, actions on the right. */
+.site-header{height:142px;min-height:0;padding:0 48px;border-radius:0;display:block;box-shadow:0 8px 24px #0000000d}
+.header-main-row{height:92px;display:grid;grid-template-columns:minmax(250px,1fr) auto minmax(250px,1fr);align-items:center;gap:24px}
+.mobile-menu-toggle{display:none}
+.header-search{width:270px;height:46px;display:flex;align-items:center;gap:12px;padding:0 16px;background:#f4f4f2;color:#687068;font-size:14px;letter-spacing:.3px}
+.header-search svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;flex:none}
+.brand{justify-self:center;display:flex;align-items:center;gap:7px}
+.brand-icon,.brand-icon svg{width:34px;height:29px;display:block;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.brand-name{font-size:27px;letter-spacing:1px}
+.header-actions{justify-self:end;display:flex;align-items:center;gap:24px}
+.header-icon{position:relative;display:grid;place-items:center;width:28px;height:38px}
+.header-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.main-nav{height:50px;display:flex;align-items:center;justify-content:center;gap:34px;flex:none;border-top:1px solid #f0f0ed;font-size:12px;letter-spacing:1.5px}
+#MainContent{padding-top:180px}
+@media(max-width:749px){
+  .site-header{height:66px;min-height:66px;padding:0 12px;border-radius:0;display:block!important}
+  .header-main-row{width:100%;height:66px;display:block;position:relative}
+  .mobile-menu-toggle{display:flex;position:absolute;z-index:2;left:0;top:17px;width:30px;height:32px;padding:5px 0;border:0;background:transparent;flex-direction:column;justify-content:space-between;cursor:pointer}
+  .header-search{position:absolute;z-index:2;left:42px;top:16px;width:28px;height:35px;padding:0;background:#fff}
+  .header-search span{display:none}.header-search svg{width:20px;height:20px}
+  .brand{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);gap:5px}
+  .brand-icon,.brand-icon svg{width:22px;height:22px}.brand-name{font-size:18px}
+  .header-actions{position:absolute;z-index:2;right:0;top:15px;gap:2px}
+  .header-actions .header-icon{width:29px;height:35px}.header-actions .header-icon svg{width:19px;height:19px}
+  .header-actions .header-icon:not(.cart-icon){display:none}
+  .main-nav{height:auto;border-top:0}
+  #MainContent{padding-top:100px}
+}
