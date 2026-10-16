@@ -131,3 +131,16 @@ body.header-is-stuck .search-panel{top:128px}
   .search-result img{width:72px;height:90px;flex:0 0 72px;aspect-ratio:auto;margin:0 10px 0 0}
   .search-result-info{display:flex;min-width:0;justify-content:center}
 }
+
+/* Final search panel alignment and compact sizing. */
+.search-panel{width:min(540px,100vw);border-radius:0 10px 10px 0;text-align:left}
+.search-panel-heading,.search-form,.search-results{width:100%;max-width:none;margin-left:0;margin-right:0}
+.search-panel-heading{position:relative;justify-content:flex-start;text-align:left;padding-right:52px}
+.search-close{position:absolute;top:10px;right:16px;margin:0;padding:4px;line-height:1}
+.search-form{text-align:left}
+.search-results-heading{text-align:left}
+@media(max-width:749px){
+  .search-panel{width:100vw!important;border-radius:0!important}
+  .search-panel-heading{padding-right:48px}
+  .search-close{top:calc(10px + env(safe-area-inset-top));right:14px}
+}
