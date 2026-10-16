@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const siteHeader = document.querySelector('.site-header');
+  if (siteHeader) {
+    const updateStickyHeader = () => {
+      const isStuck = window.scrollY > 0;
+      siteHeader.classList.toggle('is-stuck', isStuck);
+      document.body.classList.toggle('header-is-stuck', isStuck);
+    };
+    updateStickyHeader();
+    window.addEventListener('scroll', updateStickyHeader, { passive: true });
+  }
   document.querySelectorAll('.mobile-menu-toggle').forEach((toggle) => {
     toggle.addEventListener('click', () => {
       const header = toggle.closest('.site-header');
