@@ -261,8 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   document.querySelectorAll('[data-search-open]').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); openSearch(); }));
   searchOverlay?.querySelectorAll('[data-search-close]').forEach((button) => button.addEventListener('click', closeSearch));
-  searchOverlay?.querySelectorAll('[data-search-home]').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); closeSearch(); }));
-  searchOverlay?.querySelector('[data-search-clear]')?.addEventListener('click', () => { searchInput.value = ''; searchForm?.classList.remove('has-query'); searchProducts(''); searchInput.focus(); });
+  searchOverlay?.querySelectorAll('.search-close').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); closeSearch(); }));
+  searchOverlay?.querySelector('.search-input-clear')?.addEventListener('click', (event) => { event.preventDefault(); searchInput.value = ''; searchForm?.classList.remove('has-query'); searchProducts(''); searchInput.focus(); });
   searchInput?.addEventListener('input', () => {
     const query = searchInput.value.trim();
     searchForm?.classList.toggle('has-query', Boolean(query));
