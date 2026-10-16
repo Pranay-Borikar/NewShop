@@ -44,8 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let dragging = false;
     let moved = false;
 
+    const sideInset = () => {
+      const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+      return Math.max(0, (carousel.clientWidth - slides[0].getBoundingClientRect().width - gap) / 2);
+    };
+
     const render = (animate = true, dragOffset = 0) => {
-      const offset = -(slides[current].offsetLeft) + dragOffset;
+      const offset = -(slides[current].offsetLeft - sideInset()) + dragOffset;
       track.style.transition = animate ? 'transform 280ms ease' : 'none';
       track.style.transform = `translate3d(${offset}px, 0, 0)`;
       dots.forEach((dot, index) => dot.classList.toggle('is-active', index === current));

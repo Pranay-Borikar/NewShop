@@ -19,7 +19,8 @@
 @media screen and (max-width:749px){body:has(.product-detail-page) .announcement-bar{display:block!important}}
 @media screen and (max-width:749px){
   .mobile-product-carousel{touch-action:pan-y;overflow:hidden}
-  .mobile-carousel-track{overflow:visible!important;scroll-snap-type:none;touch-action:pan-y;user-select:none;will-change:transform}
+  .mobile-carousel-track{overflow:visible!important;scroll-snap-type:none;touch-action:pan-y;user-select:none;will-change:transform;background:#fff}
+  .mobile-carousel-slide{scroll-snap-align:center}
 }
 @media screen and (min-width:550px) and (max-width:1000px){
   .product-detail-page{display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,.9fr);gap:28px;padding:30px 24px 60px}
