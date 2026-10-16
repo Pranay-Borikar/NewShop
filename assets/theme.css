@@ -36,9 +36,10 @@
 
 /* Keep the announcement in normal flow; only the header and nav stay sticky. */
 .announcement-bar{position:relative!important;top:auto!important;z-index:101!important}
-.site-header{position:sticky!important;top:0!important;z-index:100!important;height:128px}
+.site-header{position:sticky!important;top:0!important;left:0;right:0;z-index:100!important;height:128px;overflow:visible}
 .header-main-row{height:78px}
 #MainContent{padding-top:0!important}
+html,body{overflow-x:clip!important}
 @media(max-width:749px){
   .site-header{height:66px}
   .header-main-row{height:66px}
