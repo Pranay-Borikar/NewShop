@@ -19,11 +19,11 @@
 <div class="search-overlay" id="SearchOverlay" aria-hidden="true">
   <button class="search-overlay-backdrop" type="button" aria-label="Close search" data-search-close></button>
   <section class="search-panel" role="dialog" aria-modal="true" aria-labelledby="SearchHeading">
-    <div class="search-panel-heading"><span id="SearchHeading">Search MarkAvenue</span><button class="search-close" type="button" aria-label="Close search" data-search-close>×</button></div>
+    <div class="search-panel-heading"><span id="SearchHeading">Search MarkAvenue</span><button class="search-close" type="button" aria-label="Return home" data-search-home>×</button></div>
     <form class="search-form" action="{{ routes.search_url }}" method="get" role="search" data-search-form>
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 5 5"></path></svg>
       <input type="search" name="q" placeholder="Search products" autocomplete="off" aria-label="Search products" data-search-input>
-      <button type="button" class="search-input-clear" aria-label="Clear search" data-search-clear>×</button>
+      <button type="button" class="search-input-clear" aria-label="Return home" data-search-home>×</button>
     </form>
     <div class="search-results" data-search-results aria-live="polite"><p class="search-message">Start typing to search our collection.</p></div>
   </section>
