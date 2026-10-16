@@ -230,4 +230,6 @@ body.header-is-stuck .search-panel{top:128px}
 }
 
 .festive-announcement{font-family:'Outfit',sans-serif}.festive-announcement-copy strong{font-size:24px;font-weight:600}.festive-announcement-copy span{font-size:15px}.festive-countdown b{font-size:24px;font-weight:600}.festive-countdown small{font-size:10px}.festive-code{font-size:14px}
+.announcement-bar{z-index:1!important}
+.site-header,.site-header.is-stuck{z-index:200!important}
 @media(max-width:749px){.festive-announcement-copy strong{font-size:14px}.festive-announcement-copy span{font-size:10px}.festive-countdown b{font-size:16px}.festive-countdown small{font-size:7px}.festive-code{font-size:9px}}
