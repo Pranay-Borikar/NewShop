@@ -4,7 +4,7 @@
     <h1>Search results{% if search.terms != blank %} for “{{ search.terms | escape }}”{% endif %}</h1>
     <form class="search-results-form" action="{{ routes.search_url }}" method="get" role="search">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 5 5"></path></svg>
-      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products" aria-label="Search products">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products" aria-label="Search products"{% if search.terms != blank %} autofocus{% endif %}>
       <input type="hidden" name="type" value="product">
       <button type="submit">Search</button>
       {% if search.terms != blank %}<a href="{{ routes.search_url }}" aria-label="Clear search">×</a>{% endif %}

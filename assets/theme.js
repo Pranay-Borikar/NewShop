@@ -250,6 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
   searchInput?.addEventListener('input', () => {
     const query = searchInput.value.trim();
     searchForm?.classList.toggle('has-query', Boolean(query));
+    if (query) { window.location.assign(`/search?q=${encodeURIComponent(query)}`); return; }
     clearTimeout(searchTimer);
     searchVersion += 1;
     searchRequest?.abort();
