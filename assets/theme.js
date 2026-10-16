@@ -131,17 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
     searchResults.replaceChildren();
     const heading = document.createElement('p');
     heading.className = 'search-results-heading';
-    heading.textContent = 'Popular searches';
-    const suggestions = document.createElement('div');
-    suggestions.className = 'search-suggestions';
-    ['Anarkali', 'Suit & Gowns', 'New Arrival', 'Best Seller'].forEach((term) => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.dataset.searchSuggestion = term;
-      button.textContent = term;
-      suggestions.appendChild(button);
-    });
-    searchResults.append(heading, suggestions);
+    heading.textContent = 'From our collection';
+    const message = document.createElement('p');
+    message.className = 'search-message';
+    message.textContent = 'Loading products...';
+    searchResults.append(heading, message);
   };
   const closeSearch = () => {
     if (!searchOverlay?.classList.contains('is-open')) return;
@@ -160,16 +154,16 @@ document.addEventListener('DOMContentLoaded', () => {
     searchOverlay.classList.add('is-open');
     searchOverlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('search-is-open');
-    showSuggestions();
+    loadCatalogSuggestions();
     requestAnimationFrame(() => searchInput?.focus());
   };
-  const renderSearchResults = (products, query, version) => {
+  const renderSearchResults = (products, query, version, catalogSuggestions = false) => {
     if (!searchResults || version !== searchVersion || !searchOverlay.classList.contains('is-open')) return;
     searchResults.replaceChildren();
-    if (!products.length) { showSearchMessage(`No products found for “${query}”.`); return; }
+    if (!products.length) { showSearchMessage(catalogSuggestions ? 'No products are available right now.' : `No products found for “${query}”.`); return; }
     const heading = document.createElement('p');
     heading.className = 'search-results-heading';
-    heading.textContent = 'Matching products';
+    heading.textContent = catalogSuggestions ? 'From our collection' : 'Matching products';
     const grid = document.createElement('div');
     grid.className = 'search-results-grid';
     products.forEach((product) => {
@@ -191,14 +185,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const viewAll = document.createElement('a');
     viewAll.className = 'search-view-all';
-    viewAll.href = `/search?q=${encodeURIComponent(query)}`;
-    viewAll.textContent = 'View all results';
-    searchResults.append(heading, grid, viewAll);
+    if (query) {
+      viewAll.href = `/search?q=${encodeURIComponent(query)}`;
+      viewAll.textContent = 'View all results';
+      searchResults.append(heading, grid, viewAll);
+    } else searchResults.append(heading, grid);
+  };
+  const loadCatalogSuggestions = async () => {
+    const version = ++searchVersion;
+    searchRequest?.abort();
+    searchRequest = new AbortController();
+    showSuggestions();
+    try {
+      const response = await fetch('/collections/all/products.json?limit=4', { signal: searchRequest.signal, headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('Catalog request failed');
+      const data = await response.json();
+      const products = (data.products || []).map((product) => ({ title: product.title, url: `/products/${product.handle}`, featured_image: product.images?.[0]?.src, price: product.variants?.[0]?.price ? `₹${product.variants[0].price}` : '' }));
+      renderSearchResults(products, '', version, true);
+    } catch (error) {
+      if (error.name !== 'AbortError' && version === searchVersion) showSearchMessage('Start typing to search our collection.');
+    }
   };
   const searchProducts = async (query) => {
     const version = ++searchVersion;
     searchRequest?.abort();
-    if (!query) { showSuggestions(); return; }
+    if (!query) { loadCatalogSuggestions(); return; }
     searchRequest = new AbortController();
     showSearchMessage('Searching...');
     try {
@@ -215,7 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
   searchOverlay?.querySelectorAll('[data-search-close]').forEach((button) => button.addEventListener('click', closeSearch));
   searchOverlay?.querySelector('[data-search-clear]')?.addEventListener('click', () => { searchInput.value = ''; searchForm?.classList.remove('has-query'); searchProducts(''); searchInput.focus(); });
   searchInput?.addEventListener('input', () => { const query = searchInput.value.trim(); searchForm?.classList.toggle('has-query', Boolean(query)); clearTimeout(searchTimer); searchVersion += 1; searchRequest?.abort(); searchTimer = setTimeout(() => searchProducts(query), 80); });
-  searchResults?.addEventListener('click', (event) => { const suggestion = event.target.closest('[data-search-suggestion]'); if (!suggestion) return; searchInput.value = suggestion.dataset.searchSuggestion; searchForm?.classList.add('has-query'); searchProducts(searchInput.value.trim()); });
   searchForm?.addEventListener('submit', (event) => { if (!searchInput?.value.trim()) event.preventDefault(); });
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && searchOverlay?.classList.contains('is-open')) closeSearch(); });
 
