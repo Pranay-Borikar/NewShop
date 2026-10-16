@@ -1,7 +1,37 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": { "type": "hero-carousel" },
-    "products": { "type": "ten-products", "settings": { "product_limit": 8 } }
+    "hero": {
+      "type": "hero-carousel",
+      "settings": {
+        "eyebrow": "Made for every celebration",
+        "heading": "Traditions in timeless elegance",
+        "button_label": "Shop new arrivals",
+        "button_link": "",
+        "interval": 3
+      }
+    },
+    "products": {
+      "type": "ten-products",
+      "settings": {
+        "collection": "",
+        "product_limit": 8,
+        "eyebrow": "Curated collection",
+        "heading": "New arrivals",
+        "subheading": "Discover pieces designed for everyday celebrations."
+      }
+    }
   },
-  "order": ["hero", "products"]
+  "order": [
+    "hero",
+    "products"
+  ]
 }
