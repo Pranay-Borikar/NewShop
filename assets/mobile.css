@@ -99,3 +99,19 @@
   .search-form{flex:0 0 auto}
   .search-results{max-height:none!important;overflow-y:auto;overscroll-behavior:contain;padding-bottom:12px}
 }
+
+/* Search panel refinements. Keep the row swipeable while removing browser scrollbars. */
+.search-panel-heading{gap:32px;padding-right:2px}
+.search-panel-heading span{min-width:0}
+.search-close{flex:0 0 auto;margin-left:auto;padding:4px 0 4px 18px}
+.search-results-grid{display:flex;flex-wrap:nowrap;gap:14px;overflow-x:auto;overflow-y:hidden;padding:0 2px 8px;scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain}
+.search-results-grid::-webkit-scrollbar{display:none;width:0;height:0}
+.search-result{flex:0 0 220px}
+@media(min-width:750px){
+  .search-panel{left:24px;right:auto;transform:translateY(-10px)}
+  .search-overlay.is-open .search-panel{transform:translateY(0)}
+}
+@media(max-width:749px){
+  .search-panel-heading{gap:20px}
+  .search-result{flex:0 0 168px}
+}
