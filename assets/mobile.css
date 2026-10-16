@@ -115,3 +115,19 @@
   .search-panel-heading{gap:20px}
   .search-result{flex:0 0 168px}
 }
+
+/* Anchor the popup to the banner and present collection results as a vertical list. */
+.search-panel{top:166px;left:0;right:auto;width:min(620px,100vw);transform:translateY(-10px)}
+.search-overlay.is-open .search-panel{transform:translateY(0)}
+body.header-is-stuck .search-panel{top:128px}
+.search-results{scrollbar-width:none;-ms-overflow-style:none}
+.search-results::-webkit-scrollbar{display:none;width:0;height:0}
+.search-results-grid{display:flex;flex-direction:column;flex-wrap:nowrap;gap:10px;overflow:visible;padding:0 2px 8px}
+.search-result{display:flex;flex:0 0 auto;width:100%;align-items:center}
+@media(max-width:749px){
+  .search-panel{top:100px!important;left:0!important;right:0!important;bottom:auto!important;width:100vw!important;max-height:calc(100vh - 100px)!important;height:calc(100vh - 100px)!important;border-radius:0;padding-left:16px!important;padding-right:16px!important}
+  body.header-is-stuck .search-panel{top:66px!important;max-height:calc(100vh - 66px)!important;height:calc(100vh - 66px)!important}
+  .search-result{display:flex;flex:0 0 auto;width:100%;padding:8px}
+  .search-result img{width:72px;height:90px;flex:0 0 72px;aspect-ratio:auto;margin:0 10px 0 0}
+  .search-result-info{display:flex;min-width:0;justify-content:center}
+}
