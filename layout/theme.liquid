@@ -13,6 +13,7 @@
     {{ 'fonts.css' | asset_url | stylesheet_tag }}
   </head>
   <body>
+    {% section 'festive-announcement' %}
     {% section 'announcement-bar' %}
     {% section 'header' %}
     <main id="MainContent">{{ content_for_layout }}</main>
