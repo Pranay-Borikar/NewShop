@@ -260,6 +260,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let fullSearchTimer;
   let fullSearchRequest;
   let fullSearchVersion = 0;
+  const focusSearchInputEnd = (input) => {
+    if (!input) return;
+    input.focus({ preventScroll: true });
+    const end = input.value.length;
+    input.setSelectionRange(end, end);
+  };
   const bindFullSearchInput = (input) => {
     if (!input || input.dataset.ajaxBound === 'true') return;
     input.dataset.ajaxBound = 'true';
@@ -287,8 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
           history.replaceState({}, '', query ? `/search?q=${encodeURIComponent(query)}` : '/search');
           page.classList.remove('is-search-loading');
           bindFullSearchInput(nextInput);
-          nextInput?.focus();
-          nextInput?.setSelectionRange(query.length, query.length);
+          focusSearchInputEnd(nextInput);
         } catch (error) {
           if (error.name !== 'AbortError') page.classList.remove('is-search-loading');
         }
@@ -296,6 +301,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
   document.querySelectorAll('.search-results-form input[name="q"]').forEach(bindFullSearchInput);
+  const initialResultsInput = document.querySelector('.search-results-page .search-results-form input[name="q"]');
+  if (initialResultsInput?.value) requestAnimationFrame(() => focusSearchInputEnd(initialResultsInput));
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && searchOverlay?.classList.contains('is-open')) closeSearch(); });
 
   const countdown = document.querySelector('[data-ready-countdown]');
