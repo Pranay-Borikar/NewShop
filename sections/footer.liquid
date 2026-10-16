@@ -25,4 +25,10 @@
     <a href="{{ pages['return-exchange'].url | default: routes.root_url }}">Request Return / Exchange</a>
   </nav>
 </footer>
+<div class="footer-art" aria-hidden="true">
+  <picture>
+    <source media="(max-width: 749px)" srcset="{{ 'footer mobile view.png' | asset_url }}">
+    <img src="{{ 'footer.png' | asset_url }}" alt="" loading="lazy" width="2103" height="748">
+  </picture>
+</div>
 {% schema %}{ "name": "Footer", "settings": [] }{% endschema %}
