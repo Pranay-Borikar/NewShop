@@ -148,13 +148,14 @@ body.header-is-stuck .search-panel{top:128px}
 /* Keep product details at the image's top edge and align the heading controls. */
 .search-panel{width:min(500px,100vw)}
 .search-panel-heading{align-items:flex-start;justify-content:space-between;padding-right:0;line-height:1.2}
+.search-panel-heading{font-size:20px}
 .search-close{position:static;flex:0 0 auto;align-self:flex-start;margin:0 0 0 20px;padding:0 2px;line-height:1}
 .search-result{align-items:flex-start}
 .search-result-info{justify-content:flex-start;align-items:flex-start;padding-top:0}
 .search-result-title{line-height:1.35;-webkit-line-clamp:3}
 @media(max-width:749px){
   .search-panel{width:100vw!important}
-  .search-panel-heading{padding-right:0}
+  .search-panel-heading{padding-right:0;font-size:18px}
   .search-close{position:static;align-self:flex-start;margin-left:14px}
   .search-result-info{justify-content:flex-start;align-items:flex-start}
 }

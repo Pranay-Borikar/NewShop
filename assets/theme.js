@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const searchHeading = document.getElementById('SearchHeading');
+  if (searchHeading) searchHeading.textContent = 'What are you looking for?';
   const siteHeader = document.querySelector('.site-header');
   if (siteHeader) {
     const updateStickyHeader = () => {
