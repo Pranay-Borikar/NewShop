@@ -112,6 +112,113 @@ document.addEventListener('DOMContentLoaded', () => {
     render(false);
   });
 
+  const searchOverlay = document.querySelector('#SearchOverlay');
+  const searchInput = searchOverlay?.querySelector('[data-search-input]');
+  const searchForm = searchOverlay?.querySelector('[data-search-form]');
+  const searchResults = searchOverlay?.querySelector('[data-search-results]');
+  let searchTimer;
+  let searchRequest;
+  let searchVersion = 0;
+  const showSearchMessage = (message) => {
+    if (!searchResults) return;
+    const node = document.createElement('p');
+    node.className = 'search-message';
+    node.textContent = message;
+    searchResults.replaceChildren(node);
+  };
+  const showSuggestions = () => {
+    if (!searchResults) return;
+    searchResults.replaceChildren();
+    const heading = document.createElement('p');
+    heading.className = 'search-results-heading';
+    heading.textContent = 'Popular searches';
+    const suggestions = document.createElement('div');
+    suggestions.className = 'search-suggestions';
+    ['Anarkali', 'Suit & Gowns', 'New Arrival', 'Best Seller'].forEach((term) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.searchSuggestion = term;
+      button.textContent = term;
+      suggestions.appendChild(button);
+    });
+    searchResults.append(heading, suggestions);
+  };
+  const closeSearch = () => {
+    if (!searchOverlay?.classList.contains('is-open')) return;
+    clearTimeout(searchTimer);
+    searchVersion += 1;
+    searchRequest?.abort();
+    searchInput.value = '';
+    searchForm?.classList.remove('has-query');
+    showSuggestions();
+    searchOverlay.classList.remove('is-open');
+    searchOverlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('search-is-open');
+  };
+  const openSearch = () => {
+    if (!searchOverlay) return;
+    searchOverlay.classList.add('is-open');
+    searchOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('search-is-open');
+    showSuggestions();
+    requestAnimationFrame(() => searchInput?.focus());
+  };
+  const renderSearchResults = (products, query, version) => {
+    if (!searchResults || version !== searchVersion || !searchOverlay.classList.contains('is-open')) return;
+    searchResults.replaceChildren();
+    if (!products.length) { showSearchMessage(`No products found for “${query}”.`); return; }
+    const heading = document.createElement('p');
+    heading.className = 'search-results-heading';
+    heading.textContent = 'Matching products';
+    const grid = document.createElement('div');
+    grid.className = 'search-results-grid';
+    products.forEach((product) => {
+      const link = document.createElement('a');
+      link.className = 'search-result';
+      link.href = product.url;
+      const image = document.createElement('img');
+      const imageUrl = product.featured_image?.url || product.featured_image;
+      if (imageUrl) { image.src = imageUrl; image.alt = product.title || ''; image.loading = 'lazy'; }
+      const info = document.createElement('span');
+      info.className = 'search-result-info';
+      const title = document.createElement('span');
+      title.className = 'search-result-title';
+      title.textContent = product.title || 'Product';
+      const price = document.createElement('span');
+      price.className = 'search-result-price';
+      price.textContent = product.price || product.price_min || '';
+      info.append(title, price); link.append(image, info); grid.appendChild(link);
+    });
+    const viewAll = document.createElement('a');
+    viewAll.className = 'search-view-all';
+    viewAll.href = `/search?q=${encodeURIComponent(query)}`;
+    viewAll.textContent = 'View all results';
+    searchResults.append(heading, grid, viewAll);
+  };
+  const searchProducts = async (query) => {
+    const version = ++searchVersion;
+    searchRequest?.abort();
+    if (!query) { showSuggestions(); return; }
+    searchRequest = new AbortController();
+    showSearchMessage('Searching...');
+    try {
+      const params = new URLSearchParams({ q: query, 'resources[type]': 'product', 'resources[limit]': '8', 'resources[options][unavailable_products]': 'hide' });
+      const response = await fetch(`/search/suggest.json?${params}`, { signal: searchRequest.signal, headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('Predictive search failed');
+      const data = await response.json();
+      renderSearchResults(data.resources?.results?.products || [], query, version);
+    } catch (error) {
+      if (error.name !== 'AbortError' && version === searchVersion) showSearchMessage('Search is temporarily unavailable. Please try again.');
+    }
+  };
+  document.querySelectorAll('[data-search-open]').forEach((button) => button.addEventListener('click', (event) => { event.preventDefault(); openSearch(); }));
+  searchOverlay?.querySelectorAll('[data-search-close]').forEach((button) => button.addEventListener('click', closeSearch));
+  searchOverlay?.querySelector('[data-search-clear]')?.addEventListener('click', () => { searchInput.value = ''; searchForm?.classList.remove('has-query'); searchProducts(''); searchInput.focus(); });
+  searchInput?.addEventListener('input', () => { const query = searchInput.value.trim(); searchForm?.classList.toggle('has-query', Boolean(query)); clearTimeout(searchTimer); searchVersion += 1; searchRequest?.abort(); searchTimer = setTimeout(() => searchProducts(query), 80); });
+  searchResults?.addEventListener('click', (event) => { const suggestion = event.target.closest('[data-search-suggestion]'); if (!suggestion) return; searchInput.value = suggestion.dataset.searchSuggestion; searchForm?.classList.add('has-query'); searchProducts(searchInput.value.trim()); });
+  searchForm?.addEventListener('submit', (event) => { if (!searchInput?.value.trim()) event.preventDefault(); });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && searchOverlay?.classList.contains('is-open')) closeSearch(); });
+
   const countdown = document.querySelector('[data-ready-countdown]');
   const readyCard = document.querySelector('[data-ready-deadline]');
   if (countdown && readyCard) {

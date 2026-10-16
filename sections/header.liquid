@@ -10,10 +10,22 @@
     <a href="{{ pages['track-order'].url | default: routes.root_url }}">Track Order</a>
   </nav>
   <div class="header-actions">
-    <a class="header-icon search-icon" href="{{ routes.search_url }}" aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 5 5"></path></svg></a>
+    <a class="header-icon search-icon" href="#search" aria-label="Search" data-search-open><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 5 5"></path></svg></a>
     <a class="header-icon" href="#wishlist" aria-label="Wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 5.4-8.8 10.2-8.8 10.2S3.2 14.2 3.2 8.8A4.4 4.4 0 0 1 12 6.7a4.4 4.4 0 0 1 8.8 2.1Z"></path></svg></a>
     <a class="header-icon" href="{{ routes.account_url }}" aria-label="Account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"></circle><path d="M4.5 21c.6-4 3-6 7.5-6s6.9 2 7.5 6"></path></svg></a>
     <a class="header-icon cart-icon" href="{{ routes.cart_url }}" aria-label="Cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h2l2.1 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.5L20 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="17" cy="20" r="1"></circle></svg><span class="cart-count">{{ cart.item_count }}</span></a>
   </div>
 </header>
+<div class="search-overlay" id="SearchOverlay" aria-hidden="true">
+  <button class="search-overlay-backdrop" type="button" aria-label="Close search" data-search-close></button>
+  <section class="search-panel" role="dialog" aria-modal="true" aria-labelledby="SearchHeading">
+    <div class="search-panel-heading"><span id="SearchHeading">Search MarkAvenue</span><button class="search-close" type="button" aria-label="Close search" data-search-close>×</button></div>
+    <form class="search-form" action="{{ routes.search_url }}" method="get" role="search" data-search-form>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 5 5"></path></svg>
+      <input type="search" name="q" placeholder="Search products" autocomplete="off" aria-label="Search products" data-search-input>
+      <button type="button" class="search-input-clear" aria-label="Clear search" data-search-clear>×</button>
+    </form>
+    <div class="search-results" data-search-results aria-live="polite"><p class="search-message">Start typing to search our collection.</p></div>
+  </section>
+</div>
 {% schema %}{ "name": "Header", "settings": [] }{% endschema %}
