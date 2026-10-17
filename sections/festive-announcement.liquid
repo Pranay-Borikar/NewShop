@@ -1,4 +1,4 @@
-<div class="festive-announcement" role="status" data-festive-sale data-sale-end="2026-10-20T23:59:59+05:30">
+<div class="festive-announcement" role="status" data-festive-sale data-sale-end="{{ section.settings.sale_end_date }}T23:59:59+05:30">
   <div class="festive-announcement-copy">
     <strong>{{ section.settings.sale_heading }}</strong>
     <span>{{ section.settings.sale_subheading }}</span>
@@ -17,7 +17,8 @@
   "settings": [
     { "type": "text", "id": "sale_heading", "label": "Sale heading", "default": "FESTIVE SALE IS LIVE: UPTO 80% OFF" },
     { "type": "text", "id": "sale_subheading", "label": "Sale subheading", "default": "Applicable only on Prepaid Orders" },
-    { "type": "text", "id": "coupon_text", "label": "Coupon button text", "default": "USE - FESTIVE80" }
+    { "type": "text", "id": "coupon_text", "label": "Coupon button text", "default": "USE - FESTIVE80" },
+    { "type": "date", "id": "sale_end_date", "label": "Sale end date", "default": "2026-10-20" }
   ]
 }
 {% endschema %}
