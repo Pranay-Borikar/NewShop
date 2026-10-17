@@ -1,60 +1,20 @@
-<section class="customer-reviews" data-customer-reviews style="--reviews-bg: {{ section.settings.background_color }}; --reviews-text: {{ section.settings.text_color }}; --reviews-accent: {{ section.settings.accent_color }}">
-  <div class="customer-reviews-panel">
-    <h2>{{ section.settings.heading }}</h2>
-    <div class="customer-reviews-summary">
-      <div class="customer-reviews-summary-copy">
-        <div class="customer-reviews-stars" aria-label="{{ section.settings.rating }} out of 5 stars">☆☆☆☆☆</div>
-        <p>{{ section.settings.empty_message }}</p>
-      </div>
-      <button class="customer-reviews-button" type="button" data-review-trigger aria-expanded="false">{{ section.settings.button_label }}</button>
-    </div>
+<section class="customer-reviews" style="--reviews-bg: {{ section.settings.background_color }}; --reviews-text: {{ section.settings.text_color }}">
+  <!-- Start of Judge.me code -->
+  {% assign has_legacy = false %}
+  {% if product.metafields.judgeme.widget.size > 20 %}{% assign has_legacy = true %}{% endif %}
+  <div style="clear:both"></div>
+  <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}" data-product-id="{{ product.id }}" data-widget="review" data-auto-install="false" data-shop-reviews-count="{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}" data-entry-point="review_widget.js" data-entry-key="review-widget/main.js">
+    {% if has_legacy %}<div class="jdgm-legacy-widget-content" style="display:none">{{ product.metafields.judgeme.widget }}</div>{% endif %}
   </div>
-
-  <div class="customer-reviews-divider"></div>
-  <h3 class="customer-reviews-subheading">{{ section.settings.reviews_heading }}</h3>
-  <div class="customer-reviews-widget" data-review-form>
-    {{ shop.metafields.judgeme.settings }}
-    <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-auto-install="true" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}">
-      {{ product.metafields.judgeme.widget }}
-    </div>
-  </div>
+  {% if product.metafields.judgeme.review_widget_data %}<script>jdgm.data ||= {}; jdgm.data.reviewWidget ||= {}; jdgm.data.reviewWidget[{{ product.id }}] = {{ product.metafields.judgeme.review_widget_data }}</script>{% endif %}
+  <!-- End of Judge.me code -->
 </section>
-<script>
-  (() => {
-    const section = document.querySelector('[data-customer-reviews]');
-    if (!section || section.dataset.bound) return;
-    section.dataset.bound = 'true';
-    const trigger = section.querySelector('[data-review-trigger]');
-    const form = section.querySelector('[data-review-form]');
-    trigger?.addEventListener('click', () => {
-      const open = section.classList.toggle('is-open');
-      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (open) {
-        window.setTimeout(() => {
-          const openJudgeMeForm = (attempt = 0) => {
-            const judgeMeWriteLink = section.querySelector('.jdgm-write-rev-link, .jdgm-write-rev-link a, [data-jdgm-action="write-review"]');
-            if (judgeMeWriteLink) return judgeMeWriteLink.click();
-            if (attempt < 10) window.setTimeout(() => openJudgeMeForm(attempt + 1), 300);
-          };
-          openJudgeMeForm();
-          form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 250);
-      }
-    });
-  })();
-</script>
 {% schema %}
 {
   "name": "Customer reviews",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Customer Reviews" },
-    { "type": "text", "id": "rating", "label": "Rating", "default": "0" },
-    { "type": "text", "id": "empty_message", "label": "Empty review message", "default": "Be the first to write a review" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Write a review" },
-    { "type": "text", "id": "reviews_heading", "label": "Reviews list heading", "default": "What Our Customers Say" },
-    { "type": "color", "id": "background_color", "label": "Panel background", "default": "#FFFDFC" },
-    { "type": "color", "id": "text_color", "label": "Text color", "default": "#29382F" },
-    { "type": "color", "id": "accent_color", "label": "Button color", "default": "#29382F" }
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#F8F1E8" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#29382F" }
   ],
   "presets": [{ "name": "Customer reviews" }]
 }
