@@ -5,7 +5,7 @@
       {% assign image = section.settings[image_key] %}
       {% case i %}{% when 1 %}{% assign banner_asset = 'banner.png' %}{% assign mobile_banner_asset = 'banner mobile view.png' %}{% when 2 %}{% assign banner_asset = 'banner1.png' %}{% assign mobile_banner_asset = 'banner1 mobile view.png' %}{% when 3 %}{% assign banner_asset = 'banner2.png' %}{% assign mobile_banner_asset = 'banner2 mobile view.png' %}{% when 4 %}{% assign banner_asset = 'banner3.png' %}{% assign mobile_banner_asset = 'banner3 mobile view.png' %}{% endcase %}
       <div class="carousel-slide{% if forloop.first %} is-active{% endif %}">
-        <picture><source media="(max-width: 749px)" srcset="{{ mobile_banner_asset | asset_url }}"><img class="hero-image" src="{{ banner_asset | asset_url }}" alt="{{ section.settings.heading }}" width="2172" height="724"{% if forloop.first %} loading="eager"{% else %} loading="lazy"{% endif %}></picture>
+        <picture><source media="(max-width: 749px)" srcset="{% if image != blank %}{{ image | image_url: width: 1200 }}{% else %}{{ mobile_banner_asset | asset_url }}{% endif %}"><img class="hero-image" src="{% if image != blank %}{{ image | image_url: width: 2172 }}{% else %}{{ banner_asset | asset_url }}{% endif %}" alt="{{ section.settings.heading }}" width="2172" height="724"{% if forloop.first %} loading="eager"{% else %} loading="lazy"{% endif %}></picture>
       </div>
     {% endfor %}
   </div>
