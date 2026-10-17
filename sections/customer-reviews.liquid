@@ -1,7 +1,7 @@
 <section class="customer-reviews" style="--reviews-bg: {{ section.settings.background_color }}; --reviews-text: {{ section.settings.text_color }}; --reviews-accent: {{ section.settings.accent_color }}">
   <h2>{{ section.settings.heading }}</h2>
   <div class="customer-reviews-widget">
-    <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}">
+    <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-auto-install="true" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}">
       {{ product.metafields.judgeme.widget }}
     </div>
   </div>
