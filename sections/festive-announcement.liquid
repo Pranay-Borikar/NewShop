@@ -1,7 +1,7 @@
 <div class="festive-announcement" role="status" data-festive-sale data-sale-end="2026-10-20T23:59:59+05:30">
   <div class="festive-announcement-copy">
-    <strong>FESTIVE SALE IS LIVE: UPTO 80% OFF</strong>
-    <span>Applicable only on Prepaid Orders</span>
+    <strong>{{ section.settings.sale_heading }}</strong>
+    <span>{{ section.settings.sale_subheading }}</span>
   </div>
   <div class="festive-countdown" aria-label="Festive sale countdown">
     <div><b data-sale-days>00</b><small>DAY</small></div><i>:</i>
@@ -9,8 +9,15 @@
     <div><b data-sale-minutes>23</b><small>MIN</small></div><i>:</i>
     <div><b data-sale-seconds>25</b><small>SEC</small></div>
   </div>
-  <span class="festive-code">✦ USE - FESTIVE80</span>
+  <span class="festive-code">✦ {{ section.settings.coupon_text }}</span>
 </div>
 {% schema %}
-{ "name": "Festive sale announcement", "settings": [] }
+{
+  "name": "Festive sale announcement",
+  "settings": [
+    { "type": "text", "id": "sale_heading", "label": "Sale heading", "default": "FESTIVE SALE IS LIVE: UPTO 80% OFF" },
+    { "type": "text", "id": "sale_subheading", "label": "Sale subheading", "default": "Applicable only on Prepaid Orders" },
+    { "type": "text", "id": "coupon_text", "label": "Coupon button text", "default": "USE - FESTIVE80" }
+  ]
+}
 {% endschema %}
