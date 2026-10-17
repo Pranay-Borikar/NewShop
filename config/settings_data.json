@@ -16,44 +16,58 @@
           "sale_heading": "FESTIVE SALE IS LIVE: UPTO 80% OFF",
           "sale_subheading": "Applicable only on Prepaid Orders",
           "coupon_text": "USE - FESTIVE80",
-          "sale_end_date": "2026-10-20"
+          "sale_end_date": "2026-10-20",
+          "background_color": "#b8553f",
+          "text_color": "#fbf1e4",
+          "button_background": "#fbf1e4",
+          "button_text_color": "#b8553f"
         }
       },
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "message": "USE CODE WELCOME20 FOR 20% OFF YOUR ORDER"
+          "message": "USE CODE WELCOME20 FOR 20% OFF YOUR ORDER",
+          "background_color": "#263a30",
+          "text_color": "#fbf1e4",
+          "symbol_color": "#c9a24b",
+          "speed": 24
         }
       },
       "header": {
         "type": "header",
-        "blocks": {
-          "nav_item_rVFMcY": {
-            "type": "nav_item",
-            "settings": {
-              "label": "FestiSale",
-              "link": "https://wzy5cu-dp.myshopify.com/#festive"
-            }
-          }
-        },
-        "block_order": [
-          "nav_item_rVFMcY"
-        ],
         "settings": {
           "brand_name": "MarkAvenue",
+          "background_color": "#fbf1e4",
+          "text_color": "#263a30",
+          "nav_background": "#fbf1e4",
+          "nav_text_color": "#263a30",
           "show_new_arrivals": true,
           "new_arrivals_label": "NEW ARRIVAL",
           "show_suit_gowns": true,
           "suit_gowns_label": "SUIT & GOWNS",
           "show_best_seller": true,
           "best_seller_label": "BEST SELLER",
+          "show_custom_nav_1": false,
+          "custom_nav_1_label": "NEW MENU ITEM",
+          "custom_nav_1_link": "",
+          "show_custom_nav_2": false,
+          "custom_nav_2_label": "NEW MENU ITEM",
+          "custom_nav_2_link": "",
+          "show_custom_nav_3": false,
+          "custom_nav_3_label": "NEW MENU ITEM",
+          "custom_nav_3_link": "",
           "show_sale": true,
           "sale_label": "SALE"
         }
       },
       "footer": {
         "type": "footer",
-        "settings": {}
+        "settings": {
+          "brand_name": "MarkAvenue",
+          "description": "At MarkAvenue, we curate outfits that reflect your true self, helping you feel confident and beautiful inside and out. Discover thoughtfully designed ethnic clothing in timeless styles, prints, and premium fabrics.",
+          "background_color": "#fce9e1",
+          "text_color": "#4e484b"
+        }
       }
     },
     "content_for_index": []

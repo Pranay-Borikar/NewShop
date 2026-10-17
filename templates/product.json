@@ -1,4 +1,50 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "sections": { "main": { "type": "main-product" }, "related": { "type": "related-products" }, "reviews": { "type": "customer-reviews" } },
-  "order": ["main", "related", "reviews"]
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "eyebrow": "COMPLETE THE LOOK",
+        "heading": "You may also like",
+        "columns": 4,
+        "rows": 2,
+        "grid_gap": 12
+      }
+    },
+    "reviews": {
+      "type": "customer-reviews",
+      "settings": {
+        "heading": "Customer Reviews",
+        "rating": "0",
+        "empty_message": "Be the first to write a review",
+        "button_label": "Write a review",
+        "button_link": "",
+        "background_color": "#fff5f6",
+        "text_color": "#242024",
+        "accent_color": "#b8553f"
+      }
+    },
+    "17922245819f3f61b0": {
+      "type": "apps",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "related",
+    "reviews",
+    "17922245819f3f61b0"
+  ]
 }
