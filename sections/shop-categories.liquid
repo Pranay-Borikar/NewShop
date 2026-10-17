@@ -1,0 +1,37 @@
+<section class="shop-categories" aria-label="Shop by category">
+  <div class="shop-categories-track">
+    <a class="shop-category" href="{{ collections['anarkali-sets'].url | default: routes.collections_url }}">
+      <img src="https://cdn.shopify.com/s/files/1/2542/7564/files/1_911773c9-dc70-4a34-8bcd-53b6a7509ecf.jpg?v=1791445550" alt="Anarkali Sets" loading="lazy">
+      <span>Anarkali Sets</span>
+    </a>
+    <a class="shop-category" href="{{ collections['suit-sets'].url | default: routes.collections_url }}">
+      <img src="https://cdn.shopify.com/s/files/1/2542/7564/files/1_782d6499-ca71-481c-82d5-374112ebbc06.jpg?v=1791445605" alt="Suit Sets" loading="lazy">
+      <span>Suit Sets</span>
+    </a>
+    <a class="shop-category" href="{{ collections.maxis.url | default: routes.collections_url }}">
+      <img src="{{ 'product1.webp' | asset_url }}" alt="Maxis" loading="lazy">
+      <span>Maxis</span>
+    </a>
+    <a class="shop-category" href="{{ collections.dresses.url | default: routes.collections_url }}">
+      <img src="{{ 'product2.webp' | asset_url }}" alt="Dresses" loading="lazy">
+      <span>Dresses</span>
+    </a>
+    <a class="shop-category" href="{{ collections['farshi-sets'].url | default: routes.collections_url }}">
+      <img src="https://cdn.shopify.com/s/files/1/2542/7564/files/1_aacc5388-61b7-4f28-b2e2-45d341f81b54.jpg?v=1791445512" alt="Farshi Sets" loading="lazy">
+      <span>Farshi Sets</span>
+    </a>
+    <a class="shop-category" href="{{ collections['sharara-sets'].url | default: routes.collections_url }}">
+      <img src="https://cdn.shopify.com/s/files/1/2542/7564/files/1_ffd23d9d-12ae-43f6-9970-ed5ee4b3d2c8.jpg?v=1791445569" alt="Sharara Sets" loading="lazy">
+      <span>Sharara Sets</span>
+    </a>
+    <a class="shop-category" href="{{ collections.sarees.url | default: routes.collections_url }}">
+      <img src="https://cdn.shopify.com/s/files/1/2542/7564/files/2_29500818-5979-46e9-9cb9-38df403e7725.jpg?v=1791445723" alt="Sarees" loading="lazy">
+      <span>Sarees</span>
+    </a>
+    <a class="shop-category" href="{{ collections.lehengas.url | default: routes.collections_url }}">
+      <img src="https://cdn.shopify.com/s/files/1/2542/7564/files/2_b6f189ad-8242-468d-8d66-503ae7ba794d.jpg?v=1791445415" alt="Lehengas" loading="lazy">
+      <span>Lehengas</span>
+    </a>
+  </div>
+</section>
+{% schema %}{ "name": "Shop categories", "settings": [] }{% endschema %}

@@ -19,6 +19,10 @@
         "interval": 3
       }
     },
+    "categories": {
+      "type": "shop-categories",
+      "settings": {}
+    },
     "products": {
       "type": "ten-products",
       "settings": {
@@ -32,6 +36,7 @@
   },
   "order": [
     "hero",
+    "categories",
     "products"
   ]
 }
