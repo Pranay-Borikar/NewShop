@@ -18,6 +18,9 @@
       {% if section.settings.show_new_arrivals %}<a href="{{ collections['new-arrivals'].url | default: routes.collections_url }}">{{ section.settings.new_arrivals_label }}</a>{% endif %}
       {% if section.settings.show_suit_gowns %}<a href="{{ collections['suit-gowns'].url | default: routes.collections_url }}">{{ section.settings.suit_gowns_label }}</a>{% endif %}
       {% if section.settings.show_best_seller %}<a href="{{ collections['best-sellers'].url | default: routes.collections_url }}">{{ section.settings.best_seller_label }}</a>{% endif %}
+      {% if section.settings.show_custom_nav_1 and section.settings.custom_nav_1_label != blank %}<a href="{{ section.settings.custom_nav_1_link | default: routes.collections_url }}">{{ section.settings.custom_nav_1_label }}</a>{% endif %}
+      {% if section.settings.show_custom_nav_2 and section.settings.custom_nav_2_label != blank %}<a href="{{ section.settings.custom_nav_2_link | default: routes.collections_url }}">{{ section.settings.custom_nav_2_label }}</a>{% endif %}
+      {% if section.settings.show_custom_nav_3 and section.settings.custom_nav_3_label != blank %}<a href="{{ section.settings.custom_nav_3_link | default: routes.collections_url }}">{{ section.settings.custom_nav_3_label }}</a>{% endif %}
       {% if section.settings.show_sale %}<a href="{{ collections.sale.url | default: routes.collections_url }}">{{ section.settings.sale_label }}</a>{% endif %}
     {% endif %}
   </nav>
@@ -48,6 +51,15 @@
     { "type": "text", "id": "suit_gowns_label", "label": "Suit & gowns label", "default": "SUIT & GOWNS" },
     { "type": "checkbox", "id": "show_best_seller", "label": "Show Best Seller", "default": true },
     { "type": "text", "id": "best_seller_label", "label": "Best seller label", "default": "BEST SELLER" },
+    { "type": "checkbox", "id": "show_custom_nav_1", "label": "Show custom item 1", "default": false },
+    { "type": "text", "id": "custom_nav_1_label", "label": "Custom item 1 label", "default": "NEW MENU ITEM" },
+    { "type": "url", "id": "custom_nav_1_link", "label": "Custom item 1 link" },
+    { "type": "checkbox", "id": "show_custom_nav_2", "label": "Show custom item 2", "default": false },
+    { "type": "text", "id": "custom_nav_2_label", "label": "Custom item 2 label", "default": "NEW MENU ITEM" },
+    { "type": "url", "id": "custom_nav_2_link", "label": "Custom item 2 link" },
+    { "type": "checkbox", "id": "show_custom_nav_3", "label": "Show custom item 3", "default": false },
+    { "type": "text", "id": "custom_nav_3_label", "label": "Custom item 3 label", "default": "NEW MENU ITEM" },
+    { "type": "url", "id": "custom_nav_3_link", "label": "Custom item 3 link" },
     { "type": "checkbox", "id": "show_sale", "label": "Show Sale", "default": true },
     { "type": "text", "id": "sale_label", "label": "Sale label", "default": "SALE" }
   ],
