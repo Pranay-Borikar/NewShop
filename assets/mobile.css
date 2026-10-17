@@ -259,7 +259,7 @@ body.header-is-stuck .search-panel{top:128px}
 .cart-count{background:#B8553F!important}
 .button:hover,.button:active,.view-all:hover,.view-all:active{background:#9A4331!important}
 
-.shop-categories{margin-top:24px;padding:30px 4% 26px;background:#B8553F;color:#FBF1E4;overflow:hidden}
+.shop-categories{padding:30px 4% 26px;background:#B8553F;color:#FBF1E4;overflow:hidden}
 .shop-categories-track{display:flex;justify-content:space-between;gap:24px;max-width:1500px;margin:0 auto}
 .shop-category{display:flex;min-width:120px;flex:1;flex-direction:column;align-items:center;gap:12px;color:#FBF1E4;text-align:center;font-size:15px;letter-spacing:.6px;white-space:nowrap}
 .shop-category img{display:block;width:142px;height:142px;border:3px solid #FBF1E4;border-radius:50%;object-fit:cover;object-position:center}
