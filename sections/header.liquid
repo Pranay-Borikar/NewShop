@@ -12,10 +12,8 @@
   <nav class="main-nav" aria-label="Main navigation">
     <a href="{{ collections['new-arrivals'].url | default: routes.collections_url }}">New Arrival</a>
     <a href="{{ collections['suit-gowns'].url | default: routes.collections_url }}">Suit &amp; Gowns</a>
-    <a href="{{ collections['shanaya-special'].url | default: routes.collections_url }}">Shanaya Special</a>
     <a href="{{ collections['best-sellers'].url | default: routes.collections_url }}">Best Seller</a>
     <a href="{{ collections.sale.url | default: routes.collections_url }}">Sale</a>
-    <a href="{{ pages['track-order'].url | default: routes.root_url }}">Track Order</a>
   </nav>
 <div class="search-overlay" id="SearchOverlay" aria-hidden="true">
   <button class="search-overlay-backdrop" type="button" aria-label="Close search" data-search-close></button>
