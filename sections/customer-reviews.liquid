@@ -13,6 +13,7 @@
   <div class="customer-reviews-divider"></div>
   <h3 class="customer-reviews-subheading">{{ section.settings.reviews_heading }}</h3>
   <div class="customer-reviews-widget" data-review-form>
+    {{ shop.metafields.judgeme.settings }}
     <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-auto-install="true" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}">
       {{ product.metafields.judgeme.widget }}
     </div>
@@ -30,8 +31,12 @@
       trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
       if (open) {
         window.setTimeout(() => {
-          const judgeMeWriteLink = section.querySelector('.jdgm-write-rev-link');
-          if (judgeMeWriteLink) judgeMeWriteLink.click();
+          const openJudgeMeForm = (attempt = 0) => {
+            const judgeMeWriteLink = section.querySelector('.jdgm-write-rev-link, .jdgm-write-rev-link a, [data-jdgm-action="write-review"]');
+            if (judgeMeWriteLink) return judgeMeWriteLink.click();
+            if (attempt < 10) window.setTimeout(() => openJudgeMeForm(attempt + 1), 300);
+          };
+          openJudgeMeForm();
           form.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 250);
       }
