@@ -1,0 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "festive-announcement": {
+        "type": "festive-announcement",
+        "settings": {
+          "sale_heading": "FESTIVE SALE IS LIVE: UPTO 80% OFF",
+          "sale_subheading": "Applicable only on Prepaid Orders",
+          "coupon_text": "USE - FESTIVE80",
+          "sale_end_date": "2026-10-20"
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "message": "USE CODE WELCOME20 FOR 20% OFF YOUR ORDER"
+        }
+      },
+      "header": {
+        "type": "header",
+        "blocks": {
+          "nav_item_rVFMcY": {
+            "type": "nav_item",
+            "settings": {
+              "label": "FestiSale",
+              "link": "https://wzy5cu-dp.myshopify.com/#festive"
+            }
+          }
+        },
+        "block_order": [
+          "nav_item_rVFMcY"
+        ],
+        "settings": {
+          "brand_name": "MarkAvenue",
+          "show_new_arrivals": true,
+          "new_arrivals_label": "NEW ARRIVAL",
+          "show_suit_gowns": true,
+          "suit_gowns_label": "SUIT & GOWNS",
+          "show_best_seller": true,
+          "best_seller_label": "BEST SELLER",
+          "show_sale": true,
+          "sale_label": "SALE"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
+  }
+}

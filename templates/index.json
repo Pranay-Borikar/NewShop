@@ -27,7 +27,6 @@
       "type": "ten-products",
       "settings": {
         "collection": "",
-        "product_limit": 8,
         "eyebrow": "Curated collection",
         "heading": "New arrivals",
         "subheading": "Discover pieces designed for everyday celebrations."
