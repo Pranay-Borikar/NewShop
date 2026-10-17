@@ -224,11 +224,11 @@ body.header-is-stuck .search-panel{top:128px}
 }
 
 .festive-announcement{min-height:78px;display:flex;align-items:center;justify-content:center;gap:42px;padding:8px 24px;background:linear-gradient(105deg,#B99AA0,#E5D4D6);border-top:3px solid #171717;color:#080808;font-family:Arial,sans-serif}
-.festive-announcement{background:#C5A16B;color:#fff}
+.festive-announcement{background:#B8553F;color:#FBF1E4}
 .site-header,.main-nav{background:#8F6870!important;color:#fff!important}
 .main-nav{border-color:#8F6870!important}.main-nav a:hover{color:#fff!important}
 .announcement-bar{background:#263A30!important;color:#fff!important}
-.site-header,.main-nav{background:#D8C0A8!important;color:#263A30!important}
+.site-header,.main-nav{background:#FBF1E4!important;color:#263A30!important}
 .main-nav{border-color:#E7E0D5!important}.main-nav a:hover{color:#263A30!important}
 .festive-announcement-copy{display:flex;flex-direction:column;align-items:center;gap:2px}.festive-announcement-copy strong{font-size:29px;line-height:1.05;letter-spacing:.3px}.festive-announcement-copy span{font-size:17px}.festive-countdown{display:flex;align-items:center;gap:13px}.festive-countdown div{display:flex;min-width:43px;flex-direction:column;align-items:center}.festive-countdown b{font-size:27px;line-height:1}.festive-countdown small{margin-top:5px;font-size:11px;letter-spacing:1px}.festive-countdown i{font-size:22px;font-style:normal}.festive-code{padding:9px 17px;border:1px dashed #9fa0a0;border-radius:5px;background:#f4f4f4;font-size:17px;font-weight:700;white-space:nowrap}
 @media(max-width:749px){
@@ -247,3 +247,14 @@ body.header-is-stuck .search-panel{top:128px}
 @media(max-width:749px){
   .markavenue-footer{display:grid!important;grid-template-columns:1fr 1fr;gap:34px 24px;padding:38px 22px 42px;background:#FCE9E1!important;background-image:none!important;color:#4e484b!important}.footer-about{grid-column:1 / -1}.markavenue-footer h2{margin-bottom:14px}.footer-about p,.footer-links a{font-size:14px}.footer-about p{font-weight:400}.footer-links{gap:10px}
 }
+
+/* Seasonal palette */
+:root{--accent:#9A4331}
+.announcement-bar{background:#263A30!important;color:#FBF1E4!important}
+.announcement-track b{color:#C9A24B!important}
+.festive-code{background:#FBF1E4!important;color:#B8553F!important;border-color:#FBF1E4!important}
+.site-header,.main-nav{background:#FBF1E4!important;color:#263A30!important}
+.header-search{background:#FBF1E4!important}
+.main-nav{border-color:#E7D9C8!important}.main-nav a:hover,.main-nav a:active{color:#C9A24B!important}
+.cart-count{background:#B8553F!important}
+.button:hover,.button:active,.view-all:hover,.view-all:active{background:#9A4331!important}
