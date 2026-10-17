@@ -36,7 +36,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "brand_name": "MarkAvenue",
+          "brand_name": "BombaySutra",
           "background_color": "#fbf1e4",
           "text_color": "#263a30",
           "nav_background": "#fbf1e4",
@@ -63,8 +63,8 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "brand_name": "MarkAvenue",
-          "description": "At MarkAvenue, we curate outfits that reflect your true self, helping you feel confident and beautiful inside and out. Discover thoughtfully designed ethnic clothing in timeless styles, prints, and premium fabrics.",
+          "brand_name": "BombaySutra",
+          "description": "At BombaySutra, we curate outfits that reflect your true self, helping you feel confident and beautiful inside and out. Discover thoughtfully designed ethnic clothing in timeless styles, prints, and premium fabrics.",
           "background_color": "#fce9e1",
           "text_color": "#4e484b"
         }
