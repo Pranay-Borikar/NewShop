@@ -1,4 +1,4 @@
-<header class="site-header">
+<header class="site-header" style="--header-bg: {{ section.settings.background_color }}; --header-text: {{ section.settings.text_color }}; --nav-bg: {{ section.settings.nav_background }}; --nav-text: {{ section.settings.nav_text_color }}">
   <div class="header-main-row">
     <button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <form class="header-search" action="{{ routes.search_url }}" method="get" role="search" aria-label="Search" data-search-open data-search-form><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 5 5"></path></svg><input type="search" name="q" placeholder="Search..." autocomplete="off" aria-label="Search products" data-search-input><button type="button" class="header-search-clear" aria-label="Clear search" data-search-clear>×</button></form>
@@ -45,6 +45,10 @@
   "name": "Header",
   "settings": [
     { "type": "text", "id": "brand_name", "label": "Brand name", "default": "MarkAvenue" },
+    { "type": "color", "id": "background_color", "label": "Header background", "default": "#FBF1E4" },
+    { "type": "color", "id": "text_color", "label": "Header text/icon color", "default": "#263A30" },
+    { "type": "color", "id": "nav_background", "label": "Navigation background", "default": "#FBF1E4" },
+    { "type": "color", "id": "nav_text_color", "label": "Navigation text color", "default": "#263A30" },
     { "type": "checkbox", "id": "show_new_arrivals", "label": "Show New Arrival", "default": true },
     { "type": "text", "id": "new_arrivals_label", "label": "New arrivals label", "default": "NEW ARRIVAL" },
     { "type": "checkbox", "id": "show_suit_gowns", "label": "Show Suit & Gowns", "default": true },

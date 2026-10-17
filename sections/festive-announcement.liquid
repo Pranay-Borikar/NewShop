@@ -1,4 +1,4 @@
-<div class="festive-announcement" role="status" data-festive-sale data-sale-end="{{ section.settings.sale_end_date }}T23:59:59+05:30">
+<div class="festive-announcement" role="status" data-festive-sale data-sale-end="{{ section.settings.sale_end_date }}T23:59:59+05:30" style="--festive-bg: {{ section.settings.background_color }}; --festive-text: {{ section.settings.text_color }}; --festive-button-bg: {{ section.settings.button_background }}; --festive-button-text: {{ section.settings.button_text_color }}">
   <div class="festive-announcement-copy">
     <strong>{{ section.settings.sale_heading }}</strong>
     <span>{{ section.settings.sale_subheading }}</span>
@@ -18,7 +18,11 @@
     { "type": "text", "id": "sale_heading", "label": "Sale heading", "default": "FESTIVE SALE IS LIVE: UPTO 80% OFF" },
     { "type": "text", "id": "sale_subheading", "label": "Sale subheading", "default": "Applicable only on Prepaid Orders" },
     { "type": "text", "id": "coupon_text", "label": "Coupon button text", "default": "USE - FESTIVE80" },
-    { "type": "text", "id": "sale_end_date", "label": "Sale end date (YYYY-MM-DD)", "default": "2026-10-20" }
+    { "type": "text", "id": "sale_end_date", "label": "Sale end date (YYYY-MM-DD)", "default": "2026-10-20" },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#B8553F" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#FBF1E4" },
+    { "type": "color", "id": "button_background", "label": "Coupon button background", "default": "#FBF1E4" },
+    { "type": "color", "id": "button_text_color", "label": "Coupon button text color", "default": "#B8553F" }
   ]
 }
 {% endschema %}

@@ -229,6 +229,7 @@ body.header-is-stuck .search-panel{top:128px}
 .main-nav{border-color:#8F6870!important}.main-nav a:hover{color:#fff!important}
 .announcement-bar{background:#263A30!important;color:#fff!important}
 .site-header,.main-nav{background:#FBF1E4!important;color:#263A30!important}
+.site-header{background:var(--header-bg,#FBF1E4)!important;color:var(--header-text,#263A30)!important}.main-nav{background:var(--nav-bg,#FBF1E4)!important;color:var(--nav-text,#263A30)!important}.main-nav a{color:var(--nav-text,#263A30)!important}
 .main-nav{border-color:#E7E0D5!important}.main-nav a:hover{color:#263A30!important}
 .festive-announcement-copy{display:flex;flex-direction:column;align-items:center;gap:2px}.festive-announcement-copy strong{font-size:29px;line-height:1.05;letter-spacing:.3px}.festive-announcement-copy span{font-size:17px}.festive-countdown{display:flex;align-items:center;gap:13px}.festive-countdown div{display:flex;min-width:43px;flex-direction:column;align-items:center}.festive-countdown b{font-size:27px;line-height:1}.festive-countdown small{margin-top:5px;font-size:11px;letter-spacing:1px}.festive-countdown i{font-size:22px;font-style:normal}.festive-code{padding:9px 17px;border:1px dashed #9fa0a0;border-radius:5px;background:#f4f4f4;font-size:17px;font-weight:700;white-space:nowrap}
 @media(max-width:749px){
@@ -240,7 +241,7 @@ body.header-is-stuck .search-panel{top:128px}
 .site-header,.site-header.is-stuck{z-index:200!important}
 @media(max-width:749px){.festive-announcement-copy strong{font-size:14px}.festive-announcement-copy span{font-size:10px}.festive-countdown b{font-size:16px}.festive-countdown small{font-size:7px}.festive-code{font-size:9px}}
 
-.markavenue-footer{position:relative;z-index:2;display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:70px;padding:42px 5.5% 46px;background:#FCE9E1;color:#4e484b;font-family:'Outfit',sans-serif;letter-spacing:1px}
+.markavenue-footer{position:relative;z-index:2;display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:70px;padding:42px 5.5% 46px;background:var(--footer-bg,#FCE9E1);color:var(--footer-text,#4e484b);font-family:'Outfit',sans-serif;letter-spacing:1px}
 .markavenue-footer h2{margin:0 0 20px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;letter-spacing:1.5px;color:#292529}
 .footer-about p{max-width:510px;margin:0;line-height:1.55;font-size:15px;letter-spacing:1.2px}.footer-links{display:flex;flex-direction:column;align-items:flex-start;gap:13px}.footer-links a{font-size:15px;line-height:1.3;letter-spacing:1px}.footer-links a:hover{color:var(--accent)}.footer-instagram{display:inline-grid;place-items:center;margin-top:17px;color:#111}.footer-instagram svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8}.footer-instagram circle:last-child{fill:currentColor;stroke:none}
 .footer-art{position:relative;z-index:1;width:100%;margin-top:-220px;padding-top:120px;background:#FCE9E1;line-height:0}.footer-art picture,.footer-art img{display:block;width:100%;height:auto}
@@ -251,20 +252,23 @@ body.header-is-stuck .search-panel{top:128px}
 /* Seasonal palette */
 :root{--accent:#9A4331}
 .announcement-bar{background:#263A30!important;color:#FBF1E4!important}
+.announcement-bar{background:var(--ticker-bg,#263A30)!important;color:var(--ticker-text,#FBF1E4)!important}.announcement-track{animation-duration:var(--ticker-speed,24s)}.announcement-track b{color:var(--ticker-symbol,#C9A24B)!important}
 .announcement-track b{color:#C9A24B!important}
 .festive-code{background:#FBF1E4!important;color:#B8553F!important;border-color:#FBF1E4!important}
+.festive-announcement{background:var(--festive-bg,#B8553F)!important;color:var(--festive-text,#FBF1E4)!important}.festive-code{background:var(--festive-button-bg,#FBF1E4)!important;color:var(--festive-button-text,#B8553F)!important;border-color:var(--festive-button-bg,#FBF1E4)!important}
 .site-header,.main-nav{background:#FBF1E4!important;color:#263A30!important}
 .header-search{background:#FBF1E4!important}
 .main-nav{border-color:#E7D9C8!important}.main-nav a:hover,.main-nav a:active{color:#C9A24B!important}
 .cart-count{background:#B8553F!important}
 .button:hover,.button:active,.view-all:hover,.view-all:active{background:#9A4331!important}
 @media(min-width:750px){.product-section .product-grid{grid-template-columns:repeat(var(--product-columns,4),minmax(0,1fr))}}
+.product-section{background:var(--grid-bg,#FFFFFF)}.product-section .section-banner h2,.product-section .section-banner p{color:var(--grid-heading,#A0444F)}.product-section .product-grid{gap:var(--grid-gap,10px)}
 
-.shop-categories{padding:30px 4% 26px;background:#B8553F;color:#FBF1E4;overflow:hidden}
+.shop-categories{padding:30px 4% 26px;background:var(--category-bg,#B8553F);color:var(--category-text,#FBF1E4);overflow:hidden}
 .shop-categories-heading{margin:0 0 18px;text-align:center;font:24px Georgia,serif;font-weight:400;color:#FBF1E4}
-.shop-categories-track{display:flex;justify-content:space-between;gap:24px;max-width:1500px;margin:0 auto}
+.shop-categories-track{display:flex;justify-content:space-between;gap:var(--category-gap,24px);max-width:1500px;margin:0 auto}
 .shop-category{display:flex;min-width:120px;flex:1;flex-direction:column;align-items:center;gap:12px;color:#FBF1E4;text-align:center;font-size:15px;letter-spacing:.6px;white-space:nowrap}
-.shop-category img{display:block;width:142px;height:142px;border:3px solid #FBF1E4;border-radius:50%;object-fit:cover;object-position:center}
+.shop-category img{display:block;width:var(--category-size,142px);height:var(--category-size,142px);border:3px solid var(--category-text,#FBF1E4);border-radius:50%;object-fit:cover;object-position:center}
 .shop-category:hover img{border-color:#C9A24B;transform:scale(1.04)}
 .shop-category:hover{color:#C9A24B}
 @media(max-width:749px){.shop-categories{padding:22px 14px 20px}.shop-categories-track{justify-content:flex-start;gap:18px;overflow-x:auto;scrollbar-width:none}.shop-categories-track::-webkit-scrollbar{display:none}.shop-category{flex:0 0 96px;min-width:96px;font-size:12px;gap:8px}.shop-category img{width:88px;height:88px}}

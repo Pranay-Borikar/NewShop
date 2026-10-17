@@ -1,7 +1,7 @@
-<footer class="site-footer markavenue-footer" style="--footer-mobile-art: url('{{ 'footer mobile view.png' | asset_url }}');">
+<footer class="site-footer markavenue-footer" style="--footer-mobile-art: url('{{ 'footer mobile view.png' | asset_url }}'); --footer-bg: {{ section.settings.background_color }}; --footer-text: {{ section.settings.text_color }}">
   <div class="footer-about">
-    <h2>MarkAvenue</h2>
-    <p>At MarkAvenue, we curate outfits that reflect your true self, helping you feel confident and beautiful inside and out. Discover thoughtfully designed ethnic clothing in timeless styles, prints, and premium fabrics.</p>
+    <h2>{{ section.settings.brand_name }}</h2>
+    <p>{{ section.settings.description }}</p>
     <a class="footer-instagram" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.8" r="1"></circle></svg></a>
   </div>
   <nav class="footer-links" aria-label="Explore">
@@ -31,4 +31,14 @@
     <img src="{{ 'footer.png' | asset_url }}" alt="" loading="lazy" width="2103" height="748">
   </picture>
 </div>
-{% schema %}{ "name": "Footer", "settings": [] }{% endschema %}
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "MarkAvenue" },
+    { "type": "textarea", "id": "description", "label": "Footer description", "default": "At MarkAvenue, we curate outfits that reflect your true self, helping you feel confident and beautiful inside and out. Discover thoughtfully designed ethnic clothing in timeless styles, prints, and premium fabrics." },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#FCE9E1" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#4E484B" }
+  ]
+}
+{% endschema %}
