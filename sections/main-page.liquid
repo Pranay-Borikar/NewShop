@@ -1,0 +1,25 @@
+<main class="standard-page">
+  <div class="standard-page-inner">
+    <p class="standard-page-eyebrow">BombaySutra</p>
+    <h1>{{ page.title }}</h1>
+    <div class="standard-page-content rte">
+      {{ page.content }}
+    </div>
+  </div>
+</main>
+
+<style>
+  .standard-page{background:#f8f1e8;color:#29382f;padding:72px 20px 96px;min-height:48vh}
+  .standard-page-inner{max-width:900px;margin:0 auto;background:#fffdfc;border:1px solid #e7d9c8;border-radius:14px;padding:clamp(28px,5vw,64px);box-shadow:0 10px 30px rgba(71,48,32,.06)}
+  .standard-page-eyebrow{margin:0 0 12px;color:#b8553f;font-size:13px;letter-spacing:2px;text-transform:uppercase}
+  .standard-page h1{margin:0 0 30px;font-size:clamp(30px,4vw,48px);font-weight:500;line-height:1.15}
+  .standard-page-content{font-size:17px;line-height:1.75;color:#4b514c}
+  .standard-page-content h2,.standard-page-content h3{color:#29382f;line-height:1.3;margin:30px 0 12px}
+  .standard-page-content a{color:#9a4331;text-decoration:underline;text-underline-offset:3px}
+  .standard-page-content img{max-width:100%;height:auto;border-radius:8px}
+  @media(max-width:749px){.standard-page{padding:38px 14px 56px}.standard-page-inner{padding:26px 20px}.standard-page-content{font-size:15px}}
+</style>
+
+{% schema %}
+{"name":"Page content","settings":[]}
+{% endschema %}
