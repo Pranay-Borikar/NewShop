@@ -41,9 +41,9 @@
 .header-main-row{height:78px}
 #MainContent{padding-top:0!important}
 html,body{overflow-x:clip!important}
-.header-is-stuck #MainContent{padding-top:128px!important}
+.header-is-stuck #MainContent{padding-top:0!important}
 @media(max-width:749px){
   .site-header{height:66px}
   .header-main-row{height:66px}
-  .header-is-stuck #MainContent{padding-top:66px!important}
+  .header-is-stuck #MainContent{padding-top:0!important}
 }
