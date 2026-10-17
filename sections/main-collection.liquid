@@ -1,10 +1,21 @@
-<section class="collection-page">
+<section class="collection-page" style="--collection-columns: {{ section.settings.columns }}; --collection-gap: {{ section.settings.grid_gap }}px">
   <header class="collection-heading"><p class="vendor">{{ collection.products_count }} products</p><h1>{{ collection.title }}</h1></header>
   {% paginate collection.products by 24 %}
     <div class="product-grid collection-grid">
-      {% for product in collection.products %}{% render 'product-card', product: product %}{% else %}<p>No products found in this collection.</p>{% endfor %}
+      {% assign collection_limit = section.settings.columns | times: section.settings.rows %}
+      {% for product in collection.products limit: collection_limit %}{% render 'product-card', product: product %}{% else %}<p>No products found in this collection.</p>{% endfor %}
     </div>
     {% if paginate.pages > 1 %}<nav class="pagination" aria-label="Collection pages">{% if paginate.previous %}<a href="{{ paginate.previous.url }}">← Previous</a>{% endif %}<span>Page {{ paginate.current_page }} of {{ paginate.pages }}</span>{% if paginate.next %}<a href="{{ paginate.next.url }}">Next →</a>{% endif %}</nav>{% endif %}
   {% endpaginate %}
 </section>
-{% schema %}{ "name": "Collection products", "settings": [] }{% endschema %}
+{% schema %}
+{
+  "name": "Collection products",
+  "settings": [
+    { "type": "range", "id": "columns", "label": "Grid columns", "min": 2, "max": 6, "step": 1, "default": 4 },
+    { "type": "range", "id": "rows", "label": "Grid rows", "min": 1, "max": 8, "step": 1, "default": 2 },
+    { "type": "range", "id": "grid_gap", "label": "Grid gap (px)", "min": 0, "max": 40, "step": 2, "default": 12 }
+  ],
+  "presets": [{ "name": "Collection products" }]
+}
+{% endschema %}

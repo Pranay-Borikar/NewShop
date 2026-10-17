@@ -262,6 +262,8 @@ body.header-is-stuck .search-panel{top:128px}
 .cart-count{background:#B8553F!important}
 .button:hover,.button:active,.view-all:hover,.view-all:active{background:#9A4331!important}
 @media(min-width:750px){.product-section .product-grid{grid-template-columns:repeat(var(--product-columns,4),minmax(0,1fr))}}
+.collection-grid{grid-template-columns:repeat(var(--collection-columns,4),minmax(0,1fr));gap:var(--collection-gap,12px)}
+@media(max-width:749px){.collection-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
 .product-section{background:var(--grid-bg,#FFFFFF)}.product-section .section-banner h2,.product-section .section-banner p{color:var(--grid-heading,#A0444F)}.product-section .product-grid{gap:var(--grid-gap,10px)}
 
 .shop-categories{padding:30px 4% 26px;background:var(--category-bg,#B8553F);color:var(--category-text,#FBF1E4);overflow:hidden}
