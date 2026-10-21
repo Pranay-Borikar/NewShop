@@ -12,7 +12,7 @@
     {% if section.settings.banner_link != blank %}</a>{% endif %}
   </div>
   <div class="sales-products-content">
-    <div class="product-grid">
+    <div class="product-grid sales-product-grid sales-product-grid--{{ section.settings.layout_mode }}">
     {% assign selected_collection = section.settings.collection %}
     {% if selected_collection == blank %}{% assign selected_collection = collections.all %}{% endif %}
     {% assign grid_limit = section.settings.columns | times: section.settings.rows %}
@@ -53,6 +53,7 @@
     { "type": "range", "id": "banner_radius", "label": "Banner corner radius", "min": 0, "max": 40, "step": 4, "default": 0 },
     { "type": "collection", "id": "collection", "label": "Product collection (optional)" },
     { "type": "checkbox", "id": "show_only_discounted", "label": "Show only discounted products", "default": true },
+    { "type": "select", "id": "layout_mode", "label": "Product layout", "options": [ { "value": "scroll", "label": "Horizontal scroll (one row)" }, { "value": "grid", "label": "Grid" } ], "default": "scroll" },
     { "type": "range", "id": "columns", "label": "Columns", "min": 2, "max": 6, "step": 1, "default": 4 },
     { "type": "range", "id": "rows", "label": "Rows", "min": 1, "max": 6, "step": 1, "default": 2 },
     { "type": "range", "id": "grid_gap", "label": "Grid gap (px)", "min": 0, "max": 40, "step": 2, "default": 10 },
