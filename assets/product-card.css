@@ -8,7 +8,7 @@
 .view-all-wrap{text-align:center;padding:18px}
 #lookbook.product-section{padding-top:var(--lookbook-padding-top,0);padding-bottom:var(--lookbook-padding-bottom,20px)}
 .hero-carousel{margin-top:var(--hero-spacing-top,0);margin-bottom:var(--hero-spacing-bottom,0)}
-@media(min-width:750px){.hero-carousel{aspect-ratio:1897/685;min-height:0}.hero-carousel .carousel-slides{height:100%;min-height:0}.hero-carousel .hero-image{height:100%;min-height:0;object-fit:cover}}
+@media(min-width:750px){.hero-carousel{aspect-ratio:2172/724;min-height:0}.hero-carousel .carousel-slides{height:100%;min-height:0}.hero-carousel .hero-image{height:100%;min-height:0;object-fit:cover}}
 .view-all{display:inline-block;background:var(--accent);color:#fff;padding:12px 35px;text-transform:uppercase;letter-spacing:2px;font-size:11px}
 .announcement-track{animation-duration:16s}
 .site-header{background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.62);box-shadow:0 8px 28px rgba(0,0,0,.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
