@@ -1,0 +1,20 @@
+<section class="hero-carousel" data-carousel data-interval="{{ section.settings.interval | times: 1000 }}">
+  <div class="carousel-slides">
+    {% for i in (1..4) %}
+      {% assign image_key = 'slide_' | append: i %}
+      {% assign image = section.settings[image_key] %}
+      {% assign mobile_image_key = 'slide_' | append: i | append: '_mobile' %}
+      {% assign mobile_image = section.settings[mobile_image_key] %}
+      {% case i %}{% when 1 %}{% assign banner_asset = 'banner.png' %}{% assign mobile_banner_asset = 'banner mobile view.png' %}{% when 2 %}{% assign banner_asset = 'banner1.png' %}{% assign mobile_banner_asset = 'banner1 mobile view.png' %}{% when 3 %}{% assign banner_asset = 'banner2.png' %}{% assign mobile_banner_asset = 'banner2 mobile view.png' %}{% when 4 %}{% assign banner_asset = 'banner3.png' %}{% assign mobile_banner_asset = 'banner3 mobile view.png' %}{% endcase %}
+      <div class="carousel-slide{% if forloop.first %} is-active{% endif %}">
+        <picture><source media="(max-width: 749px)" srcset="{% if mobile_image != blank %}{{ mobile_image | image_url: width: 1200 }}{% elsif image != blank %}{{ image | image_url: width: 1200 }}{% else %}{{ mobile_banner_asset | asset_url }}{% endif %}"><img class="hero-image" src="{% if image != blank %}{{ image | image_url: width: 2172 }}{% else %}{{ banner_asset | asset_url }}{% endif %}" alt="{{ section.settings.heading }}" width="2172" height="724"{% if forloop.first %} loading="eager"{% else %} loading="lazy"{% endif %}></picture>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% schema %}
+{ "name": "Hero carousel", "settings": [
+  { "type": "image_picker", "id": "slide_1", "label": "Slide 1 desktop image" }, { "type": "image_picker", "id": "slide_1_mobile", "label": "Slide 1 mobile image" }, { "type": "image_picker", "id": "slide_2", "label": "Slide 2 desktop image" }, { "type": "image_picker", "id": "slide_2_mobile", "label": "Slide 2 mobile image" }, { "type": "image_picker", "id": "slide_3", "label": "Slide 3 desktop image" }, { "type": "image_picker", "id": "slide_3_mobile", "label": "Slide 3 mobile image" }, { "type": "image_picker", "id": "slide_4", "label": "Slide 4 desktop image" }, { "type": "image_picker", "id": "slide_4_mobile", "label": "Slide 4 mobile image" },
+  { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Made for every celebration" }, { "type": "text", "id": "heading", "label": "Heading", "default": "Traditions in timeless elegance" }, { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop new arrivals" }, { "type": "url", "id": "button_link", "label": "Button link" }, { "type": "range", "id": "interval", "label": "Auto-scroll seconds", "min": 3, "max": 12, "step": 1, "default": 5 }
+] , "presets": [{ "name": "Hero carousel" }] }
+{% endschema %}

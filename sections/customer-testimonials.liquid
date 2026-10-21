@@ -1,0 +1,102 @@
+<span id="customer-testimonials" aria-hidden="true"></span>
+<section id="customer-testimonials-{{ section.id }}" class="customer-testimonials-home" style="--testimonials-bg: {{ section.settings.background_color }}; --testimonials-card-bg: {{ section.settings.card_background_color }}; --testimonials-heading: {{ section.settings.heading_color }}; --testimonials-text: {{ section.settings.text_color }}; --testimonials-muted: {{ section.settings.muted_text_color }}; --testimonials-stars: {{ section.settings.star_color }}; --testimonials-columns: {{ section.settings.columns }}; --testimonials-padding-top: {{ section.settings.padding_top }}px; --testimonials-padding-bottom: {{ section.settings.padding_bottom }}px; --testimonials-width: {{ section.settings.max_width }}px;">
+  <div class="customer-testimonials-home__inner">
+    {% if section.settings.heading != blank %}<h2>{{ section.settings.heading }}</h2>{% endif %}
+    {% if section.settings.subheading != blank %}<p class="customer-testimonials-home__subheading">{{ section.settings.subheading }}</p>{% endif %}
+
+    <div class="customer-testimonials-home__grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign fallback_image = blank
+          case forloop.index
+            when 1
+              assign fallback_image = 'review 1.jpg'
+            when 2
+              assign fallback_image = 'review 2.jpg'
+            when 3
+              assign fallback_image = 'review 3.jpg'
+            when 4
+              assign fallback_image = 'review 4.jpg'
+          endcase
+          assign rating = block.settings.rating | plus: 0
+        %}
+        <article class="customer-testimonials-home__card" {{ block.shopify_attributes }}>
+          <div class="customer-testimonials-home__content">
+            <div class="customer-testimonials-home__header">
+              {% if block.settings.name != blank %}<strong>{{ block.settings.name }}</strong>{% endif %}
+              {% if block.settings.product_url != blank %}<a class="customer-testimonials-home__product-link" href="{{ block.settings.product_url }}" target="_blank" rel="noopener" aria-label="View {{ block.settings.name | escape }}'s reviewed product">↗</a>{% endif %}
+            </div>
+            <div class="customer-testimonials-home__stars" aria-label="{{ rating }} out of 5 stars">
+              {% for star in (1..5) %}<span{% if star > rating %} class="is-empty"{% endif %}>&#9733;</span>{% endfor %}
+            </div>
+            {% if block.settings.review != blank %}<div class="customer-testimonials-home__review rte">{{ block.settings.review }}</div>{% endif %}
+            {% if block.settings.location != blank %}<span class="customer-testimonials-home__location">{{ block.settings.location }}</span>{% endif %}
+          </div>
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 720 | image_tag: class: 'customer-testimonials-home__image', loading: 'lazy', widths: '240,360,480,720', alt: block.settings.name }}
+          {% elsif fallback_image != blank %}
+            <img class="customer-testimonials-home__image" src="{{ fallback_image | asset_url }}" alt="{{ block.settings.name | escape }}" width="269" height="360" loading="lazy">
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #customer-testimonials-{{ section.id }}{background:var(--testimonials-bg,#fff);padding:var(--testimonials-padding-top,56px) 20px var(--testimonials-padding-bottom,64px);color:var(--testimonials-text,#29382f)}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__inner{max-width:var(--testimonials-width,1280px);margin:0 auto}
+  #customer-testimonials-{{ section.id }} h2{margin:0;text-align:center;color:var(--testimonials-heading,#8a2a55);font:400 36px Georgia,serif;line-height:1.2}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__subheading{margin:12px auto 34px;text-align:center;color:var(--testimonials-muted,#6a5b61);font-size:16px;letter-spacing:.06em}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__grid{display:grid;grid-template-columns:repeat(var(--testimonials-columns,4),minmax(0,1fr));gap:20px}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__card{overflow:hidden;background:var(--testimonials-card-bg,#fffdfb);border:1px solid rgba(96,73,80,.26);border-radius:12px;box-shadow:none}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__image{display:block;width:calc(100% - 32px);margin:0 16px 16px;aspect-ratio:3/4;object-fit:cover}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__content{padding:22px 16px 18px}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__header strong{font-size:17px;letter-spacing:.04em}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__product-link{display:grid;place-items:center;width:22px;height:22px;color:inherit;font-size:23px;line-height:1;text-decoration:none}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__product-link:hover{text-decoration:underline}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__stars{margin:8px 0 10px;color:var(--testimonials-stars,#c4a265);font-size:16px;letter-spacing:2px}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__stars .is-empty{opacity:.28}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__review{font-size:15px;line-height:1.55}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__review p{margin:0 0 14px}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__location{display:block}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__location{margin-top:3px;color:var(--testimonials-muted,#6a5b61);font-size:13px}
+  @media(max-width:749px){#customer-testimonials-{{ section.id }}{padding-inline:14px}#customer-testimonials-{{ section.id }} h2{font-size:25px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__subheading{margin-bottom:26px;font-size:14px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__content{padding:14px 12px 16px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__header strong{font-size:14px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__review{font-size:13px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__image{width:calc(100% - 20px);margin:0 10px 10px}}
+</style>
+
+{% schema %}
+{
+  "name": "Customer testimonials",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loved by our customers" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Real BombaySutra looks from our community" },
+    { "type": "range", "id": "columns", "label": "Desktop columns", "min": 2, "max": 4, "step": 1, "default": 4 },
+    { "type": "range", "id": "max_width", "label": "Content width", "min": 800, "max": 1600, "step": 20, "default": 1280 },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#FFF7F7" },
+    { "type": "color", "id": "card_background_color", "label": "Card background color", "default": "#FFF9FA" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#8A2A55" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#29382F" },
+    { "type": "color", "id": "muted_text_color", "label": "Secondary text color", "default": "#6A5B61" },
+    { "type": "color", "id": "star_color", "label": "Star color", "default": "#C4A265" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Customer review",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Customer photo" },
+        { "type": "url", "id": "product_url", "label": "Reviewed product link" },
+        { "type": "select", "id": "rating", "label": "Rating", "default": "5", "options": [{ "value": "5", "label": "5 stars" }, { "value": "4", "label": "4 stars" }, { "value": "3", "label": "3 stars" }, { "value": "2", "label": "2 stars" }, { "value": "1", "label": "1 star" }] },
+        { "type": "richtext", "id": "review", "label": "Review", "default": "<p>Beautiful fit and lovely quality. I received so many compliments!</p>" },
+        { "type": "text", "id": "name", "label": "Customer name", "default": "BombaySutra customer" },
+        { "type": "text", "id": "location", "label": "Location or occasion", "default": "Verified customer" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Customer testimonials", "blocks": [{ "type": "review" }, { "type": "review" }, { "type": "review" }, { "type": "review" }] }]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+<section class="faq-section" id="faq-{{ section.id }}" style="--faq-bg: {{ section.settings.background_color }}; --faq-heading: {{ section.settings.heading_color }}; --faq-subheading: {{ section.settings.subheading_color }}; --faq-question: {{ section.settings.question_color }}; --faq-answer: {{ section.settings.answer_color }}; --faq-border: {{ section.settings.border_color }}; --faq-icon: {{ section.settings.icon_color }}; --faq-divider: {{ section.settings.divider_color }}; --faq-width: {{ section.settings.max_width }}px; --faq-padding-top: {{ section.settings.padding_top }}px; --faq-padding-bottom: {{ section.settings.padding_bottom }}px; --faq-heading-size: {{ section.settings.heading_size }}px">
+  <div class="faq-section-inner">
+    {% if section.settings.heading != blank %}<h2>{{ section.settings.heading }}</h2>{% endif %}
+    {% if section.settings.subheading != blank %}<p class="faq-subheading">{{ section.settings.subheading }}</p>{% endif %}
+    <div class="faq-list">
+      {% for block in section.blocks %}
+        <details class="faq-item"{% if section.settings.open_first and forloop.first %} open{% endif %} {{ block.shopify_attributes }}>
+          <summary><span>{{ block.settings.question }}</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer rte">{{ block.settings.answer }}</div>
+        </details>
+      {% endfor %}
+    </div>
+    {% if section.settings.show_divider %}<div class="faq-divider" aria-hidden="true"><i></i></div>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "max_blocks": 16,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Find answers to our most common questions below." },
+    { "type": "checkbox", "id": "open_first", "label": "Open first question by default", "default": false },
+    { "type": "checkbox", "id": "show_divider", "label": "Show bottom divider", "default": true },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#FFFFFF" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#D94D78" },
+    { "type": "color", "id": "subheading_color", "label": "Subheading color", "default": "#E77C9B" },
+    { "type": "color", "id": "question_color", "label": "Question color", "default": "#202020" },
+    { "type": "color", "id": "answer_color", "label": "Answer color", "default": "#4E484B" },
+    { "type": "color", "id": "border_color", "label": "Question border color", "default": "#F4B4C4" },
+    { "type": "color", "id": "icon_color", "label": "Icon color", "default": "#D94D78" },
+    { "type": "color", "id": "divider_color", "label": "Divider color", "default": "#EBA1B6" },
+    { "type": "range", "id": "max_width", "label": "Content width", "min": 700, "max": 1600, "step": 20, "default": 1460 },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 24, "max": 72, "step": 2, "default": 36 },
+    { "type": "range", "id": "padding_top", "label": "Top spacing", "min": 20, "max": 160, "step": 4, "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 20, "max": 160, "step": 4, "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "How do I place an order on your website?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Choose your favourite outfit, select a size, and add it to your cart. Complete checkout with your delivery and payment details.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "question", "settings": { "question": "How do I place an order on your website?", "answer": "<p>Choose your favourite outfit, select a size, and add it to your cart. Complete checkout with your delivery and payment details.</p>" } },
+        { "type": "question", "settings": { "question": "I have a promo code, how do I apply it?", "answer": "<p>Enter your promo code in the discount field at checkout before you complete payment.</p>" } },
+        { "type": "question", "settings": { "question": "What payment methods are accepted at BombaySutra?", "answer": "<p>Available payment methods are shown at checkout and may include online payment options and cash on delivery where available.</p>" } },
+        { "type": "question", "settings": { "question": "What are the shipping charges for an order?", "answer": "<p>Shipping charges, if applicable, are calculated and shown before you place your order.</p>" } },
+        { "type": "question", "settings": { "question": "Do you accept returns?", "answer": "<p>Please review the return policy for eligibility and return instructions, or contact BombaySutra support for help.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

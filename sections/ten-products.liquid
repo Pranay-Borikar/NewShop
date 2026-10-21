@@ -1,0 +1,17 @@
+<section class="product-section" id="lookbook" style="--product-columns: {{ section.settings.columns }}; --grid-bg: {{ section.settings.background_color }}; --grid-gap: {{ section.settings.grid_gap }}px">
+  <div class="product-grid">
+    {% assign selected_collection = section.settings.collection %}
+    {% if selected_collection == blank %}{% assign selected_collection = collections.all %}{% endif %}
+    {% assign products_to_show = selected_collection.products %}
+    {% assign grid_limit = section.settings.columns | times: section.settings.rows %}
+    {% for product in products_to_show limit: grid_limit %}
+      {% render 'product-card', product: product %}
+    {% else %}
+      {% for i in (1..10) %}<article class="product-card placeholder-card"><div class="placeholder-image"><span>{{ i }}</span></div><h3>Featured product {{ i }}</h3><p>Set up products in Shopify to populate this grid.</p></article>{% endfor %}
+    {% endfor %}
+  </div>
+  <div class="view-all-wrap"><a class="view-all" href="{{ selected_collection.url | default: routes.all_products_collection_url }}">View all</a></div>
+</section>
+{% schema %}
+{ "name": "10 product grid", "settings": [ { "type": "collection", "id": "collection", "label": "Product collection" }, { "type": "range", "id": "columns", "label": "Grid columns", "min": 2, "max": 6, "step": 1, "default": 4 }, { "type": "range", "id": "rows", "label": "Grid rows", "min": 1, "max": 6, "step": 1, "default": 2 }, { "type": "range", "id": "grid_gap", "label": "Grid gap (px)", "min": 0, "max": 40, "step": 2, "default": 10 }, { "type": "color", "id": "background_color", "label": "Section background", "default": "#FFFFFF" } ], "presets": [{ "name": "Product grid" }] }
+{% endschema %}

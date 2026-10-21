@@ -1,0 +1,70 @@
+<section class="product-section image-product-section ethnic-products-section" id="ethnic" style="--product-columns: {{ section.settings.columns }}; --grid-bg: {{ section.settings.background_color }}; --grid-gap: {{ section.settings.grid_gap }}px; --showcase-padding-top: {{ section.settings.padding_top }}px; --showcase-padding-bottom: {{ section.settings.padding_bottom }}px; --showcase-banner-padding: {{ section.settings.banner_padding }}px; --showcase-banner-radius: {{ section.settings.banner_radius }}px">
+  <div class="image-product-banner">
+    {% if section.settings.banner_link != blank %}<a href="{{ section.settings.banner_link }}">{% endif %}
+      <picture>
+        {% if section.settings.mobile_banner != blank %}
+          <source media="(max-width: 749px)" sizes="100vw" srcset="{{ section.settings.mobile_banner | image_url: width: 400 }} 400w, {{ section.settings.mobile_banner | image_url: width: 600 }} 600w, {{ section.settings.mobile_banner | image_url: width: 900 }} 900w, {{ section.settings.mobile_banner | image_url: width: 1200 }} 1200w, {{ section.settings.mobile_banner | image_url: width: 1600 }} 1600w">
+        {% else %}
+          <source media="(max-width: 749px)" srcset="{{ 'Ethnic mobile view.png' | asset_url }}">
+        {% endif %}
+        {% if section.settings.desktop_banner != blank %}
+          <img class="image-product-banner-image" src="{{ section.settings.desktop_banner | image_url: width: 2400 }}" srcset="{{ section.settings.desktop_banner | image_url: width: 600 }} 600w, {{ section.settings.desktop_banner | image_url: width: 1000 }} 1000w, {{ section.settings.desktop_banner | image_url: width: 1600 }} 1600w, {{ section.settings.desktop_banner | image_url: width: 2400 }} 2400w" sizes="100vw" alt="{{ section.settings.banner_alt | escape }}" width="{{ section.settings.desktop_banner.width }}" height="{{ section.settings.desktop_banner.height }}" loading="lazy">
+        {% else %}
+          <img class="image-product-banner-image" src="{{ 'Ethnic.jpg' | asset_url }}" srcset="{{ 'Ethnic.jpg' | asset_url }} 1600w" sizes="100vw" alt="{{ section.settings.banner_alt | escape }}" width="1600" height="678" loading="lazy">
+        {% endif %}
+      </picture>
+    {% if section.settings.banner_link != blank %}</a>{% endif %}
+  </div>
+  <div class="image-product-content">
+    <div class="product-grid">
+      {% assign selected_collection = section.settings.collection %}
+      {% if selected_collection == blank %}{% assign selected_collection = collections.all %}{% endif %}
+      {% assign grid_limit = section.settings.columns | times: section.settings.rows %}
+      {% assign product_count = 0 %}
+      {% for product in selected_collection.products %}
+        {% if section.settings.product_tag == blank or product.tags contains section.settings.product_tag %}
+          {% if section.settings.show_badge %}
+            {% render 'product-card', product: product, badge_label: section.settings.badge_label %}
+          {% else %}
+            {% render 'product-card', product: product, hide_badge: true %}
+          {% endif %}
+          {% assign product_count = product_count | plus: 1 %}
+          {% if product_count >= grid_limit %}{% break %}{% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% if product_count > 0 and section.settings.show_view_all %}
+      {% assign view_all_url = section.settings.view_all_link | default: selected_collection.url | default: routes.all_products_collection_url %}
+      {% if section.settings.product_tag != blank %}{% assign product_tag_handle = section.settings.product_tag | handleize %}{% assign view_all_url = view_all_url | append: '/' | append: product_tag_handle %}{% endif %}
+      <div class="view-all-wrap"><a class="view-all" href="{{ view_all_url }}">{{ section.settings.view_all_label }}</a></div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ethnic products",
+  "settings": [
+    { "type": "image_picker", "id": "desktop_banner", "label": "Desktop banner" },
+    { "type": "image_picker", "id": "mobile_banner", "label": "Mobile banner" },
+    { "type": "text", "id": "banner_alt", "label": "Banner alt text", "default": "BombaySutra ethnic collection" },
+    { "type": "url", "id": "banner_link", "label": "Banner link (optional)" },
+    { "type": "range", "id": "banner_padding", "label": "Banner side padding", "min": 0, "max": 60, "step": 4, "default": 0 },
+    { "type": "range", "id": "banner_radius", "label": "Banner corner radius", "min": 0, "max": 40, "step": 4, "default": 0 },
+    { "type": "collection", "id": "collection", "label": "Product collection (optional)" },
+    { "type": "text", "id": "product_tag", "label": "Product tag to filter (optional)", "info": "Use the exact Shopify product tag. Leave blank to show the selected collection." },
+    { "type": "range", "id": "columns", "label": "Columns", "min": 2, "max": 6, "step": 1, "default": 4 },
+    { "type": "range", "id": "rows", "label": "Rows", "min": 1, "max": 6, "step": 1, "default": 2 },
+    { "type": "range", "id": "grid_gap", "label": "Grid gap (px)", "min": 0, "max": 40, "step": 2, "default": 10 },
+    { "type": "checkbox", "id": "show_badge", "label": "Show product badge", "default": true },
+    { "type": "text", "id": "badge_label", "label": "Product badge label", "default": "New" },
+    { "type": "checkbox", "id": "show_view_all", "label": "Show button", "default": true },
+    { "type": "text", "id": "view_all_label", "label": "Button label", "default": "Shop now" },
+    { "type": "url", "id": "view_all_link", "label": "Button link (optional)" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_top", "label": "Products top spacing", "min": 0, "max": 120, "step": 4, "default": 32 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 0, "max": 120, "step": 4, "default": 64 }
+  ],
+  "presets": [{ "name": "Ethnic products" }]
+}
+{% endschema %}

@@ -1,0 +1,8 @@
+<div class="announcement-bar" role="status" style="--ticker-bg: {{ section.settings.background_color }}; --ticker-text: {{ section.settings.text_color }}; --ticker-symbol: {{ section.settings.symbol_color }}; --ticker-speed: {{ section.settings.speed }}s">
+  <div class="announcement-track">
+    {% for i in (1..6) %}<span>{{ section.settings.message }}</span><b>✦</b>{% endfor %}
+  </div>
+</div>
+{% schema %}
+{ "name": "Announcement bar", "settings": [{ "type": "text", "id": "message", "label": "Ticker message", "default": "USE CODE DIWALI FOR UPTO 60% OFF YOUR ORDER" }, { "type": "color", "id": "background_color", "label": "Background color", "default": "#263A30" }, { "type": "color", "id": "text_color", "label": "Text color", "default": "#FBF1E4" }, { "type": "color", "id": "symbol_color", "label": "Symbol color", "default": "#C9A24B" }, { "type": "range", "id": "speed", "label": "Ticker speed (seconds)", "min": 8, "max": 60, "step": 1, "default": 24 } ] }
+{% endschema %}

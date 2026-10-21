@@ -1,0 +1,70 @@
+<section class="product-section sales-section" id="sales" style="--product-columns: {{ section.settings.columns }}; --grid-bg: {{ section.settings.background_color }}; --grid-gap: {{ section.settings.grid_gap }}px; --sales-padding-top: {{ section.settings.padding_top }}px; --sales-padding-bottom: {{ section.settings.padding_bottom }}px; --sales-banner-top-spacing: {{ section.settings.banner_top_spacing }}px; --sales-banner-bottom-spacing: {{ section.settings.banner_bottom_spacing }}px; --sales-banner-padding: {{ section.settings.banner_padding }}px; --sales-banner-radius: {{ section.settings.banner_radius }}px">
+  <div class="sales-banner">
+    {% if section.settings.banner_link != blank %}<a href="{{ section.settings.banner_link }}">{% endif %}
+      <picture>
+        {% if section.settings.mobile_banner != blank %}<source media="(max-width: 749px)" sizes="100vw" srcset="{{ section.settings.mobile_banner | image_url: width: 300 }} 300w, {{ section.settings.mobile_banner | image_url: width: 500 }} 500w, {{ section.settings.mobile_banner | image_url: width: 700 }} 700w, {{ section.settings.mobile_banner | image_url: width: 900 }} 900w, {{ section.settings.mobile_banner | image_url: width: 1200 }} 1200w, {{ section.settings.mobile_banner | image_url: width: 1600 }} 1600w">{% endif %}
+        {% if section.settings.desktop_banner != blank %}
+          <img class="sales-banner-image" src="{{ section.settings.desktop_banner | image_url: width: 2400 }}" srcset="{{ section.settings.desktop_banner | image_url: width: 400 }} 400w, {{ section.settings.desktop_banner | image_url: width: 800 }} 800w, {{ section.settings.desktop_banner | image_url: width: 1200 }} 1200w, {{ section.settings.desktop_banner | image_url: width: 1600 }} 1600w, {{ section.settings.desktop_banner | image_url: width: 2000 }} 2000w, {{ section.settings.desktop_banner | image_url: width: 2400 }} 2400w" sizes="100vw" alt="{{ section.settings.banner_alt | escape }}" width="{{ section.settings.desktop_banner.width }}" height="{{ section.settings.desktop_banner.height }}" loading="lazy">
+        {% else %}
+          <img class="sales-banner-image" src="{{ 'sales.png' | asset_url }}" srcset="{{ 'sales.png' | asset_url }} 2172w" sizes="100vw" alt="{{ section.settings.banner_alt | escape }}" width="2172" height="724" loading="lazy">
+        {% endif %}
+      </picture>
+    {% if section.settings.banner_link != blank %}</a>{% endif %}
+  </div>
+  <div class="sales-products-content">
+    <div class="product-grid">
+    {% assign selected_collection = section.settings.collection %}
+    {% if selected_collection == blank %}{% assign selected_collection = collections.all %}{% endif %}
+    {% assign grid_limit = section.settings.columns | times: section.settings.rows %}
+    {% assign sale_count = 0 %}
+    {% for product in selected_collection.products %}
+      {% assign show_product = false %}
+      {% if section.settings.show_only_discounted %}
+        {% if product.compare_at_price > product.price %}{% assign show_product = true %}{% endif %}
+      {% else %}
+        {% assign show_product = true %}
+      {% endif %}
+      {% if show_product %}
+        {% if section.settings.show_badge %}
+          {% render 'product-card', product: product, badge_label: section.settings.badge_label %}
+        {% else %}
+          {% render 'product-card', product: product, hide_badge: true %}
+        {% endif %}
+        {% assign sale_count = sale_count | plus: 1 %}
+        {% if sale_count >= grid_limit %}{% break %}{% endif %}
+      {% endif %}
+    {% endfor %}
+    </div>
+    {% if sale_count > 0 and section.settings.show_view_all %}<div class="view-all-wrap"><a class="view-all" href="{{ section.settings.view_all_link | default: selected_collection.url | default: routes.all_products_collection_url }}">{{ section.settings.view_all_label }}</a></div>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sales",
+  "settings": [
+    { "type": "image_picker", "id": "desktop_banner", "label": "Desktop sales banner" },
+    { "type": "image_picker", "id": "mobile_banner", "label": "Mobile sales banner" },
+    { "type": "text", "id": "banner_alt", "label": "Banner alt text", "default": "Sales" },
+    { "type": "url", "id": "banner_link", "label": "Banner link (optional)" },
+    { "type": "range", "id": "banner_top_spacing", "label": "Banner top spacing", "min": 0, "max": 120, "step": 4, "default": 0 },
+    { "type": "range", "id": "banner_bottom_spacing", "label": "Banner bottom spacing", "min": 0, "max": 120, "step": 4, "default": 0 },
+    { "type": "range", "id": "banner_padding", "label": "Banner side padding", "min": 0, "max": 60, "step": 4, "default": 0 },
+    { "type": "range", "id": "banner_radius", "label": "Banner corner radius", "min": 0, "max": 40, "step": 4, "default": 0 },
+    { "type": "collection", "id": "collection", "label": "Product collection (optional)" },
+    { "type": "checkbox", "id": "show_only_discounted", "label": "Show only discounted products", "default": true },
+    { "type": "range", "id": "columns", "label": "Columns", "min": 2, "max": 6, "step": 1, "default": 4 },
+    { "type": "range", "id": "rows", "label": "Rows", "min": 1, "max": 6, "step": 1, "default": 2 },
+    { "type": "range", "id": "grid_gap", "label": "Grid gap (px)", "min": 0, "max": 40, "step": 2, "default": 10 },
+    { "type": "checkbox", "id": "show_badge", "label": "Show product badge", "default": true },
+    { "type": "text", "id": "badge_label", "label": "Product badge label", "default": "Sale" },
+    { "type": "checkbox", "id": "show_view_all", "label": "Show button", "default": true },
+    { "type": "text", "id": "view_all_label", "label": "Button label", "default": "Shop sale" },
+    { "type": "url", "id": "view_all_link", "label": "Button link (optional)" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_top", "label": "Products top spacing", "min": 0, "max": 120, "step": 4, "default": 32 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 0, "max": 120, "step": 4, "default": 64 }
+  ],
+  "presets": [{ "name": "Sales" }]
+}
+{% endschema %}

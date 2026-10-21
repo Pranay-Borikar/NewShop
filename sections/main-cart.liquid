@@ -1,0 +1,21 @@
+<section class="cart-page">
+  <div class="cart-page-inner">
+    <h1>YOUR CART</h1>
+    {% if cart.item_count == 0 %}
+      <div class="cart-empty"><p>Your cart is currently empty.</p><a class="cart-continue" href="{{ routes.all_products_collection_url }}">CONTINUE SHOPPING</a></div>
+    {% else %}
+      <form action="{{ routes.cart_url }}" method="post" id="cart-page-form">
+        <div class="cart-page-items">
+          {% for item in cart.items %}
+            <article class="cart-page-item">
+              <a href="{{ item.url }}" class="cart-page-image">{% if item.image %}{{ item.image | image_url: width: 260 | image_tag: loading: 'lazy', alt: item.title }}{% endif %}</a>
+              <div class="cart-page-info"><a href="{{ item.url }}" class="cart-page-title">{{ item.product.title }}</a><p>{{ item.variant.title }}</p><strong>{{ item.final_line_price | money }}</strong></div>
+              <div class="cart-page-actions"><div class="cart-page-quantity"><button type="button" data-cart-page-minus aria-label="Decrease quantity">−</button><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" data-cart-page-qty aria-label="Quantity for {{ item.product.title | escape }}"><button type="button" data-cart-page-plus aria-label="Increase quantity">+</button></div><a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="cart-page-remove">Remove</a></div>
+            </article>
+          {% endfor %}
+        </div>
+        <div class="cart-page-summary"><p>Subtotal <strong>{{ cart.total_price | money }}</strong></p><small>Taxes and shipping calculated at checkout.</small><button type="submit" name="update" class="cart-update">UPDATE CART</button><button type="submit" name="checkout" class="cart-checkout">CHECKOUT</button></div>
+      </form>
+    {% endif %}
+  </div>
+</section>

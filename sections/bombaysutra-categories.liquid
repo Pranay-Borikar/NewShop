@@ -1,0 +1,75 @@
+<section class="shop-categories" aria-label="{{ section.settings.heading }}" style="--category-bg: {{ section.settings.background_color }}; --category-text: {{ section.settings.text_color }}; --category-size: {{ section.settings.image_size }}px; --category-gap: {{ section.settings.gap }}px; --category-padding-top: {{ section.settings.padding_top }}px; --category-padding-bottom: {{ section.settings.padding_bottom }}px; --category-heading-size: {{ section.settings.heading_size }}px; --category-border-width: {{ section.settings.border_width }}px; --category-radius: {{ section.settings.image_radius }}%; --category-image-border: {{ section.settings.image_border_color }}; --category-title-size: {{ section.settings.title_size }}px">
+  {% if section.settings.heading != blank and section.settings.show_heading %}
+    <h2 class="shop-categories-heading">{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  <div class="shop-categories-track">
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        {% assign category_tag = block.settings.product_tag | default: block.settings.title %}
+        {% assign category_handle = category_tag | handleize %}
+        {% assign category_url = block.settings.link | default: routes.all_products_collection_url %}
+        {% if block.settings.link == blank %}{% assign category_url = routes.all_products_collection_url | append: '/' | append: category_handle %}{% endif %}
+        {% assign category_image = block.settings.image %}
+        {% if category_image == blank %}
+          {% for category_product in collections.all.products %}
+            {% if category_product.tags contains category_tag %}{% assign category_image = category_product.featured_image %}{% break %}{% endif %}
+          {% endfor %}
+        {% endif %}
+        <a class="shop-category" href="{{ category_url }}" {{ block.shopify_attributes }}>
+          {% if category_tag == 'Gown' %}<img src="{{ 'category-gown.jpg' | asset_url }}" alt="Gown" width="2560" height="2560" loading="lazy">{% elsif category_tag == 'Pakistani Suit' %}<img src="{{ 'category-pakistani-suit.jpg' | asset_url }}" alt="Pakistani Suit" width="1280" height="1280" loading="lazy">{% elsif category_image != blank %}{{ category_image | image_url: width: 320 | image_tag: loading: 'lazy', widths: '160,240,320', alt: block.settings.title }}{% else %}<span class="shop-category-placeholder" aria-hidden="true"></span>{% endif %}
+          <span>{{ block.settings.title }}</span>
+        </a>
+      {% endfor %}
+    {% else %}
+      {% for category_tag in collections.all.all_tags limit: section.settings.category_limit %}
+        {% assign category_handle = category_tag | handleize %}
+        {% assign category_url = routes.all_products_collection_url | append: '/' | append: category_handle %}
+        {% assign category_image = blank %}
+        {% for category_product in collections.all.products %}
+          {% if category_product.tags contains category_tag %}{% assign category_image = category_product.featured_image %}{% break %}{% endif %}
+        {% endfor %}
+        <a class="shop-category" href="{{ category_url }}">
+          {% if category_tag == 'Gown' %}<img src="{{ 'category-gown.jpg' | asset_url }}" alt="Gown" width="2560" height="2560" loading="lazy">{% elsif category_tag == 'Pakistani Suit' %}<img src="{{ 'category-pakistani-suit.jpg' | asset_url }}" alt="Pakistani Suit" width="1280" height="1280" loading="lazy">{% elsif category_image != blank %}{{ category_image | image_url: width: 320 | image_tag: loading: 'lazy', widths: '160,240,320', alt: category_tag }}{% else %}<span class="shop-category-placeholder" aria-hidden="true"></span>{% endif %}
+          <span>{{ category_tag }}</span>
+        </a>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BombaySutra categories",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Section heading", "default": "Shop by category" },
+    { "type": "checkbox", "id": "show_heading", "label": "Show heading", "default": true },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#8A2A55" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#FCF3F1" },
+    { "type": "color", "id": "image_border_color", "label": "Image border color", "default": "#C4A265" },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 16, "max": 48, "step": 1, "default": 24 },
+    { "type": "range", "id": "title_size", "label": "Category name size", "min": 11, "max": 24, "step": 1, "default": 16 },
+    { "type": "range", "id": "image_size", "label": "Image size", "min": 70, "max": 220, "step": 10, "default": 140 },
+    { "type": "range", "id": "image_radius", "label": "Image roundness", "min": 0, "max": 50, "step": 5, "default": 50 },
+    { "type": "range", "id": "border_width", "label": "Image border width", "min": 0, "max": 8, "step": 1, "default": 3 },
+    { "type": "range", "id": "gap", "label": "Category gap", "min": 8, "max": 80, "step": 4, "default": 24 },
+    { "type": "range", "id": "category_limit", "label": "Number of automatic categories", "min": 3, "max": 12, "step": 1, "default": 9 },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "default": 32 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Category name", "default": "New category" },
+        { "type": "text", "id": "product_tag", "label": "Product tag to filter (optional)", "info": "Leave blank to use the category name." },
+        { "type": "image_picker", "id": "image", "label": "Category image" },
+        { "type": "url", "id": "link", "label": "Category link" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "BombaySutra categories" }]
+}
+{% endschema %}

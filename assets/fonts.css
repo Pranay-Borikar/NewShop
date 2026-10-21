@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Tenor+Sans&display=swap');
+html,body{font-family:'Outfit',sans-serif!important}
+h1,h2,.brand-name,.section-banner h2,.related-heading h2{font-family:'Tenor Sans',sans-serif!important}
+.product-detail-page,.product-detail-page button,.product-detail-page input,.product-detail-page summary{font-family:'Outfit',sans-serif!important}
+.product-detail-page h1,.product-detail-page h2,.product-detail-page summary{font-family:'Tenor Sans',sans-serif!important}

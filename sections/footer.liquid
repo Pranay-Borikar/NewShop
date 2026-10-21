@@ -1,0 +1,46 @@
+<footer class="site-footer markavenue-footer" style="--footer-mobile-art: url('{% if section.settings.mobile_art != blank %}{{ section.settings.mobile_art | image_url: width: 1200 }}{% else %}{{ 'footer mobile view.png' | asset_url }}{% endif %}'); --footer-bg: {{ section.settings.background_color }}; --footer-text: {{ section.settings.text_color }}">
+  <div class="footer-about">
+    <h2>{{ section.settings.brand_name }}</h2>
+    <p>{{ section.settings.description }}</p>
+    <a class="footer-instagram" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.8" r="1"></circle></svg></a>
+  </div>
+  <nav class="footer-links" aria-label="Explore">
+    <h2>EXPLORE</h2>
+    <a href="{{ pages['about-us'].url | default: '/pages/about-us' }}">About Us</a>
+    <a href="{{ pages['exchange'].url | default: '/pages/exchange' }}">Exchange</a>
+    <a href="{{ pages['bulk-order'].url | default: '/pages/bulk-order' }}">Bulk order</a>
+    <a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact Us</a>
+    <a href="{{ pages['careers'].url | default: '/pages/careers' }}">Careers</a>
+    <a href="{{ blogs['news'].url | default: '/blogs/news' }}">Blogs</a>
+    <a href="{{ routes.collections_url }}">Shop BombaySutra</a>
+  </nav>
+  <nav class="footer-links" aria-label="Policies">
+    <h2>POLICIES</h2>
+    <a href="{{ shop.shipping_policy.url | default: routes.root_url }}">Shipping Policy</a>
+    <a href="{{ shop.privacy_policy.url | default: routes.root_url }}">Privacy Policy</a>
+    <a href="{{ shop.refund_policy.url | default: routes.root_url }}">Cancellation and Exchange Policy</a>
+    <a href="{{ shop.terms_of_service.url | default: routes.root_url }}">Terms &amp; Conditions</a>
+    <a href="{{ pages['faq'].url | default: routes.root_url }}">FAQ's</a>
+    <a href="{{ pages['store-locator'].url | default: routes.root_url }}">Store Locator</a>
+    <a href="{{ pages['return-exchange'].url | default: routes.root_url }}">Request Return / Exchange</a>
+  </nav>
+</footer>
+<div class="footer-art" aria-hidden="true">
+  <picture>
+    <source media="(max-width: 749px)" srcset="{% if section.settings.mobile_art != blank %}{{ section.settings.mobile_art | image_url: width: 1200 }}{% else %}{{ 'footer mobile view.png' | asset_url }}{% endif %}">
+    <img src="{% if section.settings.desktop_art != blank %}{{ section.settings.desktop_art | image_url: width: 2400 }}{% else %}{{ 'footer.png' | asset_url }}{% endif %}" alt="" loading="lazy" width="2103" height="748">
+  </picture>
+</div>
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "BombaySutra" },
+    { "type": "textarea", "id": "description", "label": "Footer description", "default": "At BombaySutra, we curate outfits that reflect your true self, helping you feel confident and beautiful inside and out. Discover thoughtfully designed ethnic clothing in timeless styles, prints, and premium fabrics." },
+    { "type": "image_picker", "id": "desktop_art", "label": "Desktop footer image" },
+    { "type": "image_picker", "id": "mobile_art", "label": "Mobile footer image" },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#FCE9E1" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#4E484B" }
+  ]
+}
+{% endschema %}

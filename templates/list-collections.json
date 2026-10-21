@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-categories",
+      "settings": {
+        "heading": "Shop by category",
+        "subheading": "Find your perfect style",
+        "show_heading": true,
+        "background_color": "#FFFFFF",
+        "text_color": "#5E1838",
+        "columns": 4,
+        "grid_gap": 20,
+        "image_radius": 8,
+        "category_limit": 9,
+        "padding_top": 52,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": ["main"]
+}

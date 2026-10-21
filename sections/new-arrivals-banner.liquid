@@ -1,0 +1,29 @@
+<section class="new-arrivals-banner" style="--new-arrivals-bg: {{ section.settings.background_color }}; --new-arrivals-radius: {{ section.settings.border_radius }}px; --new-arrivals-padding: {{ section.settings.padding }}px">
+  {% if section.settings.link != blank %}<a href="{{ section.settings.link }}">{% endif %}
+    <picture>
+      {% if section.settings.mobile_image != blank %}<source media="(max-width: 749px)" sizes="100vw" srcset="{{ section.settings.mobile_image | image_url: width: 300 }} 300w, {{ section.settings.mobile_image | image_url: width: 500 }} 500w, {{ section.settings.mobile_image | image_url: width: 700 }} 700w, {{ section.settings.mobile_image | image_url: width: 900 }} 900w, {{ section.settings.mobile_image | image_url: width: 1200 }} 1200w, {{ section.settings.mobile_image | image_url: width: 1600 }} 1600w">
+      {% endif %}
+      {% if section.settings.image != blank %}
+        <img class="new-arrivals-banner-image" src="{{ section.settings.image | image_url: width: 1800 }}" srcset="{{ section.settings.image | image_url: width: 300 }} 300w, {{ section.settings.image | image_url: width: 400 }} 400w, {{ section.settings.image | image_url: width: 500 }} 500w, {{ section.settings.image | image_url: width: 600 }} 600w, {{ section.settings.image | image_url: width: 700 }} 700w, {{ section.settings.image | image_url: width: 800 }} 800w, {{ section.settings.image | image_url: width: 900 }} 900w, {{ section.settings.image | image_url: width: 1000 }} 1000w, {{ section.settings.image | image_url: width: 1200 }} 1200w, {{ section.settings.image | image_url: width: 1400 }} 1400w, {{ section.settings.image | image_url: width: 1600 }} 1600w, {{ section.settings.image | image_url: width: 1800 }} 1800w" sizes="100vw" alt="{{ section.settings.alt_text | escape }}" loading="lazy">
+      {% else %}
+        <img class="new-arrivals-banner-image" src="{{ 'new-arrivals-wide.png' | asset_url }}" srcset="{{ 'new-arrivals-wide.png' | asset_url }} 2400w" sizes="100vw" alt="{{ section.settings.alt_text | escape }}" width="2400" height="500" loading="lazy">
+      {% endif %}
+    </picture>
+  {% if section.settings.link != blank %}</a>{% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "New arrivals banner",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Desktop banner image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile banner image" },
+    { "type": "text", "id": "alt_text", "label": "Image alt text", "default": "New arrivals" },
+    { "type": "url", "id": "link", "label": "Banner link" },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#F5E9D5" },
+    { "type": "range", "id": "padding", "label": "Side padding (px)", "min": 0, "max": 60, "step": 4, "default": 0 },
+    { "type": "range", "id": "border_radius", "label": "Corner radius (px)", "min": 0, "max": 40, "step": 4, "default": 0 }
+  ],
+  "presets": [{ "name": "New arrivals banner" }]
+}
+{% endschema %}
