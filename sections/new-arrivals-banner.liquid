@@ -1,4 +1,4 @@
-<section class="new-arrivals-banner" style="--new-arrivals-bg: {{ section.settings.background_color }}; --new-arrivals-radius: {{ section.settings.border_radius }}px; --new-arrivals-padding: {{ section.settings.padding }}px">
+<section class="new-arrivals-banner" style="--new-arrivals-bg: {{ section.settings.background_color }}; --new-arrivals-radius: {{ section.settings.border_radius }}px; --new-arrivals-padding: {{ section.settings.padding }}px; --new-arrivals-spacing-top: {{ section.settings.spacing_top }}px; --new-arrivals-spacing-bottom: {{ section.settings.spacing_bottom }}px">
   {% if section.settings.link != blank %}<a href="{{ section.settings.link }}">{% endif %}
     <picture>
       {% if section.settings.mobile_image != blank %}<source media="(max-width: 749px)" sizes="100vw" srcset="{{ section.settings.mobile_image | image_url: width: 300 }} 300w, {{ section.settings.mobile_image | image_url: width: 500 }} 500w, {{ section.settings.mobile_image | image_url: width: 700 }} 700w, {{ section.settings.mobile_image | image_url: width: 900 }} 900w, {{ section.settings.mobile_image | image_url: width: 1200 }} 1200w, {{ section.settings.mobile_image | image_url: width: 1600 }} 1600w">
@@ -22,7 +22,9 @@
     { "type": "url", "id": "link", "label": "Banner link" },
     { "type": "color", "id": "background_color", "label": "Background color", "default": "#F5E9D5" },
     { "type": "range", "id": "padding", "label": "Side padding (px)", "min": 0, "max": 60, "step": 4, "default": 0 },
-    { "type": "range", "id": "border_radius", "label": "Corner radius (px)", "min": 0, "max": 40, "step": 4, "default": 0 }
+    { "type": "range", "id": "border_radius", "label": "Corner radius (px)", "min": 0, "max": 40, "step": 4, "default": 0 },
+    { "type": "range", "id": "spacing_top", "label": "Top spacing", "min": 0, "max": 120, "step": 4, "default": 0 },
+    { "type": "range", "id": "spacing_bottom", "label": "Bottom spacing", "min": 0, "max": 120, "step": 4, "default": 0 }
   ],
   "presets": [{ "name": "New arrivals banner" }]
 }

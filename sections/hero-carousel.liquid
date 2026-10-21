@@ -1,4 +1,4 @@
-<section class="hero-carousel" data-carousel data-interval="{{ section.settings.interval | times: 1000 }}">
+<section class="hero-carousel" data-carousel data-interval="{{ section.settings.interval | times: 1000 }}" style="--hero-spacing-top: {{ section.settings.spacing_top }}px; --hero-spacing-bottom: {{ section.settings.spacing_bottom }}px">
   <div class="carousel-slides">
     {% for i in (1..4) %}
       {% assign image_key = 'slide_' | append: i %}
@@ -15,6 +15,6 @@
 {% schema %}
 { "name": "Hero carousel", "settings": [
   { "type": "image_picker", "id": "slide_1", "label": "Slide 1 desktop image" }, { "type": "image_picker", "id": "slide_1_mobile", "label": "Slide 1 mobile image" }, { "type": "image_picker", "id": "slide_2", "label": "Slide 2 desktop image" }, { "type": "image_picker", "id": "slide_2_mobile", "label": "Slide 2 mobile image" }, { "type": "image_picker", "id": "slide_3", "label": "Slide 3 desktop image" }, { "type": "image_picker", "id": "slide_3_mobile", "label": "Slide 3 mobile image" }, { "type": "image_picker", "id": "slide_4", "label": "Slide 4 desktop image" }, { "type": "image_picker", "id": "slide_4_mobile", "label": "Slide 4 mobile image" },
-  { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Made for every celebration" }, { "type": "text", "id": "heading", "label": "Heading", "default": "Traditions in timeless elegance" }, { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop new arrivals" }, { "type": "url", "id": "button_link", "label": "Button link" }, { "type": "range", "id": "interval", "label": "Auto-scroll seconds", "min": 3, "max": 12, "step": 1, "default": 5 }
+  { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Made for every celebration" }, { "type": "text", "id": "heading", "label": "Heading", "default": "Traditions in timeless elegance" }, { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop new arrivals" }, { "type": "url", "id": "button_link", "label": "Button link" }, { "type": "range", "id": "interval", "label": "Auto-scroll seconds", "min": 3, "max": 12, "step": 1, "default": 5 }, { "type": "range", "id": "spacing_top", "label": "Top spacing", "min": 0, "max": 120, "step": 4, "default": 0 }, { "type": "range", "id": "spacing_bottom", "label": "Bottom spacing", "min": 0, "max": 120, "step": 4, "default": 0 }
 ] , "presets": [{ "name": "Hero carousel" }] }
 {% endschema %}

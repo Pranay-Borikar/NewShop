@@ -290,10 +290,10 @@ body.header-is-stuck .search-panel{top:128px}
 .shop-category:hover{color:#C9A24B}
 @media(max-width:749px){.shop-categories{padding:var(--category-padding-top,22px) 14px var(--category-padding-bottom,20px)}.shop-categories-track{justify-content:flex-start;gap:18px;overflow-x:auto;scrollbar-width:none}.shop-categories-track::-webkit-scrollbar{display:none}.shop-category{flex:0 0 96px;min-width:96px;font-size:var(--category-title-size,12px);gap:8px}.shop-category img,.shop-category-placeholder{width:88px;height:88px}}
 
-.new-arrivals-banner{width:100%;margin:24px 0 0;padding:0 var(--new-arrivals-padding,0);background:var(--new-arrivals-bg,#F5E9D5);overflow:hidden}
+.new-arrivals-banner{width:100%;margin:calc(24px + var(--new-arrivals-spacing-top,0px)) 0 var(--new-arrivals-spacing-bottom,0px);padding:0 var(--new-arrivals-padding,0);background:var(--new-arrivals-bg,#F5E9D5);overflow:hidden}
 .new-arrivals-banner>a,.new-arrivals-banner picture{display:block}
 .new-arrivals-banner-image{display:block;width:100%;height:auto;border-radius:var(--new-arrivals-radius,0)}
-@media(max-width:749px){.new-arrivals-banner{margin-top:16px}}
+@media(max-width:749px){.new-arrivals-banner{margin-top:calc(16px + var(--new-arrivals-spacing-top,0px))}}
 .sales-section{padding:0;background:var(--grid-bg,#FFFFFF)}
 .sales-banner{width:100%;margin:0;padding:var(--sales-banner-top-spacing,0) var(--sales-banner-padding,0) var(--sales-banner-bottom-spacing,0);background:var(--grid-bg,#FFFFFF);overflow:hidden}
 .sales-banner>a,.sales-banner picture{display:block}
