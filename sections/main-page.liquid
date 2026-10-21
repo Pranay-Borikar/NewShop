@@ -1,4 +1,4 @@
-<main class="standard-page">
+<main class="standard-page{% unless section.settings.show_content_box %} standard-page--flat{% endunless %}" style="--page-bg: {{ section.settings.page_background }}; --page-text: {{ section.settings.text_color }}; --page-accent: {{ section.settings.accent_color }}; --page-content-bg: {{ section.settings.content_background }}; --page-content-width: {{ section.settings.content_width }}px; --page-padding-top: {{ section.settings.padding_top }}px; --page-padding-bottom: {{ section.settings.padding_bottom }}px; --page-content-padding: {{ section.settings.content_padding }}px">
   <div class="standard-page-inner">
     <p class="standard-page-eyebrow">BombaySutra</p>
     <h1>{{ page.title }}</h1>
@@ -9,17 +9,31 @@
 </main>
 
 <style>
-  .standard-page{background:#f8f1e8;color:#29382f;padding:72px 20px 96px;min-height:48vh}
-  .standard-page-inner{max-width:900px;margin:0 auto;background:#fffdfc;border:1px solid #e7d9c8;border-radius:14px;padding:clamp(28px,5vw,64px);box-shadow:0 10px 30px rgba(71,48,32,.06)}
-  .standard-page-eyebrow{margin:0 0 12px;color:#b8553f;font-size:13px;letter-spacing:2px;text-transform:uppercase}
+  .standard-page{background:var(--page-bg,#f8f1e8);color:var(--page-text,#29382f);padding:var(--page-padding-top,72px) 20px var(--page-padding-bottom,96px);min-height:48vh}
+  .standard-page-inner{max-width:var(--page-content-width,900px);margin:0 auto;background:var(--page-content-bg,#fffdfc);border:1px solid #e7d9c8;border-radius:14px;padding:var(--page-content-padding,64px);box-shadow:0 10px 30px rgba(71,48,32,.06)}
+  .standard-page--flat .standard-page-inner{background:transparent;border:0;border-radius:0;box-shadow:none}
+  .standard-page-eyebrow{margin:0 0 12px;color:var(--page-accent,#b8553f);font-size:13px;letter-spacing:2px;text-transform:uppercase}
   .standard-page h1{margin:0 0 30px;font-size:clamp(30px,4vw,48px);font-weight:500;line-height:1.15}
-  .standard-page-content{font-size:17px;line-height:1.75;color:#4b514c}
-  .standard-page-content h2,.standard-page-content h3{color:#29382f;line-height:1.3;margin:30px 0 12px}
-  .standard-page-content a{color:#D46D6E;text-decoration:underline;text-underline-offset:3px}
+  .standard-page-content{font-size:17px;line-height:1.75;color:inherit}
+  .standard-page-content h2,.standard-page-content h3{color:inherit;line-height:1.3;margin:30px 0 12px}
+  .standard-page-content a{color:var(--page-accent,#D46D6E);text-decoration:underline;text-underline-offset:3px}
   .standard-page-content img{max-width:100%;height:auto;border-radius:8px}
-  @media(max-width:749px){.standard-page{padding:38px 14px 56px}.standard-page-inner{padding:26px 20px}.standard-page-content{font-size:15px}}
+  @media(max-width:749px){.standard-page{padding:var(--page-padding-top,38px) 14px var(--page-padding-bottom,56px)}.standard-page-inner{padding:var(--page-content-padding,26px)}.standard-page-content{font-size:15px}}
 </style>
 
 {% schema %}
-{"name":"Page content","settings":[]}
+{
+  "name": "Page content",
+  "settings": [
+    { "type": "checkbox", "id": "show_content_box", "label": "Show content box", "default": false },
+    { "type": "color", "id": "page_background", "label": "Page background color", "default": "#F8F1E8" },
+    { "type": "color", "id": "content_background", "label": "Content box background", "default": "#FFFDFC" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#29382F" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#B8553F" },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 600, "max": 1800, "step": 20, "default": 1200 },
+    { "type": "range", "id": "padding_top", "label": "Page top spacing", "min": 0, "max": 160, "step": 4, "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Page bottom spacing", "min": 0, "max": 160, "step": 4, "default": 64 },
+    { "type": "range", "id": "content_padding", "label": "Content padding", "min": 0, "max": 100, "step": 4, "default": 20 }
+  ]
+}
 {% endschema %}
