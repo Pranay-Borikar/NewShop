@@ -21,7 +21,7 @@
     {% assign grid_limit = section.settings.columns | times: section.settings.rows %}
     {% assign product_count = 0 %}
     {% paginate selected_collection.products by 250 %}
-    <div class="product-grid">
+    <div class="product-grid product-grid-layout product-grid-layout--{{ section.settings.layout_mode }}">
       {% for product in selected_collection.products %}
         {% if section.settings.product_tag == blank or product.tags contains section.settings.product_tag %}
           {% if section.settings.show_badge %}
@@ -57,6 +57,7 @@
     { "type": "text", "id": "product_tag", "label": "Product tag to filter", "default": "Traditional Clothing", "info": "Use the exact Shopify product tag. Leave blank to show the selected collection." },
     { "type": "range", "id": "columns", "label": "Columns", "min": 2, "max": 6, "step": 1, "default": 4 },
     { "type": "range", "id": "rows", "label": "Rows", "min": 1, "max": 6, "step": 1, "default": 6 },
+    { "type": "select", "id": "layout_mode", "label": "Product layout", "options": [ { "value": "scroll", "label": "Horizontal scroll (one row)" }, { "value": "grid", "label": "Grid" } ], "default": "scroll" },
     { "type": "range", "id": "grid_gap", "label": "Grid gap (px)", "min": 0, "max": 40, "step": 2, "default": 10 },
     { "type": "checkbox", "id": "show_badge", "label": "Show product badge", "default": true },
     { "type": "text", "id": "badge_label", "label": "Product badge label", "default": "New" },

@@ -12,7 +12,7 @@
     {% if section.settings.banner_link != blank %}</a>{% endif %}
   </div>
   <div class="sales-products-content">
-    <div class="product-grid sales-product-grid sales-product-grid--{{ section.settings.layout_mode }}">
+    <div class="product-grid product-grid-layout sales-product-grid sales-product-grid--{{ section.settings.layout_mode }} product-grid-layout--{{ section.settings.layout_mode }}">
     {% assign selected_collection = section.settings.collection %}
     {% if selected_collection == blank %}{% assign selected_collection = collections.all %}{% endif %}
     {% assign grid_limit = section.settings.columns | times: section.settings.rows %}
