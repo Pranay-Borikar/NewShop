@@ -301,12 +301,12 @@ body.header-is-stuck .search-panel{top:128px}
 .sales-banner{width:100%;margin:0;padding:var(--sales-banner-top-spacing,0) var(--sales-banner-padding,0) var(--sales-banner-bottom-spacing,0);background:var(--grid-bg,#FFFFFF);overflow:hidden}
 .sales-banner>a,.sales-banner picture{display:block}
 .sales-banner-image{display:block;width:100%;height:auto;border-radius:var(--sales-banner-radius,0)}
-.sales-products-content{padding:var(--sales-padding-top,32px) 0 var(--sales-padding-bottom,64px)}
+.sales-products-content{padding:max(0px,calc(var(--sales-padding-top,32px) - 32px)) 0 var(--sales-padding-bottom,64px)}
 .image-product-section{padding:0;background:var(--grid-bg,#FFFFFF)}
 .image-product-banner{width:100%;margin:0;padding:0 var(--showcase-banner-padding,0);background:var(--grid-bg,#FFFFFF);overflow:hidden}
 .image-product-banner>a,.image-product-banner picture{display:block}
 .image-product-banner-image{display:block;width:100%;height:auto;border-radius:var(--showcase-banner-radius,0)}
-.image-product-content{padding:var(--showcase-padding-top,32px) 0 var(--showcase-padding-bottom,64px)}
+.image-product-content{padding:max(0px,calc(var(--showcase-padding-top,32px) - 32px)) 0 var(--showcase-padding-bottom,64px)}
 .faq-section{padding:var(--faq-padding-top,64px) 20px var(--faq-padding-bottom,72px);background:var(--faq-bg,#fff)}
 .faq-section-inner{width:100%;max-width:var(--faq-width,1460px);margin:0 auto}
 .faq-section h2{margin:0;text-align:center;color:var(--faq-heading,#D94D78);font:var(--faq-heading-size,36px) Georgia,serif;font-weight:400;line-height:1.2}
