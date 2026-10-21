@@ -41,6 +41,8 @@
   </div>
 </section>
 
+<style>#ethnic{--product-side-spacing:{{ section.settings.product_side_spacing | default: 22 }}px}</style>
+
 {% schema %}
 {
   "name": "Ethnic products",
@@ -57,6 +59,7 @@
     { "type": "range", "id": "rows", "label": "Rows", "min": 1, "max": 6, "step": 1, "default": 2 },
     { "type": "select", "id": "layout_mode", "label": "Product layout", "options": [ { "value": "scroll", "label": "Horizontal scroll (one row)" }, { "value": "grid", "label": "Grid" } ], "default": "scroll" },
     { "type": "range", "id": "grid_gap", "label": "Grid gap (px)", "min": 0, "max": 40, "step": 2, "default": 10 },
+    { "type": "range", "id": "product_side_spacing", "label": "Products side spacing", "min": 0, "max": 60, "step": 2, "default": 22 },
     { "type": "checkbox", "id": "show_badge", "label": "Show product badge", "default": true },
     { "type": "text", "id": "badge_label", "label": "Product badge label", "default": "New" },
     { "type": "checkbox", "id": "show_view_all", "label": "Show button", "default": true },
