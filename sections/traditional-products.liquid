@@ -18,7 +18,7 @@
   <div class="image-product-content">
     {% assign selected_collection = section.settings.collection %}
     {% if selected_collection == blank %}{% assign selected_collection = collections.all %}{% endif %}
-    {% assign grid_limit = section.settings.columns | times: section.settings.rows %}
+    {% if section.settings.layout_mode == 'scroll' %}{% assign grid_limit = section.settings.columns | times: 2 %}{% else %}{% assign grid_limit = section.settings.columns | times: section.settings.rows %}{% endif %}
     {% assign product_count = 0 %}
     {% paginate selected_collection.products by 250 %}
     <div class="product-grid product-grid-layout product-grid-layout--{{ section.settings.layout_mode }}">
