@@ -49,11 +49,11 @@
   #customer-testimonials-{{ section.id }} h2{margin:0;text-align:center;color:var(--testimonials-heading,#8a2a55);font:400 36px Georgia,serif;line-height:1.2}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__subheading{margin:12px auto 34px;text-align:center;color:var(--testimonials-muted,#6a5b61);font-size:16px;letter-spacing:.06em}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__grid{display:grid;grid-template-columns:repeat(var(--testimonials-columns,4),minmax(0,1fr));gap:20px}
-  #customer-testimonials-{{ section.id }} .customer-testimonials-home__grid--scroll{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:none;-ms-overflow-style:none}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__grid--scroll{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scroll-snap-type:none;scrollbar-width:none;-ms-overflow-style:none}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__grid--scroll::-webkit-scrollbar{display:none}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__grid--scroll .customer-testimonials-home__card{flex:0 0 calc(100% / var(--testimonials-columns,4) - 15px);scroll-snap-align:start}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__card{overflow:hidden;background:var(--testimonials-card-bg,#fffdfb);border:1px solid rgba(96,73,80,.26);border-radius:12px;box-shadow:none}
-  #customer-testimonials-{{ section.id }} .customer-testimonials-home__image{display:block;width:calc(100% - 32px);margin:0 16px 16px;aspect-ratio:3/4;object-fit:cover}
+  #customer-testimonials-{{ section.id }} .customer-testimonials-home__image{display:block;width:calc(100% - 32px);margin:0 16px 16px;aspect-ratio:4/3;object-fit:cover}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__content{padding:22px 16px 18px}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__header{display:flex;align-items:center;justify-content:space-between;gap:12px}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__header strong{font-size:17px;letter-spacing:.04em}
@@ -65,7 +65,7 @@
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__review p{margin:0 0 14px}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__location{display:block}
   #customer-testimonials-{{ section.id }} .customer-testimonials-home__location{margin-top:3px;color:var(--testimonials-muted,#6a5b61);font-size:13px}
-  @media(max-width:749px){#customer-testimonials-{{ section.id }}{padding-inline:14px}#customer-testimonials-{{ section.id }} h2{font-size:25px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__subheading{margin-bottom:26px;font-size:14px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__grid--scroll .customer-testimonials-home__card{flex-basis:calc(50% - 6px)}#customer-testimonials-{{ section.id }} .customer-testimonials-home__content{padding:14px 12px 16px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__header strong{font-size:14px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__review{font-size:13px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__image{width:calc(100% - 20px);margin:0 10px 10px}}
+  @media(max-width:749px){#customer-testimonials-{{ section.id }}{padding-inline:14px}#customer-testimonials-{{ section.id }} h2{font-size:25px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__subheading{margin-bottom:26px;font-size:14px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__grid--scroll .customer-testimonials-home__card{flex-basis:calc(50% - 6px)}#customer-testimonials-{{ section.id }} .customer-testimonials-home__content{padding:14px 12px 16px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__header strong{font-size:14px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__review{font-size:13px}#customer-testimonials-{{ section.id }} .customer-testimonials-home__image{width:calc(100% - 20px);height:140px;aspect-ratio:auto;margin:0 10px 10px}}
 </style>
 
 {% schema %}
